@@ -2,22 +2,18 @@ package com.example.appsample;
 
 import java.util.Collection;
 
+import com.example.appsample.location.GPSTracker;
+import com.example.appsample.location.IGPSTrakerDelegate;
 import com.example.appsample.model.IToilet;
 import com.example.appsample.services.IRetreiveToiletsService;
 import com.example.appsample.services.IRetreiveToiletsServiceDelegate;
 import com.example.appsample.services.mocks.MockRetrieveToiletsService;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 
-import android.app.Dialog;
-import android.content.IntentSender;
+import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
@@ -26,18 +22,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class DisplayNearToiletsActivity extends FragmentActivity 
-	implements IRetreiveToiletsServiceDelegate
+	implements IRetreiveToiletsServiceDelegate, IGPSTrakerDelegate
 {
-
-    /*
-     * Define a request code to send to Google Play services
-     * This code is returned in Activity.onActivityResult
-     */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    
 	private GoogleMap map;
 	private GPSTracker gps;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +33,12 @@ public class DisplayNearToiletsActivity extends FragmentActivity
         setContentView(R.layout.activity_display_near_toilets);
         
         setUpMapIfNeeded();
-        retrieveNearBathrooms();
     }
     
-    private void retrieveNearBathrooms()
+    private void retrieveNearBathrooms(double latitude, double longitude)
     {
     	IRetreiveToiletsService service = new MockRetrieveToiletsService();
-    	service.retrieveNearBathrooms(this);
+    	service.retrieveNearBathrooms(latitude, longitude, this);
 	}
 
 	private void setUpMapIfNeeded()
@@ -77,7 +64,7 @@ public class DisplayNearToiletsActivity extends FragmentActivity
     {
     	if(null == gps)
     	{
-    		gps = new GPSTracker(DisplayNearToiletsActivity.this);
+    		gps = new GPSTracker(getApplicationContext(), this);
     	}
         // check if GPS enabled     
         if(gps.canGetLocation())
@@ -88,8 +75,9 @@ public class DisplayNearToiletsActivity extends FragmentActivity
             Toast.makeText(getApplicationContext(), "Your Location is:\nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show(); 
 
             LatLng coordinate = new LatLng(latitude, longitude);
-            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 13);
+            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 14);
             map.moveCamera(yourLocation);
+            retrieveNearBathrooms(latitude, longitude);
         }else{
             // can't get location
             // GPS or Network is not enabled
@@ -99,6 +87,7 @@ public class DisplayNearToiletsActivity extends FragmentActivity
             LatLng coordinate = new LatLng(-34.617024, -58.368512);
             CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 15);
             map.moveCamera(yourLocation);
+            retrieveNearBathrooms(-34.617024, -58.368512);
         }
     }
 
@@ -106,7 +95,6 @@ public class DisplayNearToiletsActivity extends FragmentActivity
 	public void retreiveNearToiletsFinish(IRetreiveToiletsService service,
 			Collection<IToilet> nearBathrooms)
 	{
-		// TODO Auto-generated method stub
 		if(null == map )
 		{
 			return;
@@ -127,11 +115,18 @@ public class DisplayNearToiletsActivity extends FragmentActivity
 		Toast.makeText(getApplicationContext(), "Error retrieving the toilets", Toast.LENGTH_LONG).show();
 	}
 	
-	
-    // A request to connect to Location Services
-    private LocationRequest mLocationRequest;
+	@Override
+	public void locationChange(Location location)
+	{
+    	double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        
+        Toast.makeText(getApplicationContext(), "New Location:\nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show(); 
 
-    // Stores the current instantiation of the location client in this object
-    private LocationClient mLocationClient;
+        LatLng coordinate = new LatLng(latitude, longitude);
+        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 14);
+        map.moveCamera(yourLocation);
+        retrieveNearBathrooms(latitude, longitude);
+	}
 
 }

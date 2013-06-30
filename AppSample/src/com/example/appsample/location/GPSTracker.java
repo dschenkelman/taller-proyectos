@@ -1,4 +1,4 @@
-package com.example.appsample;
+package com.example.appsample.location;
 
 import android.app.AlertDialog;
 import android.app.Service;
@@ -15,6 +15,7 @@ import android.util.Log;
 
 public class GPSTracker extends Service implements LocationListener
 {
+	private IGPSTrakerDelegate delegate;
 	
     private final Context context;
     
@@ -40,8 +41,9 @@ public class GPSTracker extends Service implements LocationListener
     // Declaring a Location Manager
     protected LocationManager locationManager;
  
-    public GPSTracker(Context context)
+    public GPSTracker(Context context, IGPSTrakerDelegate delegate)
     {
+    	this.delegate = delegate;
         this.context = context;
         getLocation();
     }
@@ -201,7 +203,13 @@ public class GPSTracker extends Service implements LocationListener
    }
 
 	@Override
-	public void onLocationChanged(Location arg0) {}
+	public void onLocationChanged(Location location)
+	{
+		if(null != delegate)
+		{
+			delegate.locationChange(location);
+		}
+	}
 
 	@Override
 	public void onProviderDisabled(String arg0) {}
