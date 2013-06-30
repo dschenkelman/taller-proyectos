@@ -550,7 +550,8 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 	}
 
 	@Override
-	public void retrieveNearBathrooms(IRetreiveToiletsServiceDelegate delegate)
+	public void retrieveNearBathrooms(double latitude, double longitude,
+			IRetreiveToiletsServiceDelegate delegate)
 	{
 		delegate.retreiveNearToiletsFinish(this, bathrooms);
 	}

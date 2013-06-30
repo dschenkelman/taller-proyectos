@@ -7,7 +7,4 @@
     <string name="button_find_near_toilets">Encontrar toilets</string>
     <string name="button_menu">Menu</string>
     <string name="title_activity_display_near_bathrooms">Near Bathrooms</string>
-
-    <!-- Latitude, longitude format -->
-    <string name="latitude_longitude">%1$.8f, %2$.8f</string>
 </resources>
