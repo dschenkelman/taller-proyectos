@@ -157,11 +157,11 @@ public class DisplayNearToiletsActivity extends FragmentActivity
 		IToilet toilet = dictionary.get(marker.getId());
 		if( null == toilet )
 		{
-			/*
+			
 			Intent intent = new Intent(this, DetailToiletActivity.class);
 			intent.putExtra(EXTRA_TOILET_ID, "44e128a5-ac7a-4c9a-be4c-224b6bf81b20");
 		    startActivity(intent);
-			*/
+			
 			Toast.makeText(getApplicationContext(), "Error: can't show the detail view", Toast.LENGTH_SHORT).show();
 		}
 		else
