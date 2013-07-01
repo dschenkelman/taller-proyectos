@@ -25,6 +25,7 @@
         android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="104dp"
-        android:text="@string/button_menu" />
+        android:text="@string/button_enter"
+        android:onClick="enterButtonTapped" />
 
 </RelativeLayout>

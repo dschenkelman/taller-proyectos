@@ -2,12 +2,13 @@ package com.example.appsample.services.mocks;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 import com.example.appsample.model.IToilet;
-import com.example.appsample.services.IRetreiveToiletsService;
-import com.example.appsample.services.IRetreiveToiletsServiceDelegate;
+import com.example.appsample.services.IRetrieveToiletsService;
+import com.example.appsample.services.IRetrieveToiletsServiceDelegate;
 
-public class MockRetrieveToiletsService implements IRetreiveToiletsService
+public class MockRetrieveToiletsService implements IRetrieveToiletsService
 {
 
 	private Collection<IToilet> bathrooms;
@@ -42,6 +43,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ". Todo cagado.";
 			}
+			@Override
+			public UUID getID()
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b38");
+			}
 		});
 		bathrooms.add( new IToilet()
 		{
@@ -69,6 +75,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			public String getMapSnippet()
 			{
 				return "Ranking: " + getRanking() + ". Aveces lo cierran pero es limpio.";
+			}
+			@Override
+			public UUID getID()
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b37");
 			}
 		});
 		bathrooms.add( new IToilet()
@@ -98,6 +109,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ". Tenes que comprar algo para usarlo.";
 			}
+			@Override
+			public UUID getID()
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b36");
+			}
 		});
 		bathrooms.add( new IToilet()
 		{
@@ -125,6 +141,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			public String getMapSnippet()
 			{
 				return "Ranking: " + getRanking() + ".";
+			}
+			@Override
+			public UUID getID()
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b35");
 			}
 		});
 		bathrooms.add( new IToilet()
@@ -154,6 +175,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ". Hacerse el boludo acá.";
 			}
+			@Override
+			public UUID getID()
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b34");
+			}
 		});
 		bathrooms.add( new IToilet()
 		{
@@ -181,6 +207,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			public String getMapSnippet()
 			{
 				return "Ranking: " + getRanking() + ". El ambiente es muy feo.";
+			}
+			@Override
+			public UUID getID()
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b33");
 			}
 		});
 		bathrooms.add( new IToilet()
@@ -210,6 +241,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ". Típico McDonald's.";
 			}
+			@Override
+			public UUID getID()
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b32");
+			}
 		});
 		bathrooms.add( new IToilet()
 		{
@@ -237,6 +273,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			public String getMapSnippet()
 			{
 				return "Ranking: " + getRanking() + ". Nunca quieren darte la llave.";
+			}
+			@Override
+			public UUID getID()
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b31");
 			}
 		});
 		bathrooms.add( new IToilet()
@@ -266,6 +307,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ". Típico McDonald's.";
 			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b30");
+			}
 		});
 		bathrooms.add( new IToilet()
 		{
@@ -293,6 +339,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			public String getMapSnippet()
 			{
 				return "Ranking: " + getRanking() + ". No tiene espejo.";
+			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b29");
 			}
 		});
 		bathrooms.add( new IToilet()
@@ -322,6 +373,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ". Lleno de baños.";
 			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b28");
+			}
 		});
 		bathrooms.add( new IToilet()
 		{
@@ -349,6 +405,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			public String getMapSnippet()
 			{
 				return "Ranking: " + getRanking() + ". Muy buen baño.";
+			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b27");
 			}
 		});
 		bathrooms.add( new IToilet()
@@ -378,6 +439,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ". Te dan ganas de comer después.";
 			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b26");
+			}
 		});
 		bathrooms.add( new IToilet()
 		{
@@ -405,6 +471,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			public String getMapSnippet()
 			{
 				return "Ranking: " + getRanking() + ". Inodoro muy calentito y confortable.";
+			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b25");
 			}
 		});
 		bathrooms.add( new IToilet()
@@ -434,6 +505,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ". Si esta clausurado te comes alta pizza y fue.";
 			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b24");
+			}
 		});
 		bathrooms.add( new IToilet()
 		{
@@ -461,6 +537,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			public String getMapSnippet()
 			{
 				return "Ranking: " + getRanking() + ".";
+			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b23");
 			}
 		});
 		bathrooms.add( new IToilet()
@@ -490,6 +571,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ".";
 			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b22");
+			}
 		});
 		bathrooms.add( new IToilet()
 		{
@@ -517,6 +603,11 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			public String getMapSnippet()
 			{
 				return "Ranking: " + getRanking() + ". Todos los pisos";
+			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b21");
 			}
 		});
 		bathrooms.add( new IToilet()
@@ -546,13 +637,38 @@ public class MockRetrieveToiletsService implements IRetreiveToiletsService
 			{
 				return "Ranking: " + getRanking() + ". Todos los pisos";
 			}
+			@Override
+			public UUID getID() 
+			{
+				return UUID.fromString("44e128a5-ac7a-4c9a-be4c-224b6bf81b20");
+			}
 		});
 	}
 
 	@Override
-	public void retrieveNearBathrooms(double latitude, double longitude,
-			IRetreiveToiletsServiceDelegate delegate)
+	public void retrieveNearToilet(double latitude, double longitude,
+			IRetrieveToiletsServiceDelegate delegate)
 	{
-		delegate.retreiveNearToiletsFinish(this, bathrooms);
+		if( null == delegate )
+		{
+			return;
+		}
+		delegate.retrieveNearToiletsFinish(this, bathrooms);
+	}
+
+	@Override
+	public void retrieveToilet(UUID toiletId, IRetrieveToiletsServiceDelegate delegate)
+	{
+		if( null == delegate )
+		{
+			return;
+		}
+		for( IToilet toilet : bathrooms )
+		{
+			if( 0 == toilet.getID().compareTo(toiletId) )
+			{
+				delegate.retrieveToiletFinish(this, toilet);
+			}
+		}
 	}
 }

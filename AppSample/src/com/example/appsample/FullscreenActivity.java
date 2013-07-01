@@ -43,9 +43,9 @@ public class FullscreenActivity extends Activity{
     	startActivity(intent);
     }
     
-    public void settingsMenuItemTapped(View view)
+    public void enterButtonTapped(View view)
     {
-    	Intent intent = new Intent(this, SettingsActivity.class);
+    	Intent intent = new Intent(this, EnterUserActivity.class);
     	startActivity(intent);
     }
 }
