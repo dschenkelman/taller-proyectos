@@ -9,9 +9,7 @@ import socialtoilet.android.location.IGPSTrakerDelegate;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.services.IRetrieveNearToiletsService;
 import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
-import socialtoilet.android.services.IRetrieveToiletService;
-import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
-import socialtoilet.android.services.mocks.MockRetrieveNearToiletsService;
+import socialtoilet.android.services.RetrieveNearToiletsService;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -152,8 +150,8 @@ public class MappingToiletActivity extends FragmentActivity
     
     private void retrieveNearToilets(double latitude, double longitude)
     {
-    	IRetrieveNearToiletsService service = new MockRetrieveNearToiletsService();
-    	service.retrieveNearToilets(latitude, longitude, this);
+    	IRetrieveNearToiletsService service = new RetrieveNearToiletsService();
+    	service.retrieveNearToilets(latitude, longitude, 8000, this);
 	}
     
 	@Override
@@ -201,7 +199,6 @@ public class MappingToiletActivity extends FragmentActivity
 	@Override
 	public void onInfoWindowClick(Marker marker)
 	{
-		String markerId = marker.getId();
 		IToilet toilet = dictionary.get(marker.getTitle()+marker.getPosition().latitude+marker.getPosition().longitude);
 		if( toilet == null )
 		{

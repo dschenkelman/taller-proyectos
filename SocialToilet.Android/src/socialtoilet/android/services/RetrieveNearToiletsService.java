@@ -1,7 +1,8 @@
-package socialtoilet.android.services.mocks;
+package socialtoilet.android.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.http.HttpResponse;
@@ -15,23 +16,21 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.os.AsyncTask;
 
 import socialtoilet.android.model.IToilet;
-import socialtoilet.android.services.IRetrieveNearToiletsService;
-import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
 
-public class MockRetrieveNearToiletsService extends AsyncTask<String, String, String> implements IRetrieveNearToiletsService
+public class RetrieveNearToiletsService extends AsyncTask<String, String, String> implements IRetrieveNearToiletsService
 {
 
 	private boolean performingRequest;
 	private IRetrieveNearToiletsServiceDelegate delegate;
 	
-	public MockRetrieveNearToiletsService()
+	public RetrieveNearToiletsService()
 	{
 		performingRequest = false;
 	}
 
 	@Override
 	public void retrieveNearToilets(double latitude, double longitude,
-			IRetrieveNearToiletsServiceDelegate delegate)
+			int distanceInMeters, IRetrieveNearToiletsServiceDelegate delegate)
 	{
 		if( performingRequest )
 		{
@@ -43,7 +42,7 @@ public class MockRetrieveNearToiletsService extends AsyncTask<String, String, St
 		}
 		performingRequest = true;
 		this.delegate = delegate;
-		doInBackground("http://192.168.56.1:2496/api/toilets/near?lat=-34.61955023847969&long=-58.43277096748352&radiusInMeters=8000");
+		execute("http://192.168.1.35:8080/api/toilets/near?lat="+latitude+"&long="+longitude+"&radiusInMeters="+distanceInMeters);
 	}
 
 	@Override
@@ -88,10 +87,11 @@ public class MockRetrieveNearToiletsService extends AsyncTask<String, String, St
         super.onPostExecute(result);
         //Do anything with response..
        
-        Collection<IToilet> toilets = null;
+        Collection<IToilet> toilets = new ArrayList<IToilet>();
         
         delegate.retrieveNearToiletsFinish(this, toilets);
         performingRequest = false;
         delegate = null;
     }
+
 }

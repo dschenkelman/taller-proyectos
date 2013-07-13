@@ -5,6 +5,7 @@ import java.util.UUID;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
+import socialtoilet.android.services.RetrieveNearToiletsService;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -29,12 +30,12 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 		
 		Intent intent = getIntent();
 		String toiletId = intent.getStringExtra(MappingToiletActivity.EXTRA_TOILET_ID);
-		/*
+		
 		UUID id = UUID.fromString(toiletId);
 		
 		
-		IRetrieveToiletService service = new MockRetrieveNearToiletsService();
-		service.retrieveToilet(id, this);*/
+		IRetrieveToiletService service = null;// = new RetrieveNearToiletsService();
+		service.retrieveToilet(id, this);
 	}
 
 	/**
