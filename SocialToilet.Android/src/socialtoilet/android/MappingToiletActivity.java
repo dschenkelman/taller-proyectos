@@ -51,7 +51,7 @@ public class MappingToiletActivity extends FragmentActivity
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		radialDistanceInMeters = 1000;
+		radialDistanceInMeters = 10000;
         dictionary = new HashMap<String, IToilet>();
         
         setUpMapIfNeeded();

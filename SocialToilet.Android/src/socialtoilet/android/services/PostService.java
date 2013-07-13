@@ -1,15 +1,13 @@
 package socialtoilet.android.services;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
@@ -26,13 +24,20 @@ public abstract class PostService extends AsyncTask<String, String, String>
 	protected String doInBackground(String... uri)
 	{
 	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpPost httppost = new HttpPost("http://www.yoursite.com/script.php");
+	    HttpPost httppost = new HttpPost(uri[0]);
 	    HttpResponse response = null;
         StatusLine statusLine = null;
 	    try 
 	    {
-	        httppost.setEntity(new UrlEncodedFormEntity(generatePostBody()));
-	        response = httpclient.execute(httppost);
+	    	String object = generatePostBodyObject();
+	    	
+	    	StringEntity se = new StringEntity(object);
+
+	        se.setContentEncoding("UTF-8");
+	        se.setContentType("application/json");
+	        
+	        httppost.setEntity(se);
+	    	response = httpclient.execute(httppost);
             statusLine = response.getStatusLine();
 	    }
 	    catch (ClientProtocolException e)
@@ -46,7 +51,7 @@ public abstract class PostService extends AsyncTask<String, String, String>
 		return response.toString();
 	}
 	
-	abstract protected List<? extends NameValuePair> generatePostBody();
+	abstract protected String generatePostBodyObject();
 
 	protected void handleStatusCodeNotOk(IOException e, int statusCode)
 	{
