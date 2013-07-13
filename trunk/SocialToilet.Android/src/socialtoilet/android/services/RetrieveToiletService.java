@@ -7,6 +7,7 @@ import org.apache.http.client.ClientProtocolException;
 
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.Toilet;
+import socialtoilet.android.service.api.APIService;
 
 import com.google.gson.Gson;
 
@@ -33,7 +34,7 @@ public class RetrieveToiletService extends GetService implements IRetrieveToilet
 		}
 		performingRequest = true;
 		this.delegate = delegate;
-		execute("http://192.168.1.250:8080/api/toilets/"+toiletId.toString());
+		execute(APIService.getInstance().getRetrieveToiletURL(toiletId.toString()));
 	}
 	
     @Override

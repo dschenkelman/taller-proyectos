@@ -7,6 +7,7 @@ import org.apache.http.client.ClientProtocolException;
 import com.google.gson.Gson;
 
 import socialtoilet.android.model.Toilet;
+import socialtoilet.android.service.api.APIService;
 
 public class AddToiletService extends PostService implements IAddToiletService
 {
@@ -27,7 +28,7 @@ public class AddToiletService extends PostService implements IAddToiletService
 		postBodyObject = toilet;
 		performingRequest = true;
 		this.delegate = delegate;
-		execute("http://192.168.1.250:8080/api/toilets/");
+		execute(APIService.getInstance().getAddToiletPostURL());
 	}
 	
     @Override

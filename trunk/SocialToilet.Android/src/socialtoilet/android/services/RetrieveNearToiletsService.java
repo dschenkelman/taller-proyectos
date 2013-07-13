@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.Toilet;
+import socialtoilet.android.service.api.APIService;
 
 public class RetrieveNearToiletsService extends GetService implements IRetrieveNearToiletsService
 {
@@ -37,7 +38,7 @@ public class RetrieveNearToiletsService extends GetService implements IRetrieveN
 		}
 		performingRequest = true;
 		this.delegate = delegate;
-		execute("http://192.168.1.250:8080/api/toilets/near?lat="+latitude+"&long="+longitude+"&radiusInMeters="+distanceInMeters);
+		execute(APIService.getInstance().getRetrieveNearToilets(latitude, longitude, distanceInMeters));
 	}
 	
     @Override

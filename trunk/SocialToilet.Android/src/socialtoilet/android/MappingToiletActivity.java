@@ -165,7 +165,8 @@ public class MappingToiletActivity extends FragmentActivity
     
 	@Override
 	public void retrieveNearToiletsFinish(IRetrieveNearToiletsService service,
-			Collection<IToilet> nearToilets) {
+			Collection<IToilet> nearToilets)
+	{
 
 		if(null == map )
 		{
