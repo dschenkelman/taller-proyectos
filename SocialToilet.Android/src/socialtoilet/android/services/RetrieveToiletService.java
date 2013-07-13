@@ -10,7 +10,7 @@ import socialtoilet.android.model.Toilet;
 
 import com.google.gson.Gson;
 
-public class RetrieveToiletService extends Service implements IRetrieveToiletService {
+public class RetrieveToiletService extends GetService implements IRetrieveToiletService {
 
 	private IRetrieveToiletServiceDelegate delegate;
 	
@@ -33,7 +33,7 @@ public class RetrieveToiletService extends Service implements IRetrieveToiletSer
 		}
 		performingRequest = true;
 		this.delegate = delegate;
-		execute("");
+		execute("http://192.168.1.250:8080/api/toilets/"+toiletId.toString());
 	}
 	
     @Override
@@ -56,7 +56,7 @@ public class RetrieveToiletService extends Service implements IRetrieveToiletSer
     }
 
     @Override
-	protected void handleIOException(IOException e)
+    protected void handleStatusCodeNotOk(IOException e, int statusCode)
 	{
     	delegate.retrieveToiletFinishWithError(this, ioResponseErrorType);
         performingRequest = false;

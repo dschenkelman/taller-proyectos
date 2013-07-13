@@ -19,5 +19,9 @@
 
     <string name="addToiletHere">Agregar acá</string>
     <string name="title_activity_add_toilet">AddToiletActivity</string>
+    <string name="addButton">Agregar</string>
+    <string name="hintDescription">Descripción</string>
+    <string name="hintAddress">Dirección</string>
+    <string name="addButton">Agregar</string>
 
 </resources>

@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.Toilet;
 
-public class RetrieveNearToiletsService extends Service implements IRetrieveNearToiletsService
+public class RetrieveNearToiletsService extends GetService implements IRetrieveNearToiletsService
 {
 	private IRetrieveNearToiletsServiceDelegate delegate;
 	
@@ -76,7 +76,7 @@ public class RetrieveNearToiletsService extends Service implements IRetrieveNear
     }
 
     @Override
-	protected void handleIOException(IOException e)
+    protected void handleStatusCodeNotOk(IOException e, int statusCode)
 	{
     	delegate.retreiveNearToiletsFinishWithError(this, ioResponseErrorType);
         performingRequest = false;

@@ -1,14 +1,22 @@
 package socialtoilet.android;
 
+import socialtoilet.android.location.GPSTracker;
+import socialtoilet.android.model.IToilet;
+import socialtoilet.android.model.Toilet;
+import socialtoilet.android.services.AddToiletService;
+import socialtoilet.android.services.IAddToiletService;
+import socialtoilet.android.services.IAddToiletServiceDelegate;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
 
-public class AddToiletActivity extends Activity
+public class AddToiletActivity extends Activity implements IAddToiletServiceDelegate
 {
 
 	@Override
@@ -18,6 +26,9 @@ public class AddToiletActivity extends Activity
 		setContentView(R.layout.activity_add_toilet);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		TextView location = (TextView)findViewById(R.id.textView1);
+		location.setText(GPSTracker.getInstance().getLatitude() + " " + GPSTracker.getInstance().getLongitude());
 	}
 
 	/**
@@ -59,4 +70,31 @@ public class AddToiletActivity extends Activity
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void addToiletTapped()
+	{
+		IToilet toilet = generateToilet();
+		
+		IAddToiletService service = new AddToiletService();
+		//service.addToilet(toilet, this);
+	}
+
+	private IToilet generateToilet()
+	{
+		IToilet toilet = new Toilet();
+		return toilet;
+	}
+
+	@Override
+	public void addToiletFinish(IAddToiletService service)
+	{
+		Toast.makeText(getApplicationContext(), "Toilet added", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void addToiletFinishWithError(IAddToiletService service,
+			String errorCode)
+	{
+		Toast.makeText(getApplicationContext(), "Error adding toilet", Toast.LENGTH_SHORT).show();
+		
+	}
 }
