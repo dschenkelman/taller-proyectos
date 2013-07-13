@@ -165,8 +165,9 @@ public class MappingToiletActivity extends FragmentActivity
 		dictionary.clear();
 		for(IToilet toilet : nearToilets)
 		{
+			LatLng mapPosition = new LatLng(toilet.getLatitude(), toilet.getLongitude());
 			MarkerOptions markerOptions = new MarkerOptions()
-	        	.position(new LatLng(toilet.getLatitude(), toilet.getLongitude()))
+	        	.position(mapPosition)
 	        	.title(toilet.getMapTitle())
 	        	.snippet(toilet.getMapSnippet());
 			
