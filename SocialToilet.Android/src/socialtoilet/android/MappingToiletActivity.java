@@ -7,9 +7,11 @@ import java.util.Map;
 import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.location.IGPSTrakerDelegate;
 import socialtoilet.android.model.IToilet;
-import socialtoilet.android.services.IRetrieveToiletsService;
-import socialtoilet.android.services.IRetrieveToiletsServiceDelegate;
-import socialtoilet.android.services.mocks.MockRetrieveToiletsService;
+import socialtoilet.android.services.IRetrieveNearToiletsService;
+import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
+import socialtoilet.android.services.IRetrieveToiletService;
+import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
+import socialtoilet.android.services.mocks.MockRetrieveNearToiletsService;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,7 +34,7 @@ import android.content.Intent;
 import android.os.Build;
 
 public class MappingToiletActivity extends FragmentActivity
-	implements IRetrieveToiletsServiceDelegate, IGPSTrakerDelegate, OnInfoWindowClickListener
+	implements IRetrieveNearToiletsServiceDelegate, IGPSTrakerDelegate, OnInfoWindowClickListener
 {
 	
 	public final static String EXTRA_TOILET_ID = "com.example.appsample.TOILET";
@@ -150,20 +152,20 @@ public class MappingToiletActivity extends FragmentActivity
     
     private void retrieveNearToilets(double latitude, double longitude)
     {
-    	IRetrieveToiletsService service = new MockRetrieveToiletsService();
-    	service.retrieveNearToilet(latitude, longitude, this);
+    	IRetrieveNearToiletsService service = new MockRetrieveNearToiletsService();
+    	service.retrieveNearToilets(latitude, longitude, this);
 	}
     
 	@Override
-	public void retrieveNearToiletsFinish(IRetrieveToiletsService service,
-			Collection<IToilet> nearBathrooms) {
+	public void retrieveNearToiletsFinish(IRetrieveNearToiletsService service,
+			Collection<IToilet> nearToilets) {
 
 		if(null == map )
 		{
 			return;
 		}
 		dictionary.clear();
-		for(IToilet toilet : nearBathrooms)
+		for(IToilet toilet : nearToilets)
 		{
 			MarkerOptions markerOptions = new MarkerOptions()
 	        	.position(new LatLng(toilet.getLatitude(), toilet.getLongitude()))
@@ -177,16 +179,10 @@ public class MappingToiletActivity extends FragmentActivity
 	
 	@Override
 	public void retreiveNearToiletsFinishWithError(
-			IRetrieveToiletsService service, int errorCode)
+			IRetrieveNearToiletsService service, int errorCode)
 	{
 		Toast.makeText(getApplicationContext(), "Error retrieving the toilets", Toast.LENGTH_SHORT).show();
 	}
-
-	@Override
-	public void retrieveToiletFinish(IRetrieveToiletsService mockRetrieveToiletsService, IToilet toilet) {}
-
-	@Override
-	public void retrieveToiletFinishWithError(IRetrieveToiletsService mockRetrieveToiletsService, int errorCode) {}
 
 	@Override
 	public void locationChange(Location location)

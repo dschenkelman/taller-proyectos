@@ -8,6 +8,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <permission
         android:name="socialtoilet.android.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" >

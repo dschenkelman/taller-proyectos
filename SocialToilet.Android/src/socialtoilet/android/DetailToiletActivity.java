@@ -1,12 +1,10 @@
 package socialtoilet.android;
 
-import java.util.Collection;
 import java.util.UUID;
 
 import socialtoilet.android.model.IToilet;
-import socialtoilet.android.services.IRetrieveToiletsService;
-import socialtoilet.android.services.IRetrieveToiletsServiceDelegate;
-import socialtoilet.android.services.mocks.MockRetrieveToiletsService;
+import socialtoilet.android.services.IRetrieveToiletService;
+import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,7 +16,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 
-public class DetailToiletActivity extends Activity implements IRetrieveToiletsServiceDelegate {
+public class DetailToiletActivity extends Activity implements IRetrieveToiletServiceDelegate {
 
 	private IToilet toilet;
 	
@@ -31,11 +29,12 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletsSe
 		
 		Intent intent = getIntent();
 		String toiletId = intent.getStringExtra(MappingToiletActivity.EXTRA_TOILET_ID);
-		
+		/*
 		UUID id = UUID.fromString(toiletId);
 		
-		IRetrieveToiletsService service = new MockRetrieveToiletsService();
-		service.retrieveToilet(id, this);
+		
+		IRetrieveToiletService service = new MockRetrieveNearToiletsService();
+		service.retrieveToilet(id, this);*/
 	}
 
 	/**
@@ -73,13 +72,7 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletsSe
 	}
 
 	@Override
-	public void retrieveNearToiletsFinish(IRetrieveToiletsService service, Collection<IToilet> nearBathrooms) {}
-
-	@Override
-	public void retreiveNearToiletsFinishWithError(IRetrieveToiletsService service, int errorCode) {}
-
-	@Override
-	public void retrieveToiletFinish(IRetrieveToiletsService mockRetrieveToiletsService, IToilet toilet)
+	public void retrieveToiletFinish(IRetrieveToiletService mockRetrieveToiletsService, IToilet toilet)
 	{
 		this.toilet = toilet;
 		TextView title = (TextView) findViewById(R.id.toiletTitle);
@@ -87,6 +80,6 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletsSe
 	}
 
 	@Override
-	public void retrieveToiletFinishWithError(IRetrieveToiletsService mockRetrieveToiletsService, int errorCode) {}
+	public void retrieveToiletFinishWithError(IRetrieveToiletService mockRetrieveToiletsService, int errorCode) {}
 
 }
