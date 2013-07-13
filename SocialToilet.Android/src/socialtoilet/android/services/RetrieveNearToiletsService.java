@@ -12,10 +12,17 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.loopj.android.http.*;
 
 import android.os.AsyncTask;
 
 import socialtoilet.android.model.IToilet;
+import socialtoilet.android.model.Toilet;
 
 public class RetrieveNearToiletsService extends AsyncTask<String, String, String> implements IRetrieveNearToiletsService
 {
@@ -86,9 +93,27 @@ public class RetrieveNearToiletsService extends AsyncTask<String, String, String
     {
         super.onPostExecute(result);
         //Do anything with response..
-       
         Collection<IToilet> toilets = new ArrayList<IToilet>();
-        
+        if( null != result )
+        {
+            try
+            {
+            	JSONArray jsonToilets = new JSONArray(result);
+            	for(int i = 0; i < jsonToilets.length(); i++)
+            	{
+            		JSONObject jsonToilet = jsonToilets.getJSONObject(i);
+            		IToilet toilet = new Gson().fromJson(jsonToilet.toString(), Toilet.class);
+            		if( null != toilet )
+            		{
+            			toilets.add(toilet);
+            		}
+            	}
+    		}
+            catch (JSONException e)
+    		{
+    			e.printStackTrace();
+    		}
+        }
         delegate.retrieveNearToiletsFinish(this, toilets);
         performingRequest = false;
         delegate = null;

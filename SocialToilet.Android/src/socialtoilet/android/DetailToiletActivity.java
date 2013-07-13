@@ -5,7 +5,6 @@ import java.util.UUID;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
-import socialtoilet.android.services.RetrieveNearToiletsService;
 
 import android.os.Bundle;
 import android.app.Activity;
