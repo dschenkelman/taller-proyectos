@@ -150,6 +150,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PicturesController.cs" />
+    <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\ToiletsController.cs" />
     <Compile Include="Database\SocialToiletContext.cs" />
     <Compile Include="Database\SocialToiletInitializer.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="HttpModules\SocialToiletBasicAuthHttpModule.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Picture.cs" />
+    <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Toilet.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

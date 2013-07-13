@@ -12,7 +12,6 @@
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-
             if (request.RequestUri.Scheme != Uri.UriSchemeHttps)
             {
                 var forbiddenResponse = request.CreateResponse(HttpStatusCode.Forbidden);

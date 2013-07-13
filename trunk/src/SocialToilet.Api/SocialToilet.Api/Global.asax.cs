@@ -4,6 +4,7 @@
     using System.Web.Mvc;
 
     using SocialToilet.Api.Database;
+    using SocialToilet.Api.Filters;
 
     public class WebApiApplication : System.Web.HttpApplication
     {
@@ -16,7 +17,7 @@
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
-            //GlobalConfiguration.Configuration.MessageHandlers.Add(new RequireHttpsMessageHandler());
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new RequireHttpsMessageHandler());
         }
     }
 }

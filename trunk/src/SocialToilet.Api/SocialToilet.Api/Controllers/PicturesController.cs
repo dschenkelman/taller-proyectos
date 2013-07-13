@@ -13,10 +13,9 @@
     using SocialToilet.Api.Database;
     using SocialToilet.Api.Models;
 
+    [Authorize]
     public class PicturesController : ApiController
     {
-        static readonly string ServerUploadFolder = Path.GetTempPath();
-
         private readonly SocialToiletContext db;
 
         public PicturesController()
