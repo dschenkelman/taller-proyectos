@@ -9,7 +9,7 @@
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <permission
         android:name="socialtoilet.android.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" >
@@ -22,7 +22,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!--
          The following two permissions are not required to use
-	     Google Maps Android API v2, but are recommended.
+	     Google Maps Android API v2, but are recommended.
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -66,6 +66,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="socialtoilet.android.MappingToiletActivity" />
+        </activity>
+        <activity
+            android:name="socialtoilet.android.AddToiletActivity"
+            android:label="@string/title_activity_add_toilet"
+            android:parentActivityName="socialtoilet.android.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="socialtoilet.android.MainActivity" />
         </activity>
     </application>
 

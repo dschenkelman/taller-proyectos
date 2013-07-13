@@ -1,5 +1,8 @@
 package socialtoilet.android.location;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -15,7 +18,17 @@ import android.util.Log;
 
 public class GPSTracker extends Service implements LocationListener
 {
-	private IGPSTrakerDelegate delegate;
+	private static GPSTracker instance;
+	public static void initialize(Context context)
+	{
+		instance = new GPSTracker(context);
+	}
+	public static GPSTracker getInstance()
+	{
+		return instance;
+	}
+	
+	private Collection<IGPSTrakerListener> listeners;
 	
     private final Context context;
     
@@ -41,9 +54,9 @@ public class GPSTracker extends Service implements LocationListener
     // Declaring a Location Manager
     protected LocationManager locationManager;
  
-    public GPSTracker(Context context, IGPSTrakerDelegate delegate)
+    private GPSTracker(Context context)
     {
-    	this.delegate = delegate;
+    	this.listeners = new ArrayList<IGPSTrakerListener>();
         this.context = context;
         getLocation();
     }
@@ -202,12 +215,40 @@ public class GPSTracker extends Service implements LocationListener
     	alertDialog.show();
    }
 
+    public void addChangeLocationListener(IGPSTrakerListener listener)
+    {
+    	if( null == listeners )
+    	{
+    		return;
+    	}
+    	if( false == listeners.contains(listener) )
+    	{
+    		listeners.add(listener);
+    	}
+    }
+    
+    public void removeChangeLocationListener(IGPSTrakerListener listener)
+    {
+    	if( null == listeners )
+    	{
+    		return;
+    	}
+    	if( listeners.contains(listener) )
+    	{
+    		listeners.remove(listener);
+    	}
+    }
+    
 	@Override
 	public void onLocationChanged(Location location)
 	{
-		if(null != delegate)
+		if(null == listeners)
 		{
-			delegate.locationChange(location);
+			return;
+		}
+		for( IGPSTrakerListener listener : listeners )
+		{
+			listener.locationChange(location);
 		}
 	}
 

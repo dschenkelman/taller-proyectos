@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import socialtoilet.android.location.GPSTracker;
-import socialtoilet.android.location.IGPSTrakerDelegate;
+import socialtoilet.android.location.IGPSTrakerListener;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.services.IRetrieveNearToiletsService;
 import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
@@ -32,7 +32,7 @@ import android.content.Intent;
 import android.os.Build;
 
 public class MappingToiletActivity extends FragmentActivity
-	implements IRetrieveNearToiletsServiceDelegate, IGPSTrakerDelegate, OnInfoWindowClickListener
+	implements IRetrieveNearToiletsServiceDelegate, IGPSTrakerListener, OnInfoWindowClickListener
 {
 	
 	public final static String EXTRA_TOILET_ID = "com.example.appsample.TOILET";
@@ -94,7 +94,13 @@ public class MappingToiletActivity extends FragmentActivity
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	} 
+	
+    public void onDestroy()
+    {
+    	gps.removeChangeLocationListener(this);
+        super.onDestroy();
+    }
 	
 	private void setUpMapIfNeeded()
     {
@@ -120,7 +126,8 @@ public class MappingToiletActivity extends FragmentActivity
     {
     	if(null == gps)
     	{
-    		gps = new GPSTracker(getApplicationContext(), this);
+    		gps = GPSTracker.getInstance();
+    		gps.addChangeLocationListener(this);
     	}
         // check if GPS enabled     
         if(gps.canGetLocation())

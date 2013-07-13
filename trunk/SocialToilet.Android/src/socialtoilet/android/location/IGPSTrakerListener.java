@@ -2,7 +2,7 @@ package socialtoilet.android.location;
 
 import android.location.Location;
 
-public interface IGPSTrakerDelegate
+public interface IGPSTrakerListener
 {
 	void locationChange(Location location);
 }
