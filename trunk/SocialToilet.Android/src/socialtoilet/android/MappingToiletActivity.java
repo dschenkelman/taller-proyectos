@@ -28,6 +28,7 @@ import android.widget.Toast;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class MappingToiletActivity extends FragmentActivity
@@ -39,16 +40,17 @@ public class MappingToiletActivity extends FragmentActivity
 	private GoogleMap map;
 	private GPSTracker gps;
 	
-	private Map<Marker, IToilet> dictionary;
+	private Map<String, IToilet> dictionary;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mapping_toilet);
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-        dictionary = new HashMap<Marker, IToilet>();
+        dictionary = new HashMap<String, IToilet>();
         
         setUpMapIfNeeded();
 	}
@@ -57,22 +59,27 @@ public class MappingToiletActivity extends FragmentActivity
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	private void setupActionBar()
+	{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+		{
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.mapping_toilet, menu);
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
 			// activity, the Up button is shown. Use NavUtils to allow users
@@ -126,7 +133,9 @@ public class MappingToiletActivity extends FragmentActivity
             map.moveCamera(yourLocation);
           
             retrieveNearToilets(latitude, longitude);
-        }else{
+        }
+        else
+        {
             // can't get location
             // GPS or Network is not enabled
             // Ask user to enable GPS/network in settings
@@ -162,7 +171,7 @@ public class MappingToiletActivity extends FragmentActivity
 	        	.snippet(toilet.getMapSnippet());
 			
 			Marker marker = map.addMarker(markerOptions);
-			dictionary.put(marker, toilet);
+			dictionary.put(marker.getTitle()+marker.getPosition().latitude+marker.getPosition().longitude, toilet);
 		}
 	}
 	
@@ -196,21 +205,14 @@ public class MappingToiletActivity extends FragmentActivity
 	@Override
 	public void onInfoWindowClick(Marker marker)
 	{
-		/*IToilet toilet = dictionary.get(marker.getId());
-		if( null == toilet )
+		String markerId = marker.getId();
+		IToilet toilet = dictionary.get(marker.getTitle()+marker.getPosition().latitude+marker.getPosition().longitude);
+		if( toilet == null )
 		{
-			
-			Intent intent = new Intent(this, DetailToiletActivity.class);
-			intent.putExtra(EXTRA_TOILET_ID, "44e128a5-ac7a-4c9a-be4c-224b6bf81b20");
-		    startActivity(intent);
-			
-			Toast.makeText(getApplicationContext(), "Error: can't show the detail view", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "No toilet", Toast.LENGTH_SHORT).show(); 
 		}
-		else
-		{
-			Intent intent = new Intent(this, DetailToiletActivity.class);
-			intent.putExtra(EXTRA_TOILET_ID, toilet.getID().toString());
-		    startActivity(intent);
-		}*/
+		Intent intent = new Intent(this, DetailToiletActivity.class);
+		intent.putExtra(EXTRA_TOILET_ID, toilet.getID().toString());
+		startActivity(intent);
 	}
 }
