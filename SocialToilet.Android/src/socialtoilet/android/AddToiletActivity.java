@@ -27,8 +27,8 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		TextView location = (TextView)findViewById(R.id.textView1);
-		location.setText(GPSTracker.getInstance().getLatitude() + " " + GPSTracker.getInstance().getLongitude());
+		//TextView location = (TextView)findViewById(R.id.textView1);
+		//location.setText(GPSTracker.getInstance().getLatitude() + " " + GPSTracker.getInstance().getLongitude());
 	}
 
 	/**
