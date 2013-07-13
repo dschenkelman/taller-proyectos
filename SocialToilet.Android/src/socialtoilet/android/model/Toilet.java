@@ -9,7 +9,7 @@ public class Toilet implements IToilet
     private String description;
     private Location location;
     
-    public static class Location
+    private static class Location
     {
         public double latitude;
         public double longitude;
