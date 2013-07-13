@@ -10,6 +10,7 @@ import socialtoilet.android.model.IToilet;
 import socialtoilet.android.services.IRetrieveNearToiletsService;
 import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
 import socialtoilet.android.services.RetrieveNearToiletsService;
+import socialtoilet.android.utils.Settings;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +29,8 @@ import android.widget.Toast;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 
@@ -51,7 +54,7 @@ public class MappingToiletActivity extends FragmentActivity
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		radialDistanceInMeters = 10000;
+		radialDistanceInMeters = Settings.getInstance().getInitialRadiusInMeters();
         dictionary = new HashMap<String, IToilet>();
         
         setUpMapIfNeeded();
@@ -190,13 +193,39 @@ public class MappingToiletActivity extends FragmentActivity
 	public void retreiveNearToiletsFinishWithError(
 			IRetrieveNearToiletsService service, String errorCode)
 	{
-		Toast.makeText(getApplicationContext(), errorCode, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Error code: " + errorCode, Toast.LENGTH_SHORT).show();
 		
 		if( errorCode.equalsIgnoreCase(RetrieveNearToiletsService.emptyResponseErrorType) )
 		{
 			radialDistanceInMeters = 2 * radialDistanceInMeters;
 			retrieveNearToilets(gps.getLatitude(), gps.getLongitude());
 		}
+		
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setTitle("Your Title");
+ 
+		alertDialogBuilder
+			.setMessage("Click yes to exit!")
+			.setCancelable(false)
+			.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog,int id)
+					{
+						// if this button is clicked, close
+						// current activity
+					}
+				})
+			.setNegativeButton("No",new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						dialog.cancel();
+					}
+				});
+ 
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
 	}
 
 	@Override

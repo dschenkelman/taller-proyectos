@@ -5,10 +5,14 @@ public class APIService
 	private static APIService instance;
 	
 	private String serviceURL;
+	private String hostURL;
+	private int port;
 	
 	private APIService()
 	{
-		serviceURL = "http://Damian-PC:8080/api/";
+		hostURL = "http://192.168.1.250";
+		port = 8080;
+		serviceURL = hostURL + ":" + port + "/api/";
 	}
 	
 	public static APIService getInstance()
@@ -42,5 +46,15 @@ public class APIService
 	public String getRetrieveToiletURL(String id)
 	{
 		return serviceURL + "toilets/" + id;
+	}
+
+	public String getHost()
+	{
+		return hostURL;
+	}
+
+	public int getPort()
+	{
+		return port;
 	}
 }

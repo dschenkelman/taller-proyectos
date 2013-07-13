@@ -9,7 +9,8 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+
+import socialtoilet.android.utils.HttpClientFactory;
 
 import android.os.AsyncTask;
 
@@ -24,7 +25,7 @@ public class GetService extends AsyncTask<String, String, String>{
 	@Override
 	protected String doInBackground(String... uri)
 	{
-        HttpClient httpclient = new DefaultHttpClient();
+        HttpClient httpclient = HttpClientFactory.createClient();
         HttpResponse response;
         String responseString = null;
         StatusLine statusLine = null;
@@ -51,7 +52,7 @@ public class GetService extends AsyncTask<String, String, String>{
         }
         catch (IOException e)
         {
-        	handleStatusCodeNotOk(e, statusLine.getStatusCode());
+        	handleStatusCodeNotOk(e, (statusLine == null) ? -1 : statusLine.getStatusCode());
         }
         return responseString;
 	}
