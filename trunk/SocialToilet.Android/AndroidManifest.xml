@@ -7,7 +7,30 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
+    
+    <permission
+        android:name="socialtoilet.android.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" >
+    </permission>
 
+    <uses-permission android:name="socialtoilet.android.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <!--
+         The following two permissions are not required to use
+	     Google Maps Android API v2, but are recommended.
+
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- 1. The API needs to use OpenGL v2 to use Google Maps Android API v2. -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -21,6 +44,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <!-- 1. The API key settings to use Google Maps Android API v2. -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBJSkpzarLKmH04WJvnOJOCKXz8CeOMQ18" />
+        
+        <activity
+            android:name="socialtoilet.android.MappingToiletActivity"
+            android:label="@string/title_activity_mapping_toilet"
+            android:parentActivityName="socialtoilet.android.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="socialtoilet.android.MainActivity" />
         </activity>
     </application>
 

@@ -4,5 +4,7 @@
     <string name="app_name">SocialToilet</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="findToilets">Encontrar Baños</string>
+    <string name="title_activity_mapping_toilet">MappingToiletActivity</string>
 
 </resources>
