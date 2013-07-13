@@ -1,5 +1,6 @@
 package socialtoilet.android;
 
+import socialtoilet.android.location.GPSTracker;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +13,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		GPSTracker.initialize(getApplicationContext());
 	}
 
 	@Override
@@ -24,6 +27,12 @@ public class MainActivity extends Activity {
     public void findNearToiletsTapped(View view)
     {
     	Intent intent = new Intent(this, MappingToiletActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void addToiletHereTapped(View view)
+    {
+    	Intent intent = new Intent(this, AddToiletActivity.class);
     	startActivity(intent);
     }
 }

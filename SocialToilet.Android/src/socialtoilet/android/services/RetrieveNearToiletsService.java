@@ -37,7 +37,7 @@ public class RetrieveNearToiletsService extends Service implements IRetrieveNear
 		}
 		performingRequest = true;
 		this.delegate = delegate;
-		execute("http://192.168.1.35:8080/api/toilets/near?lat="+latitude+"&long="+longitude+"&radiusInMeters="+distanceInMeters);
+		execute("http://192.168.1.250:8080/api/toilets/near?lat="+latitude+"&long="+longitude+"&radiusInMeters="+distanceInMeters);
 	}
 	
     @Override

@@ -7,5 +7,7 @@
     <string name="findToilets">Encontrar Baños</string>
     <string name="title_activity_mapping_toilet">MappingToiletActivity</string>
     <string name="title_activity_detail_toilet">DetailToiletActivity</string>
+    <string name="addToiletHere">Agregar acá</string>
+    <string name="title_activity_add_toilet">AddToiletActivity</string>
 
 </resources>
