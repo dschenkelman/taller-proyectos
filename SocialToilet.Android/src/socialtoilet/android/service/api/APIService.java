@@ -10,8 +10,8 @@ public class APIService
 	
 	private APIService()
 	{
-		hostURL = "http://192.168.1.250";
-		port = 8080;
+		hostURL = "https://192.168.1.250";
+		port = 44300;
 		serviceURL = hostURL + ":" + port + "/api/";
 	}
 	
