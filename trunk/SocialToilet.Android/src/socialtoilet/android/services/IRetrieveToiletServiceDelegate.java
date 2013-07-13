@@ -4,6 +4,6 @@ import socialtoilet.android.model.IToilet;
 
 public interface IRetrieveToiletServiceDelegate
 {
-	void retrieveToiletFinish(IRetrieveToiletService mockRetrieveToiletsService, IToilet toilet);
-	void retrieveToiletFinishWithError(IRetrieveToiletService mockRetrieveToiletsService, int errorCode);
+	void retrieveToiletFinish(IRetrieveToiletService service, IToilet toilet);
+	void retrieveToiletFinishWithError(IRetrieveToiletService service, String errorCode);
 }

@@ -39,6 +39,7 @@ public class MappingToiletActivity extends FragmentActivity
 	
 	private GoogleMap map;
 	private GPSTracker gps;
+	private int radialDistanceInMeters;
 	
 	private Map<String, IToilet> dictionary;
 
@@ -50,6 +51,7 @@ public class MappingToiletActivity extends FragmentActivity
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
+		radialDistanceInMeters = 1000;
         dictionary = new HashMap<String, IToilet>();
         
         setUpMapIfNeeded();
@@ -151,7 +153,7 @@ public class MappingToiletActivity extends FragmentActivity
     private void retrieveNearToilets(double latitude, double longitude)
     {
     	IRetrieveNearToiletsService service = new RetrieveNearToiletsService();
-    	service.retrieveNearToilets(latitude, longitude, 8000, this);
+    	service.retrieveNearToilets(latitude, longitude, radialDistanceInMeters, this);
 	}
     
 	@Override
@@ -178,9 +180,15 @@ public class MappingToiletActivity extends FragmentActivity
 	
 	@Override
 	public void retreiveNearToiletsFinishWithError(
-			IRetrieveNearToiletsService service, int errorCode)
+			IRetrieveNearToiletsService service, String errorCode)
 	{
-		Toast.makeText(getApplicationContext(), "Error retrieving the toilets", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), errorCode, Toast.LENGTH_SHORT).show();
+		
+		if( errorCode.equalsIgnoreCase(RetrieveNearToiletsService.emptyResponseErrorType) )
+		{
+			radialDistanceInMeters = 2 * radialDistanceInMeters;
+			retrieveNearToilets(gps.getLatitude(), gps.getLongitude());
+		}
 	}
 
 	@Override
