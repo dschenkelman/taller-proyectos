@@ -7,5 +7,7 @@
     public partial class SocialToiletContext : DbContext
     {
         public DbSet<Toilet> Toilets { get; set; }
+
+        public DbSet<Picture> Pictures { get; set; }
     }
 }
