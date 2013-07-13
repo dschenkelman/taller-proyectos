@@ -1,6 +1,5 @@
 package socialtoilet.android;
 
-import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.AddToiletService;
 import socialtoilet.android.services.IAddToiletService;
@@ -10,7 +9,6 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;

@@ -8,7 +8,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+
+import socialtoilet.android.utils.HttpClientFactory;
 
 import android.os.AsyncTask;
 
@@ -23,7 +24,7 @@ public abstract class PostService extends AsyncTask<String, String, String>
 	@Override
 	protected String doInBackground(String... uri)
 	{
-	    HttpClient httpclient = new DefaultHttpClient();
+		HttpClient httpclient = HttpClientFactory.createClient();
 	    HttpPost httppost = new HttpPost(uri[0]);
 	    HttpResponse response = null;
         StatusLine statusLine = null;
