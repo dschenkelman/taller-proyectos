@@ -1,7 +1,6 @@
 package socialtoilet.android;
 
 import socialtoilet.android.location.GPSTracker;
-import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.AddToiletService;
 import socialtoilet.android.services.IAddToiletService;
@@ -73,15 +72,20 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 
 	public void addToiletTapped(View view)
 	{
-		IToilet toilet = generateToilet();
+		Toilet toilet = generateToilet();
 		
 		IAddToiletService service = new AddToiletService();
 		service.addToilet(toilet, this);
 	}
 
-	private IToilet generateToilet()
+	private Toilet generateToilet()
 	{
-		IToilet toilet = new Toilet();
+		// TODO 
+		Toilet toilet = new Toilet();
+		toilet.setDescription("Damian");
+		toilet.setAddress("Lo de dami");
+		toilet.setLocation(-34.6208718, -58.4318558);
+		
 		return toilet;
 	}
 

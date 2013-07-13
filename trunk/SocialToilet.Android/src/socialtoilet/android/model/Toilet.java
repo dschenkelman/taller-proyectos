@@ -13,6 +13,12 @@ public class Toilet implements IToilet
     {
         public double latitude;
         public double longitude;
+        
+    	public Location(double latitude, double longitude)
+    	{
+    		this.latitude = latitude;
+    		this.longitude = longitude;
+    	}
     }
     
 	@Override
@@ -59,6 +65,21 @@ public class Toilet implements IToilet
 	@Override
 	public String getAddress() {
 		return address;
+	}
+
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
+	public void setAddress(String address)
+	{
+		this.address = address;
+	}
+
+	public void setLocation(double latitude, double longitude)
+	{
+		location = new Location(latitude, longitude);
 	}
 
 }

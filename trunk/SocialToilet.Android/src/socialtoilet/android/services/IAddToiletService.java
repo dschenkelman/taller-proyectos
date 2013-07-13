@@ -1,8 +1,8 @@
 package socialtoilet.android.services;
 
-import socialtoilet.android.model.IToilet;
+import socialtoilet.android.model.Toilet;
 
 public interface IAddToiletService
 {
-	void addToilet(IToilet toilet, IAddToiletServiceDelegate delegate);
+	void addToilet(Toilet toilet, IAddToiletServiceDelegate delegate);
 }
