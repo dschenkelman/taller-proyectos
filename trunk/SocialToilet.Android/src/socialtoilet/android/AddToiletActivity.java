@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
@@ -70,12 +71,12 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void addToiletTapped()
+	public void addToiletTapped(View view)
 	{
 		IToilet toilet = generateToilet();
 		
 		IAddToiletService service = new AddToiletService();
-		//service.addToilet(toilet, this);
+		service.addToilet(toilet, this);
 	}
 
 	private IToilet generateToilet()
