@@ -8,26 +8,104 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DetailToiletActivity" >
 
+    <TextView
+        android:id="@+id/toiletDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/toiletAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="37dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="italic" />
+
+    <RatingBar
+        android:id="@+id/ratingBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toiletAddress"
+        android:layout_centerHorizontal="true"
+        android:numStars="5" />
+    
+    <!-- For rating bar icon modification 
+    android:progressDrawable="@drawable/ratingbar_red" -->
+
+    <View
+        android:id="@+id/lineSeparator1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ratingBar1"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/black" />
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_alignLeft="@+id/lineSeparator1"
+        android:layout_below="@+id/lineSeparator1"
+        android:layout_marginTop="22dp"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/toiletTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/detailToiletCheckbox1" />
 
-        <RatingBar
-            android:id="@+id/ratingBar1"
+        <CheckBox
+            android:id="@+id/checkBox2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp" />
+            android:layout_weight="0.22"
+            android:text="@string/detailToiletCheckbox2" />
 
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.22"
+            android:text="@string/detailToiletCheckbox3" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.22"
+            android:text="@string/detailToiletCheckbox4" />
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.22"
+            android:text="@string/detailToiletCheckbox5" />
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.22"
+            android:text="@string/detailToiletCheckbox6" />
+
+        <CheckBox
+            android:id="@+id/checkBox7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.22"
+            android:text="@string/detailToiletCheckbox7" />
+
+        <CheckBox
+            android:id="@+id/checkBox8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detailToiletCheckbox8" />
     </LinearLayout>
 
 </RelativeLayout>
