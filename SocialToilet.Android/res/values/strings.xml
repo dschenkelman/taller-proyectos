@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="findToilets">Encontrar Baños</string>
     <string name="title_activity_mapping_toilet">MappingToiletActivity</string>
+    <string name="title_activity_detail_toilet">DetailToiletActivity</string>
 
 </resources>
