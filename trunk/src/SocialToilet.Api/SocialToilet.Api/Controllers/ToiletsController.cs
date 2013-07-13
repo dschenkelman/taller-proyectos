@@ -1,5 +1,6 @@
 ﻿namespace SocialToilet.Api.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Spatial;
@@ -24,11 +25,27 @@
         [HttpGet]
         public async Task<IEnumerable<ToiletViewModel>> Near(double lat, double @long, double radiusInMeters)
         {
-            var geoLocation = DbGeography.FromText(new Location() {Latitude = lat, Longitude = @long}.ToString());
+            var geoLocation = DbGeography.FromText(new Location { Latitude = lat, Longitude = @long }.ToString());
 
             var nearbyToilets = await this.db.Toilets.Where(t => geoLocation.Distance(t.Location) < radiusInMeters).ToListAsync();
 
             return nearbyToilets.Select(t => t.ToViewModel());
+        }
+
+        public async Task<ToiletViewModel> Get(Guid id)
+        {
+            var toilet = await this.db.Toilets.FindAsync(id);
+            return toilet.ToViewModel();
+        }
+
+        // POST api/values
+        public async Task Post(ToiletViewModel value)
+        {
+            var toilet = value.ToToilet();
+
+            this.db.Toilets.Add(toilet);
+
+            await this.db.SaveChangesAsync();
         }
 
         protected override void Dispose(bool disposing)
@@ -36,26 +53,5 @@
             this.db.Dispose();
             base.Dispose(disposing);
         }
-
-        //// GET api/values/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST api/values
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
-        //// PUT api/values/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/values/5
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

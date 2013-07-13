@@ -5,7 +5,7 @@
 
     using SocialToilet.Api.Models;
 
-    public class SocialToiletInitializer : CreateDatabaseIfNotExists<SocialToiletContext>
+    public class SocialToiletInitializer : DropCreateDatabaseAlways<SocialToiletContext>
     {
         protected override void Seed(SocialToiletContext context)
         {
