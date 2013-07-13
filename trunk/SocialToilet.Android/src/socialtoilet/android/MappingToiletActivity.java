@@ -1,11 +1,15 @@
 package socialtoilet.android;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.location.IGPSTrakerDelegate;
 import socialtoilet.android.model.IToilet;
+import socialtoilet.android.services.IRetrieveToiletsService;
+import socialtoilet.android.services.IRetrieveToiletsServiceDelegate;
+import socialtoilet.android.services.mocks.MockRetrieveToiletsService;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -26,7 +31,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 
 public class MappingToiletActivity extends FragmentActivity
-	implements IGPSTrakerDelegate, OnInfoWindowClickListener
+	implements IRetrieveToiletsServiceDelegate, IGPSTrakerDelegate, OnInfoWindowClickListener
 {
 	
 	public final static String EXTRA_TOILET_ID = "com.example.appsample.TOILET";
@@ -120,7 +125,7 @@ public class MappingToiletActivity extends FragmentActivity
             CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 14);
             map.moveCamera(yourLocation);
           
-            //retrieveNearBathrooms(latitude, longitude);
+            retrieveNearToilets(latitude, longitude);
         }else{
             // can't get location
             // GPS or Network is not enabled
@@ -130,9 +135,49 @@ public class MappingToiletActivity extends FragmentActivity
             LatLng coordinate = new LatLng(-34.617024, -58.368512);
             CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 15);
             map.moveCamera(yourLocation);
-           // retrieveNearBathrooms(-34.617024, -58.368512);
+            retrieveNearToilets(-34.617024, -58.368512);
         }
     }
+    
+    private void retrieveNearToilets(double latitude, double longitude)
+    {
+    	IRetrieveToiletsService service = new MockRetrieveToiletsService();
+    	service.retrieveNearToilet(latitude, longitude, this);
+	}
+    
+	@Override
+	public void retrieveNearToiletsFinish(IRetrieveToiletsService service,
+			Collection<IToilet> nearBathrooms) {
+
+		if(null == map )
+		{
+			return;
+		}
+		dictionary.clear();
+		for(IToilet toilet : nearBathrooms)
+		{
+			MarkerOptions markerOptions = new MarkerOptions()
+	        	.position(new LatLng(toilet.getLatitude(), toilet.getLongitude()))
+	        	.title(toilet.getMapTitle())
+	        	.snippet(toilet.getMapSnippet());
+			
+			Marker marker = map.addMarker(markerOptions);
+			dictionary.put(marker, toilet);
+		}
+	}
+	
+	@Override
+	public void retreiveNearToiletsFinishWithError(
+			IRetrieveToiletsService service, int errorCode)
+	{
+		Toast.makeText(getApplicationContext(), "Error retrieving the toilets", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void retrieveToiletFinish(IRetrieveToiletsService mockRetrieveToiletsService, IToilet toilet) {}
+
+	@Override
+	public void retrieveToiletFinishWithError(IRetrieveToiletsService mockRetrieveToiletsService, int errorCode) {}
 
 	@Override
 	public void locationChange(Location location)
@@ -145,7 +190,7 @@ public class MappingToiletActivity extends FragmentActivity
         LatLng coordinate = new LatLng(latitude, longitude);
         CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 14);
         map.moveCamera(yourLocation);
-        //retrieveNearBathrooms(latitude, longitude);
+        retrieveNearToilets(latitude, longitude);
 	}
 
 	@Override
@@ -168,5 +213,4 @@ public class MappingToiletActivity extends FragmentActivity
 		    startActivity(intent);
 		}*/
 	}
-
 }
