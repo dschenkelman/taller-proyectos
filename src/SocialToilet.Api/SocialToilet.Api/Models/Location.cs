@@ -14,8 +14,8 @@
         {
             return string.Format(
                 GeoFormat,
-                this.Latitude.ToString(CultureInfo.InvariantCulture),
-                this.Longitude.ToString(CultureInfo.InvariantCulture));
+                this.Longitude.ToString(CultureInfo.InvariantCulture),
+                this.Latitude.ToString(CultureInfo.InvariantCulture));
         }
     }
 }
