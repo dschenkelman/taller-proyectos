@@ -15,6 +15,8 @@
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
+            //GlobalConfiguration.Configuration.MessageHandlers.Add(new RequireHttpsMessageHandler());
         }
     }
 }

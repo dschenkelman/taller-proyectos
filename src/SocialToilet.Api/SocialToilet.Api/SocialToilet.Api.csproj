@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -153,13 +153,17 @@
     <Compile Include="Controllers\ToiletsController.cs" />
     <Compile Include="Database\SocialToiletContext.cs" />
     <Compile Include="Database\SocialToiletInitializer.cs" />
+    <Compile Include="Handlers\RequireHttpsMessageHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ToiletExtensions.cs" />
+    <Compile Include="HttpModules\BasicAuthHttpModule.cs" />
+    <Compile Include="HttpModules\SocialToiletBasicAuthHttpModule.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\Toilet.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\PictureViewModel.cs" />
     <Compile Include="ViewModels\ToiletViewModel.cs" />

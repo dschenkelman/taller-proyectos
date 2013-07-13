@@ -15,6 +15,7 @@
     using SocialToilet.Api.Models;
     using SocialToilet.Api.ViewModels;
 
+    [Authorize]
     public class ToiletsController : ApiController
     {
         private SocialToiletContext db;
