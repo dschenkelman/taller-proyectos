@@ -7,6 +7,16 @@
     <string name="findToilets">Encontrar Baños</string>
     <string name="title_activity_mapping_toilet">MappingToiletActivity</string>
     <string name="title_activity_detail_toilet">DetailToiletActivity</string>
+    
+    <string name="detailToiletCheckbox1">Dejan pasar sin consumir</string>
+    <string name="detailToiletCheckbox2">Tiene agua</string>
+    <string name="detailToiletCheckbox3">Tiene papel</string>
+    <string name="detailToiletCheckbox4">Tiene jabon</string>
+    <string name="detailToiletCheckbox5">Tiene espejo</string>
+    <string name="detailToiletCheckbox6">Las puertas de las cabinas cierran</string>
+    <string name="detailToiletCheckbox7">Tiene insumos femeninos a la venta</string>
+    <string name="detailToiletCheckbox8">Tiene preservativos a la venta</string>
+
     <string name="addToiletHere">Agregar acá</string>
     <string name="title_activity_add_toilet">AddToiletActivity</string>
 

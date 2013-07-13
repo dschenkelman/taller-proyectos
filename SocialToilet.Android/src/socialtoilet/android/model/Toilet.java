@@ -51,4 +51,14 @@ public class Toilet implements IToilet
 		return id;
 	}
 
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public String getAddress() {
+		return address;
+	}
+
 }

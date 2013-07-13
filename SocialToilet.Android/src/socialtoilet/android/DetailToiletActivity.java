@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
@@ -76,11 +77,21 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 	public void retrieveToiletFinish(IRetrieveToiletService mockRetrieveToiletsService, IToilet toilet)
 	{
 		this.toilet = toilet;
-		TextView title = (TextView) findViewById(R.id.toiletTitle);
-		title.setText(toilet.getMapTitle());
+		this.populateData();
 	}
 
 	@Override
 	public void retrieveToiletFinishWithError(IRetrieveToiletService mockRetrieveToiletsService, String errorCode) {}
+	
+	private void populateData(){
+		TextView title = (TextView) findViewById(R.id.toiletDescription);
+		title.setText(toilet.getDescription());
+
+		TextView address = (TextView) findViewById(R.id.toiletAddress);
+		address.setText(toilet.getAddress());
+		
+		RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar1);
+		ratingBar.setNumStars(toilet.getRanking());
+	}
 
 }
