@@ -10,6 +10,7 @@ import socialtoilet.android.model.IToilet;
 import socialtoilet.android.services.IRetrieveNearToiletsService;
 import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
 import socialtoilet.android.services.RetrieveNearToiletsService;
+import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.utils.Settings;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -162,7 +163,7 @@ public class MappingToiletActivity extends FragmentActivity
     
     private void retrieveNearToilets(double latitude, double longitude)
     {
-    	IRetrieveNearToiletsService service = new RetrieveNearToiletsService();
+    	IRetrieveNearToiletsService service = ServicesFactory.createRetrieveNearToiletsService();//new RetrieveNearToiletsService();
     	service.retrieveNearToilets(latitude, longitude, radialDistanceInMeters, this);
 	}
     

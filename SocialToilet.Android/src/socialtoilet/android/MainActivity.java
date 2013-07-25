@@ -3,12 +3,10 @@ package socialtoilet.android;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
-import socialtoilet.android.add.STAdListener;
 import socialtoilet.android.location.GPSTracker;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
