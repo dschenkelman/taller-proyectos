@@ -5,7 +5,7 @@ import java.util.UUID;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
-import socialtoilet.android.services.RetrieveToiletService;
+import socialtoilet.android.services.factories.ServicesFactory;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -35,7 +35,7 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 		UUID id = UUID.fromString(toiletId);
 		
 		
-		IRetrieveToiletService service = new RetrieveToiletService();
+		IRetrieveToiletService service = ServicesFactory.createRetrieveToiletService();//new RetrieveToiletService();
 		service.retrieveToilet(id, this);
 	}
 

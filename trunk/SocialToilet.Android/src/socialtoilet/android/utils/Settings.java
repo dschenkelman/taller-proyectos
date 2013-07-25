@@ -8,12 +8,14 @@ public class Settings
 	private String user;
 	private String password;
 	private int initialRadiusInMeters;
+	private boolean servicesDebugMode;
 	
 	private Settings()
 	{
 		user = "mservetto";
 		password = "password";
 		initialRadiusInMeters = 10000;
+		servicesDebugMode = true;
 	}
 	
 	public static Settings getInstance()
@@ -38,5 +40,10 @@ public class Settings
 	public int getInitialRadiusInMeters()
 	{
 		return initialRadiusInMeters;
+	}
+
+	public boolean isServicesDebugMode()
+	{
+		return servicesDebugMode;
 	}
 }

@@ -1,9 +1,9 @@
 package socialtoilet.android;
 
 import socialtoilet.android.model.Toilet;
-import socialtoilet.android.services.AddToiletService;
 import socialtoilet.android.services.IAddToiletService;
 import socialtoilet.android.services.IAddToiletServiceDelegate;
+import socialtoilet.android.services.factories.ServicesFactory;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -72,7 +72,7 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 	{
 		Toilet toilet = generateToilet();
 		
-		IAddToiletService service = new AddToiletService();
+		IAddToiletService service = ServicesFactory.createAddToiletService();//new AddToiletService();
 		service.addToilet(toilet, this);
 	}
 
