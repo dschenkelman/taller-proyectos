@@ -121,16 +121,6 @@
             </RelativeLayout>
         </ScrollView>
 
-        <com.google.ads.AdView
-            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
-            android:id="@+id/ad"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/admob_id"
-            googleads:loadAdOnCreate="true"
-            googleads:testDevices="@string/testDeviceId" >
-        </com.google.ads.AdView>
     </LinearLayout>
 
         <!-- For rating bar icon modification 
