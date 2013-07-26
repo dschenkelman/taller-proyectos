@@ -3,7 +3,6 @@ package socialtoilet.android;
 import java.util.UUID;
 
 import socialtoilet.android.model.IToilet;
-import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
