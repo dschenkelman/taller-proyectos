@@ -1,4 +1,4 @@
-package socialtoilet.android.add;
+package socialtoilet.android.ads;
 
 import android.util.Log;
 
