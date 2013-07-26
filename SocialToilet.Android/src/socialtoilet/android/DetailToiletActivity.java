@@ -9,6 +9,7 @@ import socialtoilet.android.services.factories.ServicesFactory;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RatingBar;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 
 public class DetailToiletActivity extends Activity implements IRetrieveToiletServiceDelegate {
@@ -25,7 +27,21 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_detail_toilet);
+		
+		Configuration config = getResources().getConfiguration();
+	    if (config.orientation == Configuration.ORIENTATION_LANDSCAPE)
+	    {
+			Log.d("Social Toilet", "ORIENTATION_LANDSCAPE");
+			setContentView(R.layout.activity_detail_toilet_landscape);
+	    }
+	    else if (config.orientation == Configuration.ORIENTATION_PORTRAIT)
+	    {
+			Log.d("Social Toilet", "ORIENTATION_PORTRAIT\n");
+			setContentView(R.layout.activity_detail_toilet);
+	    }
+	    
+	    
+	    
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
@@ -37,6 +53,8 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 		
 		IRetrieveToiletService service = ServicesFactory.createRetrieveToiletService();//new RetrieveToiletService();
 		service.retrieveToilet(id, this);
+		
+
 	}
 
 	/**
@@ -57,8 +75,10 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
 			// activity, the Up button is shown. Use NavUtils to allow users
@@ -72,7 +92,7 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	@Override
 	public void retrieveToiletFinish(IRetrieveToiletService mockRetrieveToiletsService, IToilet toilet)
 	{
