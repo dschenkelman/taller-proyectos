@@ -57,13 +57,9 @@ public class ServicesFactory
 							@Override
 							public String getMapSnippet() { return "También venden pizza.";}
 							@Override
-							public double getLongitude() { 
-								return GPSTracker.getInstance().getLongitude() + 0.001;
-							}
+							public double getLongitude() { return GPSTracker.getInstance().getLongitude() + 0.001; }
 							@Override
-							public double getLatitude() { 
-								return GPSTracker.getInstance().getLatitude() - 0.002;
-							}
+							public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.002; }
 							@Override
 							public int getRanking() { return 1; }
 							@Override
@@ -80,13 +76,9 @@ public class ServicesFactory
 							@Override
 							public String getMapSnippet() { return "Siempre cerrado.";}
 							@Override
-							public double getLongitude() { 
-								return GPSTracker.getInstance().getLongitude() + 0.003;
-							}
+							public double getLongitude() { return GPSTracker.getInstance().getLongitude() + 0.003; }
 							@Override
-							public double getLatitude() { 
-								return GPSTracker.getInstance().getLatitude() - 0.005;
-							}
+							public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.005; }
 							@Override
 							public int getRanking() { return 2; }
 							@Override
