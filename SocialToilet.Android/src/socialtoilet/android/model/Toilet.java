@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Toilet implements IToilet
 {
-    private UUID id;
+	private UUID id;
     private String address;
     private String description;
     private Location location;
