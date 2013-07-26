@@ -3,9 +3,11 @@ package socialtoilet.android;
 import java.util.UUID;
 
 import socialtoilet.android.model.IToilet;
+import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
+import socialtoilet.android.utils.StateSaver;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -22,10 +24,12 @@ import android.os.Build;
 
 public class DetailToiletActivity extends Activity implements IRetrieveToiletServiceDelegate {
 
+	public final static String KEY_UUID_OBJECT_RETRIEVER = "kToiletStream";
 	private IToilet toilet;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		
 		Configuration config = getResources().getConfiguration();
@@ -36,25 +40,33 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 	    }
 	    else if (config.orientation == Configuration.ORIENTATION_PORTRAIT)
 	    {
-			Log.d("Social Toilet", "ORIENTATION_PORTRAIT\n");
+			Log.d("Social Toilet", "ORIENTATION_PORTRAIT");
 			setContentView(R.layout.activity_detail_toilet);
 	    }
 	    
 	    
-	    
-		// Show the Up button in the action bar.
-		setupActionBar();
-		
-		Intent intent = getIntent();
-		String toiletId = intent.getStringExtra(MappingToiletActivity.EXTRA_TOILET_ID);
-		
-		UUID id = UUID.fromString(toiletId);
-		
-		
-		IRetrieveToiletService service = ServicesFactory.createRetrieveToiletService();//new RetrieveToiletService();
-		service.retrieveToilet(id, this);
-		
-
+	    if(null == savedInstanceState)
+	    {
+			Log.d("Social Toilet", "Primera vez que entro a la view");
+			setupActionBar();
+			
+			Intent intent = getIntent();
+			String toiletId = intent.getStringExtra(MappingToiletActivity.EXTRA_TOILET_ID);
+			
+			UUID id = UUID.fromString(toiletId);
+			
+			
+			IRetrieveToiletService service = ServicesFactory.createRetrieveToiletService();//new RetrieveToiletService();
+			service.retrieveToilet(id, this);
+	    }
+	    else
+	    {
+			Log.d("Social Toilet", "No es la primera vez, vengo de una rotación");
+		    String objectUUID = savedInstanceState.getString(KEY_UUID_OBJECT_RETRIEVER);
+		    UUID objectToRetrieveUUID = UUID.fromString(objectUUID);
+		    toilet = StateSaver.getInstance().retrieveToilet(objectToRetrieveUUID.toString());
+			this.populateData();
+	    }
 	}
 
 	/**
@@ -91,6 +103,15 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle icicle)
+	{
+		super.onSaveInstanceState(icicle);
+		UUID id = UUID.randomUUID();
+		StateSaver.getInstance().saveToilet(id.toString(), toilet);
+		icicle.putString(KEY_UUID_OBJECT_RETRIEVER, id.toString());
 	}
 	
 	@Override
