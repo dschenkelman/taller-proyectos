@@ -4,10 +4,13 @@ import java.util.UUID;
 
 public interface IToilet extends IMapMarked
 {
-
-	int getRanking();
+	UUID getID();
 	String getDescription();
 	String getAddress();
-	UUID getID();
+
+	float getRanking();
+	int getUserCalification();
+	int getUserCalificationsCount();
+	void setUserCalification(int calification);
 	
 }
