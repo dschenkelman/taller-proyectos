@@ -8,6 +8,7 @@
     <string name="admob_id">a151f08d228786e</string>
     <string name="testDeviceId">TEST_EMULATOR, DD10FCE3B3D13921B8B0CA1FC9706EC7</string>
     
+    <string name="rateButton">Calificar</string>
                                
                            
     <string name="title_activity_mapping_toilet">MappingToiletActivity</string>

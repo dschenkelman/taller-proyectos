@@ -43,6 +43,11 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 			setContentView(R.layout.activity_detail_toilet);
 	    }
 	    
+	    /*RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingBar1);
+	    ratingBar.setMax(5);
+		ratingBar.setNumStars(5);
+	    ratingBar.setStepSize(1);*/
+	    //ratingBar.setIsIndicator(true);
 	    
 	    if(null == savedInstanceState)
 	    {
@@ -131,7 +136,7 @@ public class DetailToiletActivity extends Activity implements IRetrieveToiletSer
 		address.setText(toilet.getAddress());
 		
 		RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar1);
-		ratingBar.setNumStars(toilet.getRanking());
+		ratingBar.setRating(toilet.getRanking());
 	}
 
 }
