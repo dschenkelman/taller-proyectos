@@ -40,7 +40,7 @@ public class MappingToiletActivity extends FragmentActivity
 	implements IRetrieveNearToiletsServiceDelegate, IGPSTrakerListener, OnInfoWindowClickListener
 {
 	
-	public final static String EXTRA_TOILET_ID = "com.example.appsample.TOILET";
+	public final static String EXTRA_TOILET_ID = "socialtoilet.andorid.mappingtoilet.TOILET";
 	
 	private GoogleMap map;
 	private GPSTracker gps;

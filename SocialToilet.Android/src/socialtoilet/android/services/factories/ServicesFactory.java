@@ -7,6 +7,7 @@ import java.util.UUID;
 import android.util.Log;
 
 import socialtoilet.android.location.GPSTracker;
+import socialtoilet.android.model.IComment;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.AddToiletService;
@@ -17,9 +18,12 @@ import socialtoilet.android.services.ICalificateToiletService;
 import socialtoilet.android.services.ICalificateToiletServiceDelegate;
 import socialtoilet.android.services.IRetrieveNearToiletsService;
 import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
+import socialtoilet.android.services.IRetrieveToiletCommentsService;
+import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
 import socialtoilet.android.services.RetrieveNearToiletsService;
+import socialtoilet.android.services.RetrieveToiletCommentsService;
 import socialtoilet.android.services.RetrieveToiletService;
 import socialtoilet.android.utils.Settings;
 
@@ -203,5 +207,25 @@ public class ServicesFactory
 			};
 		}
 		return new CalificateToiletService();
+	}
+
+	public static IRetrieveToiletCommentsService createRetrieveToiletCommentsService()
+	{
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			return new IRetrieveToiletCommentsService()
+			{
+
+				@Override
+				public void retrieveToiletComments(UUID toiletId,
+						IRetrieveToiletCommentsServiceDelegate delegate)
+				{
+					Collection<IComment> comments = new ArrayList<IComment>();
+					// TODO hardcode some IComments
+					delegate.retrieveToiletCommentsFinish(this, comments);
+				}
+			};
+		}
+		return new RetrieveToiletCommentsService();
 	}
 }

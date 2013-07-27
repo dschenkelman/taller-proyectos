@@ -34,6 +34,7 @@ public class DetailToiletActivity extends FragmentActivity
 {
 
 	public final static String KEY_UUID_OBJECT_RETRIEVER = "kToiletStream";
+	public static final String EXTRA_TOILET_ID = "socialtoilet.andorid.detailtoilet.TOILET";
 	private IToilet toilet;
 	
 	@Override
@@ -163,7 +164,19 @@ public class DetailToiletActivity extends FragmentActivity
     	CalificationDialogFragment dialog = new CalificationDialogFragment();
     	dialog.show(getSupportFragmentManager(), "calificate");
     }
+    
+    public void onCommentsButtonTapped(View view)
+    {
+    	Intent intent = new Intent(this, ToiletCommentsActivity.class);
+		intent.putExtra(DetailToiletActivity.EXTRA_TOILET_ID, toilet.getID().toString());
+    	startActivity(intent);
+    }
 
+    public void onGaleryButtonTapped(View view)
+    {
+    	// TODO show galery view
+    }
+    
 	@Override
 	public void onDialogCalificateClick(CalificationDialogFragment dialog)
 	{
