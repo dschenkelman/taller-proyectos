@@ -171,13 +171,15 @@
                         android:id="@+id/commentsButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/detailToilet_commentsButton" />
+                        android:text="@string/detailToilet_commentsButton"
+                        android:onClick="onCommentsButtonTapped" />
 
                     <Button
                         android:id="@+id/galeryButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/detailToilet_galeryButton" />
+                        android:text="@string/detailToilet_galeryButton"
+                        android:onClick="onGaleryButtonTapped" />
 
                 </LinearLayout>
 
@@ -194,10 +196,7 @@
             googleads:loadAdOnCreate="true"
             googleads:testDevices="@string/testDeviceId" >
         </com.google.ads.AdView>
+        
     </LinearLayout>
-    <!--
-    For rating bar icon modification 
-    android:progressDrawable="@drawable/ratingbar_red"
-    -->
 
 </RelativeLayout>
