@@ -21,9 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="384dp" >
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/LinearLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/toiletDescription"
@@ -36,34 +38,43 @@
                     android:id="@+id/toiletAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/toiletDescription"
                     android:layout_marginTop="17dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="italic" />
 
-                <RatingBar
-                    android:id="@+id/ratingBar1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/toiletAddress"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                    <TextView android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=""/>
+
+                    <Button
+                        android:id="@+id/button1"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rateButton" />
+                    
+                    <RatingBar
+                        android:id="@+id/ratingBar1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:rating="2.0"
+                        android:stepSize="1.0" />
+                                        
+                </LinearLayout>
 
                 <View
                     android:id="@+id/lineSeparator1"
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@+id/ratingBar1"
-                    android:layout_centerHorizontal="true"
                     android:background="@android:color/black" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/lineSeparator1"
-                    android:layout_below="@+id/lineSeparator1"
                     android:layout_marginTop="22dp"
                     android:orientation="vertical" >
 
@@ -71,57 +82,65 @@
                         android:id="@+id/checkBox1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/detailToiletCheckbox1" />
+                        android:text="@string/detailToiletCheckbox1" 
+                        android:isIndicator="true"/>
 
                     <CheckBox
                         android:id="@+id/checkBox2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
-                        android:text="@string/detailToiletCheckbox2" />
+                        android:text="@string/detailToiletCheckbox2"
+                        android:isIndicator="true" />
 
                     <CheckBox
                         android:id="@+id/checkBox3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
-                        android:text="@string/detailToiletCheckbox3" />
+                        android:text="@string/detailToiletCheckbox3"
+                        android:isIndicator="true" />
 
                     <CheckBox
                         android:id="@+id/checkBox4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
-                        android:text="@string/detailToiletCheckbox4" />
+                        android:text="@string/detailToiletCheckbox4"
+                        android:isIndicator="true" />
 
                     <CheckBox
                         android:id="@+id/checkBox5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
-                        android:text="@string/detailToiletCheckbox5" />
+                        android:text="@string/detailToiletCheckbox5"
+                        android:isIndicator="true" />
 
                     <CheckBox
                         android:id="@+id/checkBox6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
-                        android:text="@string/detailToiletCheckbox6" />
+                        android:text="@string/detailToiletCheckbox6"
+                        android:isIndicator="true" />
 
                     <CheckBox
                         android:id="@+id/checkBox7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
-                        android:text="@string/detailToiletCheckbox7" />
+                        android:text="@string/detailToiletCheckbox7"
+                        android:isIndicator="true" />
 
                     <CheckBox
                         android:id="@+id/checkBox8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/detailToiletCheckbox8" />
+                        android:text="@string/detailToiletCheckbox8"
+                        android:isIndicator="true" />
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
         </ScrollView>
 
         <com.google.ads.AdView
@@ -134,9 +153,10 @@
             googleads:loadAdOnCreate="true"
             googleads:testDevices="@string/testDeviceId" >
         </com.google.ads.AdView>
-
     </LinearLayout>
-        <!-- For rating bar icon modification 
-    android:progressDrawable="@drawable/ratingbar_red" -->
+    <!--
+    For rating bar icon modification 
+    android:progressDrawable="@drawable/ratingbar_red"
+    -->
 
 </RelativeLayout>
