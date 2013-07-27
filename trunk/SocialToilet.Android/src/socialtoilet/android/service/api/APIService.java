@@ -57,4 +57,10 @@ public class APIService
 	{
 		return port;
 	}
+
+	public String getCalificateToiletPostURL()
+	{
+		// TODO set the post url
+		return "";
+	}
 }

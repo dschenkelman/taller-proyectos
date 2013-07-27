@@ -10,8 +10,11 @@ import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.AddToiletService;
+import socialtoilet.android.services.CalificateToiletService;
 import socialtoilet.android.services.IAddToiletService;
 import socialtoilet.android.services.IAddToiletServiceDelegate;
+import socialtoilet.android.services.ICalificateToiletService;
+import socialtoilet.android.services.ICalificateToiletServiceDelegate;
 import socialtoilet.android.services.IRetrieveNearToiletsService;
 import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletService;
@@ -76,6 +79,8 @@ public class ServicesFactory
 							public int getUserCalificationsCount() { return 25; }
 							@Override
 							public void setUserCalification(int calification) { }
+							@Override
+							public void revertUserCalification() { }
 						});
 					toilets.add(new IToilet()
 						{
@@ -101,6 +106,8 @@ public class ServicesFactory
 							public int getUserCalificationsCount() { return 31; }
 							@Override
 							public void setUserCalification(int calification) { }
+							@Override
+							public void revertUserCalification() { }
 						});
 					
 					delegate.retrieveNearToiletsFinish(this, toilets);
@@ -164,10 +171,37 @@ public class ServicesFactory
 							userCalification = calification;
 							Log.d("Social Toilet", "Ranking Nuevo: " + ranking);
 						}
+						@Override
+						public void revertUserCalification()
+						{
+							if(0 != userCalification)
+							{
+								ranking = (ranking * userCalificationsCount - userCalification) / (float)(userCalificationsCount - 1);
+								userCalification = 0;
+								userCalificationsCount--;
+							}
+						}
 					});
 				}
 			};
 		}
 		return new RetrieveToiletService();
+	}
+	
+	public static ICalificateToiletService createCalificateToiletService()
+	{
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			return new ICalificateToiletService()
+			{
+				@Override
+				public void calificateToiletService(IToilet toilet, int userCalification,
+						ICalificateToiletServiceDelegate delegate)
+				{
+					delegate.calificateToiletFinish(this);
+				}
+			};
+		}
+		return new CalificateToiletService();
 	}
 }
