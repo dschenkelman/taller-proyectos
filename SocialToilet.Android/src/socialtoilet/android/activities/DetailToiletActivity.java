@@ -162,7 +162,9 @@ public class DetailToiletActivity extends FragmentActivity
 
     public void onGaleryButtonTapped(View view)
     {
-    	// TODO show galery view
+    	Intent intent = new Intent(this, ToiletGaleryActivity.class);
+		intent.putExtra(DetailToiletActivity.EXTRA_TOILET_ID, toilet.getID().toString());
+    	startActivity(intent);
     }
     
 	@Override
