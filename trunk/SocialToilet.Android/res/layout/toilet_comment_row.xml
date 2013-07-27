@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/comment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="title" />
+
+        <TextView
+            android:id="@+id/comment_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="message" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/comment_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user" />
+
+            <TextView
+                android:id="@+id/comment_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date" />
+
+        </LinearLayout>
+        
+        <View
+	        android:id="@+id/lineSeparator2"
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dp"
+	        android:background="@android:color/black" />
+
+    </LinearLayout>
+
+</TableRow>

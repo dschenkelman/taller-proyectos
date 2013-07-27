@@ -11,8 +11,12 @@ import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -82,8 +86,26 @@ public class ToiletCommentsActivity extends Activity
 
 	private void populateCommentsView()
 	{
-		// TODO Auto-generated method stub
-		
+	    LayoutInflater inflater = getLayoutInflater();
+	    View commentView;
+	    TextView commentTitle;
+	    TextView commentMessage;
+	    TextView user;
+	    TextView commentDate;
+		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.toiletCommentsCommentsLinearLayout);
+		for(IComment comment : comments)
+		{
+			commentView = inflater.inflate(R.layout.toilet_comment_row, null);
+	        commentTitle = (TextView) commentView.findViewById(R.id.comment_title);
+	        commentMessage = (TextView) commentView.findViewById(R.id.comment_message);
+	        user = (TextView) commentView.findViewById(R.id.comment_user);
+	        commentDate = (TextView) commentView.findViewById(R.id.comment_date);
+	        commentTitle.setText(comment.getTitle());
+	        commentMessage.setText(comment.getMessage());
+	        user.setText(comment.getUser());
+	        commentDate.setText(comment.getDate());
+	        linearLayout.addView(commentView);
+		}
 	}
 
 	@Override
@@ -91,8 +113,8 @@ public class ToiletCommentsActivity extends Activity
 			IRetrieveToiletCommentsService service, Collection<IComment> comments)
 	{
 		this.comments.clear();
-		/*this.comments.addAll(comments);
-		populateCommentsView();*/
+		this.comments.addAll(comments);
+		populateCommentsView();
 	}
 
 	@Override
