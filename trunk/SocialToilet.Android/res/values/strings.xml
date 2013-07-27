@@ -32,8 +32,8 @@
     <string name="hintAddress">Dirección</string>
     <string name="addButton">Agregar</string>
     <string name="title_activity_toilet_comments">ToiletCommentsActivity</string>
-
     <string name="tioletCommetns_headerTextView">Los comentarios de la gente:</string>
-    
-    
+    <string name="title_activity_toilet_galery">ToiletGaleryActivity</string>
+    <string name="tioletGalery_headerTextView">Las fotos del toilet:</string>
+
 </resources>
