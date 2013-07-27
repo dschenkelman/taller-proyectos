@@ -63,4 +63,10 @@ public class APIService
 		// TODO set the post url
 		return "";
 	}
+
+	public String getRetrieveToiletCommentsURL(String string)
+	{
+		// TODO set the get url
+		return "";
+	}
 }

@@ -11,8 +11,8 @@ import socialtoilet.android.service.api.APIService;
 
 import com.google.gson.Gson;
 
-public class RetrieveToiletService extends GetService implements IRetrieveToiletService {
-
+public class RetrieveToiletService extends GetService implements IRetrieveToiletService
+{
 	private IRetrieveToiletServiceDelegate delegate;
 	
 	public RetrieveToiletService()
