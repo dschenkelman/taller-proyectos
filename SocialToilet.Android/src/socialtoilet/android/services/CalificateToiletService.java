@@ -1,40 +1,43 @@
 package socialtoilet.android.services;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import org.apache.http.client.ClientProtocolException;
 
-import com.google.gson.Gson;
-
-import socialtoilet.android.model.Toilet;
+import socialtoilet.android.model.IToilet;
 import socialtoilet.android.service.api.APIService;
 
-public class AddToiletService extends PostService implements IAddToiletService
+public class CalificateToiletService extends PostService implements ICalificateToiletService
 {
-	private Toilet postBodyObject;
-	private IAddToiletServiceDelegate delegate;
+	private UUID toiletId;
+	private int userCalification;
 	
-	public AddToiletService()
+	private ICalificateToiletServiceDelegate delegate;
+	
+	public CalificateToiletService()
 	{
 		performingRequest = false;
 	}
 	
 	@Override
-	public void addToilet(Toilet toilet, IAddToiletServiceDelegate delegate)
+	public void calificateToiletService(IToilet toilet, int userCalification,
+			ICalificateToiletServiceDelegate delegate)
 	{
 		if( performingRequest || null == delegate || null == toilet )
 			return;
-		postBodyObject = toilet;
+		toiletId = toilet.getID();
+		this.userCalification = userCalification;
 		performingRequest = true;
 		this.delegate = delegate;
-		execute(APIService.getInstance().getAddToiletPostURL());
+		execute(APIService.getInstance().getCalificateToiletPostURL());
 	}
 	
     @Override
     protected void onPostExecute(String result) 
     {
         super.onPostExecute(result);
-        delegate.addToiletFinish(this);
+        delegate.calificateToiletFinish(this);
         performingRequest = false;
         delegate = null;
     }
@@ -42,7 +45,7 @@ public class AddToiletService extends PostService implements IAddToiletService
     @Override
     protected void handleStatusCodeNotOk(IOException e, int statusCode)
 	{
-    	delegate.addToiletFinishWithError(this, ioResponseErrorType);
+    	delegate.calificateToiletFinishWithError(this, ioResponseErrorType);
         performingRequest = false;
         delegate = null;
 	}
@@ -50,7 +53,7 @@ public class AddToiletService extends PostService implements IAddToiletService
     @Override
 	protected void handleClientProtocolException(ClientProtocolException e)
 	{
-    	delegate.addToiletFinishWithError(this, clientProtocolResponseErrorType);
+    	delegate.calificateToiletFinishWithError(this, clientProtocolResponseErrorType);
         performingRequest = false;
         delegate = null;
 	}
@@ -58,7 +61,8 @@ public class AddToiletService extends PostService implements IAddToiletService
 	@Override
 	protected String generatePostBodyObject()
 	{
-		String jsonString = new Gson().toJson(postBodyObject, Toilet.class);
+		String jsonString = "";
+		// TODO generate post body with userCalification and toiletId
 		return jsonString;
 	}
 

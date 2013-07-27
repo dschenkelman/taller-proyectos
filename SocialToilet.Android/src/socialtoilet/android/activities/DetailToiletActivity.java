@@ -4,8 +4,11 @@ import java.util.UUID;
 
 import socialtoilet.android.R;
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment;
+import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalificationDialogDataSource;
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalificationDialogDelegate;
 import socialtoilet.android.model.IToilet;
+import socialtoilet.android.services.ICalificateToiletService;
+import socialtoilet.android.services.ICalificateToiletServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
@@ -26,7 +29,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 
 public class DetailToiletActivity extends FragmentActivity
-	implements IRetrieveToiletServiceDelegate, ICalificationDialogDelegate
+	implements IRetrieveToiletServiceDelegate, ICalificationDialogDataSource, ICalificationDialogDelegate, ICalificateToiletServiceDelegate
 {
 
 	public final static String KEY_UUID_OBJECT_RETRIEVER = "kToiletStream";
@@ -48,12 +51,6 @@ public class DetailToiletActivity extends FragmentActivity
 			Log.d("Social Toilet", "ORIENTATION_PORTRAIT");
 			setContentView(R.layout.activity_detail_toilet);
 	    }
-	    
-	    /*RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingBar1);
-	    ratingBar.setMax(5);
-		ratingBar.setNumStars(5);
-	    ratingBar.setStepSize(1);*/
-	    //ratingBar.setIsIndicator(true);
 	    
 	    if(null == savedInstanceState)
 	    {
@@ -143,27 +140,51 @@ public class DetailToiletActivity extends FragmentActivity
 		
 		RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar1);
 		ratingBar.setRating(toilet.getRanking());
+
+		TextView calificationsCount = (TextView) findViewById(R.id.calificationCount);
+		calificationsCount.setText(toilet.getUserCalificationsCount() + " calificaciones");
 	}
 	
     public void onCalificationButtonTapped(View view)
     {
     	CalificationDialogFragment dialog = new CalificationDialogFragment();
     	dialog.show(getSupportFragmentManager(), "calificate");
-    	// TODO retrieve user calification
     }
 
 	@Override
 	public void onDialogCalificateClick(CalificationDialogFragment dialog)
 	{
 		int userCalification = dialog.getUserCalification();
-		Log.d("Social Toilet", userCalification + "");
+		
 		toilet.setUserCalification(userCalification);
+		
 		RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar1);
 		ratingBar.setRating(toilet.getRanking());
-
-		// TODO call rating toilet service
+		
+		TextView calificationsCount = (TextView) findViewById(R.id.calificationCount);
+		calificationsCount.setText(toilet.getUserCalificationsCount() + " calificaciones");
+		
+		ICalificateToiletService calificate = ServicesFactory.createCalificateToiletService();
+		calificate.calificateToiletService(toilet, userCalification, this);
 	}
 
 	@Override
 	public void onDialogCancelClick(CalificationDialogFragment dialog) { }
+
+	@Override
+	public float getUserCalification()
+	{
+		return toilet.getUserCalification();
+	}
+
+	@Override
+	public void calificateToiletFinish(ICalificateToiletService service) { }
+
+	@Override
+	public void calificateToiletFinishWithError(
+			ICalificateToiletService service, String errorCode)
+	{
+		// TODO go calification back
+		toilet.setUserCalification(0);
+	}
 }

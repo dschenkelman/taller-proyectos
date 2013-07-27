@@ -112,4 +112,15 @@ public class Toilet implements IToilet
 	{
 		return userCalificationsCount;
 	}
+
+	@Override
+	public void revertUserCalification()
+	{
+		if(0 != userCalification)
+		{
+			ranking = (ranking * userCalificationsCount - userCalification) / (float)(userCalificationsCount - 1);
+			userCalification = 0;
+			userCalificationsCount--;
+		}
+	}
 }

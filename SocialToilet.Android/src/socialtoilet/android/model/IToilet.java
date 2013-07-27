@@ -12,5 +12,5 @@ public interface IToilet extends IMapMarked
 	int getUserCalification();
 	int getUserCalificationsCount();
 	void setUserCalification(int calification);
-	
+	void revertUserCalification();
 }
