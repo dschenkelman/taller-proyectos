@@ -69,4 +69,10 @@ public class APIService
 		// TODO set the get url
 		return "";
 	}
+
+	public String getRetrieveToiletGaleryURL(String string)
+	{
+		// TODO set the get url
+		return null;
+	}
 }

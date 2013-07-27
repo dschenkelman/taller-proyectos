@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SocialToilet</string>
+    <string name="app_name">Social Toilet</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="findToilets">Encontrar Baños</string>
@@ -15,8 +15,8 @@
     <string name="calification_dialog_message">Califica el Toilet</string>
     <string name="calification_dialog_calificate">Calificar</string>
     <string name="calification_dialog_cancel">Cancelar</string>
-    <string name="title_activity_mapping_toilet">MappingToiletActivity</string>
-    <string name="title_activity_detail_toilet">DetailToiletActivity</string>
+    <string name="title_activity_mapping_toilet">Mapa de Toilets</string>
+    <string name="title_activity_detail_toilet">Toilet</string>
     <string name="detailToiletCheckbox1">Dejan pasar sin consumir</string>
     <string name="detailToiletCheckbox2">Tiene agua</string>
     <string name="detailToiletCheckbox3">Tiene papel</string>
@@ -26,14 +26,14 @@
     <string name="detailToiletCheckbox7">Tiene insumos femeninos a la venta</string>
     <string name="detailToiletCheckbox8">Tiene preservativos a la venta</string>
     <string name="addToiletHere">Agregar acá</string>
-    <string name="title_activity_add_toilet">AddToiletActivity</string>
+    <string name="title_activity_add_toilet">Crear Toilet</string>
     <string name="addButton">Agregar</string>
     <string name="hintDescription">Descripción</string>
     <string name="hintAddress">Dirección</string>
     <string name="addButton">Agregar</string>
-    <string name="title_activity_toilet_comments">ToiletCommentsActivity</string>
+    <string name="title_activity_toilet_comments">Comentarios del Toilet</string>
     <string name="tioletCommetns_headerTextView">Los comentarios de la gente:</string>
-    <string name="title_activity_toilet_galery">ToiletGaleryActivity</string>
+    <string name="title_activity_toilet_galery">Galeria del Toilet</string>
     <string name="tioletGalery_headerTextView">Las fotos del toilet:</string>
 
 </resources>
