@@ -41,18 +41,7 @@ public class DetailToiletActivity extends FragmentActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
-		Configuration config = getResources().getConfiguration();
-	    if (config.orientation == Configuration.ORIENTATION_LANDSCAPE)
-	    {
-			Log.d("Social Toilet", "ORIENTATION_LANDSCAPE");
-			setContentView(R.layout.activity_detail_toilet_landscape);
-	    }
-	    else if (config.orientation == Configuration.ORIENTATION_PORTRAIT)
-	    {
-			Log.d("Social Toilet", "ORIENTATION_PORTRAIT");
-			setContentView(R.layout.activity_detail_toilet);
-	    }
+		setContentView(R.layout.activity_detail_toilet);
 	    
 	    if(null == savedInstanceState)
 	    {
