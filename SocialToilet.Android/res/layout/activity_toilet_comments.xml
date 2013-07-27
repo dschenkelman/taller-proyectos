@@ -27,21 +27,16 @@
     <ScrollView
         android:id="@+id/toiletCommentsContentScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lineSeparator2"
-         >
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/ad"
+        android:layout_below="@+id/lineSeparator2" >
 
         <LinearLayout
+            android:id="@+id/toiletCommentsCommentsLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
       
-            <TableLayout
-                android:id="@+id/toiletCommentsTableLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </TableLayout>
-
         </LinearLayout>
         
     </ScrollView>

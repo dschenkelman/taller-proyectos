@@ -1,6 +1,7 @@
 package socialtoilet.android.services.factories;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -221,7 +222,119 @@ public class ServicesFactory
 						IRetrieveToiletCommentsServiceDelegate delegate)
 				{
 					Collection<IComment> comments = new ArrayList<IComment>();
-					// TODO hardcode some IComments
+					comments.add(new IComment()
+					{
+						@Override
+						public String getUser() { return "damian"; }
+						@Override
+						public String getTitle() { return ""; }
+						@Override
+						public String getMessage() { 
+							return "Cague re bien en este baño. Totalmente recomendado."; }
+						@Override
+						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
+						@Override
+						public String getDate() { return "2013/07/13"; }
+					});
+					comments.add(new IComment()
+					{
+						@Override
+						public String getUser() { return "sebas"; }
+						@Override
+						public String getTitle() { return "Es una porongaaaaa"; }
+						@Override
+						public String getMessage() { 
+							return "Cuando llegué, estaba cerrado. Me mee todo! baño de mierda!"; }
+						@Override
+						public Collection<String> getLikeUsers() { return new ArrayList<String>(
+							    Arrays.asList("damian", "gus", "matias")); }
+						@Override
+						public String getDate() { return "2013/07/18"; }
+					});
+					comments.add(new IComment()
+					{
+						@Override
+						public String getUser() { return "matias"; }
+						@Override
+						public String getTitle() { return "Patético"; }
+						@Override
+						public String getMessage() { 
+							return "Ya no estan limpiando este baño. Estan las tablas cagadas y llenas de papeles"; }
+						@Override
+						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
+						@Override
+						public String getDate() { return "2013/07/22"; }
+					});
+					comments.add(new IComment()
+					{
+						@Override
+						public String getUser() { return "damian"; }
+						@Override
+						public String getTitle() { return "R: Patético"; }
+						@Override
+						public String getMessage() { 
+							return "Que raro, cuando fui yo estaba 10 puntos."; }
+						@Override
+						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
+						@Override
+						public String getDate() { return "2013/07/22"; }
+					});
+					comments.add(new IComment()
+					{
+						@Override
+						public String getUser() { return "gus"; }
+						@Override
+						public String getTitle() { return "R: Patético"; }
+						@Override
+						public String getMessage() { 
+							return "Lo confirmo."; }
+						@Override
+						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
+						@Override
+						public String getDate() { return "2013/07/24"; }
+					});
+					comments.add(new IComment()
+					{
+						@Override
+						public String getUser() { return "ricardo"; }
+						@Override
+						public String getTitle() { return "Dueño"; }
+						@Override
+						public String getMessage() { 
+							return "Aplicación de mierda!!!! quiero que saquen mi baño de acá! desde que aparecimos toda la gente vienen a cagar en mi baño!"; }
+						@Override
+						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
+						@Override
+						public String getDate() { return "2013/07/25"; }
+					});
+					comments.add(new IComment()
+					{
+						@Override
+						public String getUser() { return "matias"; }
+						@Override
+						public String getTitle() { return "R: Dueño"; }
+						@Override
+						public String getMessage() { 
+							return "Te cabio!"; }
+						@Override
+						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
+						@Override
+						public String getDate() { return "2013/07/25"; }
+					});
+					comments.add(new IComment()
+					{
+						@Override
+						public String getUser() { return "sebas"; }
+						@Override
+						public String getTitle() { return "R: Dueño"; }
+						@Override
+						public String getMessage() { 
+							return "Abri el baño puto!!!"; }
+						@Override
+						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
+						@Override
+						public String getDate() { return "2013/07/26"; }
+					});
 					delegate.retrieveToiletCommentsFinish(this, comments);
 				}
 			};
