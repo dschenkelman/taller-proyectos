@@ -1,9 +1,10 @@
-package socialtoilet.android;
+package socialtoilet.android.activities;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import socialtoilet.android.R;
 import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.location.IGPSTrakerListener;
 import socialtoilet.android.model.IToilet;
