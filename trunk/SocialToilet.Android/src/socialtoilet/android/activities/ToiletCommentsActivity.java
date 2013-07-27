@@ -83,6 +83,7 @@ public class ToiletCommentsActivity extends Activity
 	private void populateCommentsView()
 	{
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

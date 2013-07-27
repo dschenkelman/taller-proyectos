@@ -45,6 +45,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="socialtoilet.android.activities.MainActivity"
+            android:launchMode="singleTop"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,6 +60,7 @@
 
         <activity
             android:name="socialtoilet.android.activities.MappingToiletActivity"
+            android:launchMode="singleTop"
             android:label="@string/title_activity_mapping_toilet"
             android:parentActivityName="socialtoilet.android.activities.MainActivity" >
             <meta-data
@@ -67,6 +69,7 @@
         </activity>
         <activity
             android:name="socialtoilet.android.activities.DetailToiletActivity"
+            android:launchMode="singleTop"
             android:label="@string/title_activity_detail_toilet"
             android:parentActivityName="socialtoilet.android.activities.MappingToiletActivity" >
             <meta-data

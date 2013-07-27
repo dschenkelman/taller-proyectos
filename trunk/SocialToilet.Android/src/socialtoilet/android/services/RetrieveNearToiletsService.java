@@ -45,7 +45,6 @@ public class RetrieveNearToiletsService extends GetService implements IRetrieveN
     protected void onPostExecute(String result) 
     {
         super.onPostExecute(result);
-        //Do anything with response..
         Collection<IToilet> toilets = new ArrayList<IToilet>();
         if( null != result )
         {
