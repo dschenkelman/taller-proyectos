@@ -1,5 +1,6 @@
-package socialtoilet.android;
+package socialtoilet.android.activities;
 
+import socialtoilet.android.R;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.IAddToiletService;
 import socialtoilet.android.services.IAddToiletServiceDelegate;

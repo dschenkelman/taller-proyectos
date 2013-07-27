@@ -1,8 +1,9 @@
-package socialtoilet.android;
+package socialtoilet.android.activities;
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
+import socialtoilet.android.R;
 import socialtoilet.android.location.GPSTracker;
 import android.os.Bundle;
 import android.app.Activity;

@@ -48,7 +48,8 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rateButton" />
+                        android:text="@string/rateButton"
+                        android:onClick="onCalificationButtonTapped" />
                     
                     <RatingBar
                         android:id="@+id/ratingBar1"
@@ -56,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="2.0"
+                        android:rating="0.0"
                         android:stepSize="1.0" />
                                         
                 </LinearLayout>
@@ -79,7 +80,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/detailToiletCheckbox1" 
-                        android:isIndicator="true"/>
+                        android:clickable="false"/>
 
                     <CheckBox
                         android:id="@+id/checkBox2"
@@ -87,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
                         android:text="@string/detailToiletCheckbox2"
-                        android:isIndicator="true" />
+                        android:clickable="false" />
 
                     <CheckBox
                         android:id="@+id/checkBox3"
@@ -95,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
                         android:text="@string/detailToiletCheckbox3"
-                        android:isIndicator="true" />
+                        android:clickable="false" />
 
                     <CheckBox
                         android:id="@+id/checkBox4"
@@ -103,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
                         android:text="@string/detailToiletCheckbox4"
-                        android:isIndicator="true" />
+                        android:clickable="false" />
 
                     <CheckBox
                         android:id="@+id/checkBox5"
@@ -111,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
                         android:text="@string/detailToiletCheckbox5"
-                        android:isIndicator="true" />
+                        android:clickable="false" />
 
                     <CheckBox
                         android:id="@+id/checkBox6"
@@ -119,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
                         android:text="@string/detailToiletCheckbox6"
-                        android:isIndicator="true" />
+                        android:clickable="false" />
 
                     <CheckBox
                         android:id="@+id/checkBox7"
@@ -127,14 +128,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
                         android:text="@string/detailToiletCheckbox7"
-                        android:isIndicator="true" />
+                        android:clickable="false" />
 
                     <CheckBox
                         android:id="@+id/checkBox8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/detailToiletCheckbox8"
-                        android:isIndicator="true" />
+                        android:clickable="false" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
