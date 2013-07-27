@@ -8,32 +8,34 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ToiletCommentsActivity" >
-
+    
+    <TextView
+        android:id="@+id/toiletCommentsHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/tioletCommetns_headerTextView"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <View
+        android:id="@+id/lineSeparator2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_below="@+id/toiletCommentsHeaderTextView" />
+                
     <ScrollView
         android:id="@+id/toiletCommentsContentScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ad"
-        android:layout_alignParentTop="true" >
+        android:layout_below="@+id/lineSeparator2"
+         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/toiletCommentsHeaderTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tioletCommetns_headerTextView"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <View
-	            android:id="@+id/lineSeparator2"
-	            android:layout_width="fill_parent"
-	            android:layout_height="1dp"
-	            android:background="@android:color/black" />
-                            
+      
             <TableLayout
                 android:id="@+id/toiletCommentsTableLayout"
                 android:layout_width="match_parent"

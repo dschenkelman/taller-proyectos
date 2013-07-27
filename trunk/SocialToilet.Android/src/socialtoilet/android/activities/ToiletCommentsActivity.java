@@ -1,5 +1,6 @@
 package socialtoilet.android.activities;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -21,6 +22,8 @@ public class ToiletCommentsActivity extends Activity
 	implements IRetrieveToiletCommentsServiceDelegate
 {
 
+	private Collection<IComment> comments;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -31,6 +34,8 @@ public class ToiletCommentsActivity extends Activity
 		Intent intent = getIntent();
 		String toiletId = intent.getStringExtra(DetailToiletActivity.EXTRA_TOILET_ID);
 		UUID id = UUID.fromString(toiletId);
+
+		comments = new ArrayList<IComment>();
 		
 		IRetrieveToiletCommentsService service = ServicesFactory.createRetrieveToiletCommentsService();
 		service.retrieveToiletComments(id, this);
@@ -75,12 +80,18 @@ public class ToiletCommentsActivity extends Activity
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void populateCommentsView()
+	{
+		// TODO Auto-generated method stub
+	}
+
 	@Override
 	public void retrieveToiletCommentsFinish(
 			IRetrieveToiletCommentsService service, Collection<IComment> comments)
 	{
-		// TODO Auto-generated method stub
-		
+		this.comments.clear();
+		/*this.comments.addAll(comments);
+		populateCommentsView();*/
 	}
 
 	@Override
