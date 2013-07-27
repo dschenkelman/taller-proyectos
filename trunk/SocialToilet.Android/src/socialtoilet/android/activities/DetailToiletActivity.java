@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import socialtoilet.android.R;
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment;
+import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalificationDialogDelegate;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
@@ -24,7 +25,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 
-public class DetailToiletActivity extends FragmentActivity implements IRetrieveToiletServiceDelegate {
+public class DetailToiletActivity extends FragmentActivity
+	implements IRetrieveToiletServiceDelegate, ICalificationDialogDelegate
+{
 
 	public final static String KEY_UUID_OBJECT_RETRIEVER = "kToiletStream";
 	private IToilet toilet;
@@ -146,5 +149,21 @@ public class DetailToiletActivity extends FragmentActivity implements IRetrieveT
     {
     	CalificationDialogFragment dialog = new CalificationDialogFragment();
     	dialog.show(getSupportFragmentManager(), "calificate");
+    	// TODO retrieve user calification
     }
+
+	@Override
+	public void onDialogCalificateClick(CalificationDialogFragment dialog)
+	{
+		int userCalification = dialog.getUserCalification();
+		Log.d("Social Toilet", userCalification + "");
+		toilet.setUserCalification(userCalification);
+		RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar1);
+		ratingBar.setRating(toilet.getRanking());
+
+		// TODO call rating toilet service
+	}
+
+	@Override
+	public void onDialogCancelClick(CalificationDialogFragment dialog) { }
 }

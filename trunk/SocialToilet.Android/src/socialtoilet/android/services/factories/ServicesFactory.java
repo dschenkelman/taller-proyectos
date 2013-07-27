@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+import android.util.Log;
+
 import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.Toilet;
@@ -61,13 +63,19 @@ public class ServicesFactory
 							@Override
 							public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.002; }
 							@Override
-							public int getRanking() { return 1; }
+							public float getRanking() { return 2.5f; }
 							@Override
 							public UUID getID() { return UUID.randomUUID(); }
 							@Override
 							public String getDescription() { return "Es un buen baño"; }
 							@Override
 							public String getAddress() { return "Av. Yrigoyen 1565, El Talar"; }
+							@Override
+							public int getUserCalification() { return 0; }
+							@Override
+							public int getUserCalificationsCount() { return 25; }
+							@Override
+							public void setUserCalification(int calification) { }
 						});
 					toilets.add(new IToilet()
 						{
@@ -80,13 +88,19 @@ public class ServicesFactory
 							@Override
 							public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.005; }
 							@Override
-							public int getRanking() { return 2; }
+							public float getRanking() { return 2.5f; }
 							@Override
 							public UUID getID() { return UUID.randomUUID(); }
 							@Override
 							public String getDescription() { return "Esta re cuidado"; }
 							@Override
 							public String getAddress() { return "Av. Yrigoyen 1355, El Talar"; }
+							@Override
+							public int getUserCalification() { return 2; }
+							@Override
+							public int getUserCalificationsCount() { return 31; }
+							@Override
+							public void setUserCalification(int calification) { }
 						});
 					
 					delegate.retrieveNearToiletsFinish(this, toilets);
@@ -109,6 +123,10 @@ public class ServicesFactory
 					final UUID id = toiletId;
 					detailToiletActivity.retrieveToiletFinish(this, new IToilet()
 					{
+						private int userCalification = 0;
+						private float ranking = 1.5f;
+						private int userCalificationsCount = 2;
+						
 						@Override
 						public String getMapTitle() { return "La Roma"; }
 						@Override
@@ -118,13 +136,34 @@ public class ServicesFactory
 						@Override
 						public double getLatitude() { return -58.645337; }
 						@Override
-						public int getRanking() { return 1; }
+						public float getRanking() { return ranking; }
 						@Override
 						public UUID getID() { return id; }
 						@Override
 						public String getDescription() { return "Es un buen baño"; }
 						@Override
 						public String getAddress() { return "Av. Yrigoyen 1565, El Talar"; }
+						@Override
+						public int getUserCalification() { return userCalification; }
+						@Override
+						public int getUserCalificationsCount() { return userCalificationsCount; }
+						@Override
+						public void setUserCalification(int calification)
+						{
+							Log.d("Social Toilet", "Ranking viejo: " + ranking);
+							if(0 == userCalification)
+							{
+								ranking = (ranking * userCalificationsCount + calification) / (userCalificationsCount + 1);
+								userCalificationsCount++;
+							}
+							else
+							{
+								ranking = (ranking * userCalificationsCount - userCalification) / (float)(userCalificationsCount - 1);
+								ranking = (ranking * (userCalificationsCount - 1) + calification) / (float)userCalificationsCount;
+							}
+							userCalification = calification;
+							Log.d("Social Toilet", "Ranking Nuevo: " + ranking);
+						}
 					});
 				}
 			};
