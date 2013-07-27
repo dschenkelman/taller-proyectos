@@ -53,12 +53,21 @@
                     android:layout_height="wrap_content" >
 
                     <Button
-                        android:id="@+id/button1"
+                        android:id="@+id/calificateButton"
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/rateButton"
                         android:onClick="onCalificationButtonTapped" />
+                    
+                    <Button
+                        android:id="@+id/changeCalificationButton"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/changeCalificationButton"
+                        android:onClick="onCalificationButtonTapped"
+                        android:visibility="gone" />
                     
                     <RatingBar
                         android:id="@+id/ratingBar1"
@@ -153,6 +162,25 @@
                         android:text="@string/detailToiletCheckbox8"
                         android:clickable="false" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@+id/commentsButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detailToilet_commentsButton" />
+
+                    <Button
+                        android:id="@+id/galeryButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detailToilet_galeryButton" />
+
+                </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
 

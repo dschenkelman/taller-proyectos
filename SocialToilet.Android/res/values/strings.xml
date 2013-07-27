@@ -9,7 +9,10 @@
     <string name="testDeviceId">TEST_EMULATOR, DD10FCE3B3D13921B8B0CA1FC9706EC7</string>
     
     <string name="rateButton">Calificar</string>
+    <string name="changeCalificationButton">Cambiar</string>
     <string name="detailToilet_calificationCount">Obteniendo calificaciones</string>
+    <string name="detailToilet_galeryButton">Galería</string>
+    <string name="detailToilet_commentsButton">Comentarios</string>
     
     <string name="calification_dialog_message">Califica el Toilet</string>
     <string name="calification_dialog_calificate">Calificar</string>

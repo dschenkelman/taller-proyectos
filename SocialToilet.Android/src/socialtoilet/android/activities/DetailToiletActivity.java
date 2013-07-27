@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.support.v4.app.FragmentActivity;
@@ -131,20 +132,32 @@ public class DetailToiletActivity extends FragmentActivity
 	@Override
 	public void retrieveToiletFinishWithError(IRetrieveToiletService mockRetrieveToiletsService, String errorCode) {}
 	
-	private void populateData(){
+	private void populateData()
+	{
 		TextView title = (TextView) findViewById(R.id.toiletDescription);
 		title.setText(toilet.getDescription());
 
 		TextView address = (TextView) findViewById(R.id.toiletAddress);
 		address.setText(toilet.getAddress());
-		
+
+		populateRanking();
+	}
+
+	private void populateRanking()
+	{
 		RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar1);
 		ratingBar.setRating(toilet.getRanking());
-
 		TextView calificationsCount = (TextView) findViewById(R.id.calificationCount);
 		calificationsCount.setText(toilet.getUserCalificationsCount() + " calificaciones");
+
+		int calificateButtonVisibility = 0 == toilet.getUserCalification() ? Button.VISIBLE : Button.GONE;
+		int changeCalificationButtonVisibility = 0 == toilet.getUserCalification() ? Button.GONE : Button.VISIBLE;
+		Button calificateButton = (Button) findViewById(R.id.calificateButton);
+		calificateButton.setVisibility(calificateButtonVisibility);
+		Button changeCalificationButton = (Button) findViewById(R.id.changeCalificationButton);
+		changeCalificationButton.setVisibility(changeCalificationButtonVisibility);
 	}
-	
+
     public void onCalificationButtonTapped(View view)
     {
     	CalificationDialogFragment dialog = new CalificationDialogFragment();
@@ -155,15 +168,8 @@ public class DetailToiletActivity extends FragmentActivity
 	public void onDialogCalificateClick(CalificationDialogFragment dialog)
 	{
 		int userCalification = dialog.getUserCalification();
-		
 		toilet.setUserCalification(userCalification);
-		
-		RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar1);
-		ratingBar.setRating(toilet.getRanking());
-		
-		TextView calificationsCount = (TextView) findViewById(R.id.calificationCount);
-		calificationsCount.setText(toilet.getUserCalificationsCount() + " calificaciones");
-		
+		populateRanking();
 		ICalificateToiletService calificate = ServicesFactory.createCalificateToiletService();
 		calificate.calificateToiletService(toilet, userCalification, this);
 	}
@@ -184,7 +190,7 @@ public class DetailToiletActivity extends FragmentActivity
 	public void calificateToiletFinishWithError(
 			ICalificateToiletService service, String errorCode)
 	{
-		// TODO go calification back
-		toilet.setUserCalification(0);
+		toilet.revertUserCalification();
+		populateRanking();
 	}
 }
