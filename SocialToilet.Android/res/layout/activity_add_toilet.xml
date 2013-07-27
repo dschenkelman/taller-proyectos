@@ -1,23 +1,26 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-    android:id="@+id/LinearLayout1"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top"
-    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddToiletActivity" >
 
-    <requestFocus />
+    <requestFocus/>
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="374dp" >
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/ad"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -50,10 +53,6 @@
                 android:layout_below="@+id/editAddress"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp" />
-            <!--
-            For rating bar icon modification 
-    		android:progressDrawable="@drawable/ratingbar_red"
-            -->
 
             <Button
                 android:id="@+id/buttonAcceptEdit"
@@ -134,10 +133,12 @@
         android:id="@+id/ad"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scrollView1"
+        android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
         ads:adUnitId="@string/admob_id"
         googleads:loadAdOnCreate="true"
         googleads:testDevices="@string/testDeviceId" >
     </com.google.ads.AdView>
 
-</LinearLayout>
+</RelativeLayout>
