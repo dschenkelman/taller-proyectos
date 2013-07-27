@@ -10,6 +10,7 @@ import android.util.Log;
 import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.model.IComment;
 import socialtoilet.android.model.IToilet;
+import socialtoilet.android.model.IToiletPicture;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.AddToiletService;
 import socialtoilet.android.services.CalificateToiletService;
@@ -21,10 +22,13 @@ import socialtoilet.android.services.IRetrieveNearToiletsService;
 import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletCommentsService;
 import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
+import socialtoilet.android.services.IRetrieveToiletGaleryService;
+import socialtoilet.android.services.IRetrieveToiletGaleryServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
 import socialtoilet.android.services.RetrieveNearToiletsService;
 import socialtoilet.android.services.RetrieveToiletCommentsService;
+import socialtoilet.android.services.RetrieveToiletGaleryService;
 import socialtoilet.android.services.RetrieveToiletService;
 import socialtoilet.android.utils.Settings;
 
@@ -340,5 +344,25 @@ public class ServicesFactory
 			};
 		}
 		return new RetrieveToiletCommentsService();
+	}
+
+	public static IRetrieveToiletGaleryService createRetrieveToiletGaleryService()
+	{
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			return new IRetrieveToiletGaleryService()
+			{
+
+				@Override
+				public void retrieveToiletGalery(UUID toiletId,
+						IRetrieveToiletGaleryServiceDelegate delegate)
+				{
+					Collection<IToiletPicture> pictures = new ArrayList<IToiletPicture>();
+					// TODO mock some pictures
+					delegate.retrieveToiletGaleryServiceFinish(this, pictures);
+				}
+			};
+		}
+		return new RetrieveToiletGaleryService();
 	}
 }
