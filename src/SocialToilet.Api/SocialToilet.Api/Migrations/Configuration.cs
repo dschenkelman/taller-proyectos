@@ -1,35 +1,47 @@
-﻿namespace SocialToilet.Api.Database
+namespace SocialToilet.Api.Migrations
 {
-    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
     using System.Data.Entity.Spatial;
 
+    using SocialToilet.Api.Database;
     using SocialToilet.Api.Models;
 
-    public class SocialToiletInitializer : DropCreateDatabaseAlways<SocialToiletContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<SocialToiletContext>
     {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
+        }
+
         protected override void Seed(SocialToiletContext context)
         {
+            if (context.Users.Find("dschenkelman") != null)
+            {
+                return;
+            }
+
             // close to Rivadavia Park
             var formosa = new Toilet
-                {
-                    Address = "Formosa 252",
-                    Description = "Zona residencial centrica",
-                    Location = DbGeography.FromText("POINT(-58.43185901641846 -34.617934476251946)")
-                };
+            {
+                Address = "Formosa 252",
+                Description = "Zona residencial centrica",
+                Location = DbGeography.FromText("POINT(-58.43185901641846 -34.617934476251946)")
+            };
 
             var viel = new Toilet
-                           {
-                               Address = "Viel 350",
-                               Description = "Parrilla La silla electrica",
-                               Location = DbGeography.FromText("POINT(-58.43277096748352 -34.61893219106914)")
-                           };
+            {
+                Address = "Viel 350",
+                Description = "Parrilla La silla electrica",
+                Location = DbGeography.FromText("POINT(-58.43277096748352 -34.61893219106914)")
+            };
 
             var fiuba = new Toilet
-                            {
-                                Address = "Paseo Colon 850",
-                                Description = "De la facultad. No recomendado.",
-                                Location = DbGeography.FromText("POINT(-58.3673894405365 -34.618128722554786)")
-                            };
+            {
+                Address = "Paseo Colon 850",
+                Description = "De la facultad. No recomendado.",
+                Location = DbGeography.FromText("POINT(-58.3673894405365 -34.618128722554786)")
+            };
 
             context.Toilets.Add(formosa);
             context.Toilets.Add(viel);

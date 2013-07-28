@@ -153,7 +153,6 @@
     <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\ToiletsController.cs" />
     <Compile Include="Database\SocialToiletContext.cs" />
-    <Compile Include="Database\SocialToiletInitializer.cs" />
     <Compile Include="Handlers\RequireHttpsMessageHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -161,6 +160,11 @@
     <Compile Include="Helpers\ToiletExtensions.cs" />
     <Compile Include="HttpModules\BasicAuthHttpModule.cs" />
     <Compile Include="HttpModules\SocialToiletBasicAuthHttpModule.cs" />
+    <Compile Include="Migrations\201307280224163_InitialCreate.cs" />
+    <Compile Include="Migrations\201307280224163_InitialCreate.Designer.cs">
+      <DependentUpon>201307280224163_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\Rating.cs" />
@@ -186,6 +190,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201307280224163_InitialCreate.resx">
+      <DependentUpon>201307280224163_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -216,6 +225,9 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(SolutionDir)lib\*" "$(WebProjectOutputDir)\$(OutputPath)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,6 +1,8 @@
 ﻿namespace SocialToilet.Api.Filters
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Threading;
@@ -12,7 +14,14 @@
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            if (request.RequestUri.Scheme != Uri.UriSchemeHttps)
+            IEnumerable<string> protos;
+            request.Headers.TryGetValues("X-Forwarded-Proto", out protos);
+
+            bool wasHttps = protos != null && protos.Any(p => p.Equals("https", StringComparison.InvariantCultureIgnoreCase));
+
+            bool isHttps = request.RequestUri.Scheme == Uri.UriSchemeHttps;
+
+            if (!wasHttps && !isHttps)
             {
                 var forbiddenResponse = request.CreateResponse(HttpStatusCode.Forbidden);
 
