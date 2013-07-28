@@ -9,12 +9,15 @@ import socialtoilet.android.model.IComment;
 import socialtoilet.android.services.IRetrieveToiletCommentsService;
 import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
+import socialtoilet.android.utils.Settings;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
@@ -72,13 +75,6 @@ public class ToiletCommentsActivity extends Activity
 		switch (item.getItemId())
 		{
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
@@ -93,30 +89,56 @@ public class ToiletCommentsActivity extends Activity
 	    TextView commentMessage;
 	    TextView user;
 	    TextView commentDate;
+	    Button eraseComment;
 		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.toiletCommentsCommentsLinearLayout);
 		linearLayout.removeAllViews();
 		
-		int textColor = Color.argb(255, 255, 255, 255);
-		
-		for(IComment comment : comments)
+		for(final IComment comment : comments)
 		{
 			commentView = inflater.inflate(R.layout.toilet_comment_row, null);
 	        commentTitle = (TextView) commentView.findViewById(R.id.comment_title);
 	        commentMessage = (TextView) commentView.findViewById(R.id.comment_message);
 	        user = (TextView) commentView.findViewById(R.id.comment_user);
 	        commentDate = (TextView) commentView.findViewById(R.id.comment_date);
-	        commentTitle.setText(comment.getTitle());
+	        eraseComment = (Button) commentView.findViewById(R.id.comment_erase);
+	        if(0 != comment.getTitle().length())
+	        {
+	        	commentTitle.setText(comment.getTitle());
+	        }
+	        else
+	        {
+	        	commentTitle.setVisibility(TextView.GONE);
+	        }
 	        commentMessage.setText(comment.getMessage());
-	        user.setText(comment.getUser());
+	        user.setText(comment.getUser() + " - ");
 	        commentDate.setText(comment.getDate());
 	        
-	        commentTitle.setTextColor(textColor);
-	        commentMessage.setTextColor(textColor);
-	        user.setTextColor(textColor);
-	        commentDate.setTextColor(textColor);
-	        
+	        if(false == comment.getUser().equals(Settings.getInstance().getUser()))
+	        {
+	        	eraseComment.setVisibility(Button.GONE);
+	        }
+	        else
+	        {
+	        	final View commentViewToRemove = commentView;
+	        	eraseComment.setOnClickListener(new OnClickListener()
+	        	{
+					@Override
+					public void onClick(View v)
+					{
+						removeComment(comment, commentViewToRemove);
+					}
+				});
+	        }
 	        linearLayout.addView(commentView);
 		}
+	}
+
+	protected void removeComment(IComment comment, View commentViewToRemove)
+	{
+		comments.remove(comment);
+		commentViewToRemove.setVisibility(View.GONE);
+		// TODO call service to remove comment 
+		// and make visible view again if service does not respond
 	}
 
 	@Override

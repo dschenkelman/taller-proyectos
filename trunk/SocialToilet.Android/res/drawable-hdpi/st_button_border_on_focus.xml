@@ -3,10 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" >
     
-    <gradient
-        android:startColor="@color/social_toilet_button_on_focus"
-        android:endColor="@color/social_toilet_button_on_focus"
-        android:angle="45"/>
+	<solid android:color="@color/social_toilet_button_on_focus"/>
   	<corners android:radius="3dp" />
   	<stroke android:width="2px" android:color="#FFFFFF" />
     <padding android:left="7dp"

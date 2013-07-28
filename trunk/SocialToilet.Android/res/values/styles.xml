@@ -20,8 +20,13 @@
     <style name="SocialToiletButton" parent="">
         <item name="android:textColor">@color/generalFont</item>
         <item name="android:background">@drawable/st_button_border</item>
-        <!-- <item name="android:layout_margin">5dp</item> -->
         
     </style>
+    
+	<style name="socialToiletEraseCommentButton" parent="">
+        <item name="android:textColor">@color/generalFont</item>
+        <item name="android:background">@drawable/st_button_erase_comment_border</item>
+    </style>
+    
     
 </resources>
