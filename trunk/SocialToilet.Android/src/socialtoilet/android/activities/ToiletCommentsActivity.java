@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.UUID;
 
 import socialtoilet.android.R;
+import socialtoilet.android.activities.dialogs.AddCommentDialogFragment;
+import socialtoilet.android.activities.dialogs.AddCommentDialogFragment.IAddCommentDialogDataSource;
+import socialtoilet.android.activities.dialogs.AddCommentDialogFragment.IAddCommentDialogDelegate;
+import socialtoilet.android.activities.dialogs.CalificationDialogFragment;
 import socialtoilet.android.model.IComment;
 import socialtoilet.android.services.IRetrieveToiletCommentsService;
 import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
@@ -20,14 +24,16 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 
-public class ToiletCommentsActivity extends Activity 
-	implements IRetrieveToiletCommentsServiceDelegate
+public class ToiletCommentsActivity extends FragmentActivity 
+	implements IRetrieveToiletCommentsServiceDelegate,
+		IAddCommentDialogDelegate, IAddCommentDialogDataSource
 {
 
 	private Collection<IComment> comments;
@@ -140,6 +146,12 @@ public class ToiletCommentsActivity extends Activity
 		// TODO call service to remove comment 
 		// and make visible view again if service does not respond
 	}
+	
+	public void onAddCommentButtonTapped(View commentButton)
+	{
+    	AddCommentDialogFragment dialog = new AddCommentDialogFragment();
+    	dialog.show(getSupportFragmentManager(), "addComment");
+	}
 
 	@Override
 	public void retrieveToiletCommentsFinish(
@@ -154,6 +166,24 @@ public class ToiletCommentsActivity extends Activity
 	public void retrieveToiletCommentsFinishWithError(
 			IRetrieveToiletCommentsService service, String errorCode)
 	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public UUID getToiletId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void onDialogCommentClick(AddCommentDialogFragment dialog) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDialogCancelClick(AddCommentDialogFragment dialog) {
 		// TODO Auto-generated method stub
 		
 	}

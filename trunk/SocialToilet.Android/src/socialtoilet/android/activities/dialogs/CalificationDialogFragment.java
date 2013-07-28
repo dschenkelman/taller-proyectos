@@ -67,6 +67,20 @@ public class CalificationDialogFragment extends DialogFragment
 
         return alertDialog;
     }
+
+	public int getUserCalification()
+	{
+		RatingBar rating = (RatingBar)dialogView.findViewById(R.id.calification_dialog_ratingBar);
+		return (int)rating.getRating();
+	}
+
+	@Override
+	public void onRatingChanged(RatingBar ratingBar, float arg1, boolean arg2)
+	{
+    	Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+    	positiveButton.setEnabled(0 != (int) ratingBar.getRating());
+	}
+    
     
     @Override
     public void onAttach(Activity activity)
@@ -92,19 +106,6 @@ public class CalificationDialogFragment extends DialogFragment
         }
     }
 
-	public int getUserCalification()
-	{
-		RatingBar rating = (RatingBar)dialogView.findViewById(R.id.calification_dialog_ratingBar);
-		return (int)rating.getRating();
-	}
-
-	@Override
-	public void onRatingChanged(RatingBar ratingBar, float arg1, boolean arg2)
-	{
-    	Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-    	positiveButton.setEnabled(0 != (int) ratingBar.getRating());
-	}
-    
     public interface ICalificationDialogDelegate
     {
         void onDialogCalificateClick(CalificationDialogFragment dialog);

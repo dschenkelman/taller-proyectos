@@ -14,8 +14,11 @@
     <string name="detailToilet_galeryButton">Fotos</string>
     <string name="detailToilet_commentsButton">Comentarios</string>
     <string name="calification_dialog_message">Califica el Toilet</string>
+    <string name="comment_dialog_message">Comenta el Toilet</string>
     <string name="calification_dialog_calificate">Calificar</string>
+    <string name="comment_dialog_comment">Comentar</string>
     <string name="calification_dialog_cancel">Cancelar</string>
+    <string name="comment_dialog_cancel">Cancelar</string>
     <string name="title_activity_mapping_toilet">Mapa de Toilets</string>
     <string name="title_activity_detail_toilet">Toilet</string>
     <string name="detailToiletCheckbox1">Dejan pasar sin consumir</string>
@@ -33,8 +36,9 @@
     <string name="hintAddress">Dirección</string>
     <string name="addButton">Agregar</string>
     <string name="title_activity_toilet_comments">Comentarios del Toilet</string>
-    <string name="tioletCommetns_headerTextView">Los comentarios de la gente:</string>
-    <string name="title_activity_toilet_galery">Galeria del Toilet</string>
+    <string name="tioletCommetns_headerTextView">Lee los comentarios de los usuarios y agrega los tuyos:</string>
+    <string name="toilet_comments_add_comment_button">Comentar</string>
+    <string name="title_activity_toilet_galery">Fotos del Toilet</string>
     <string name="tioletGalery_headerTextView">Las fotos del toilet:</string>
 
 </resources>
