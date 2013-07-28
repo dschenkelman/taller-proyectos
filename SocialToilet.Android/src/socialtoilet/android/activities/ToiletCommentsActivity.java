@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 
 public class ToiletCommentsActivity extends Activity 
@@ -93,6 +94,10 @@ public class ToiletCommentsActivity extends Activity
 	    TextView user;
 	    TextView commentDate;
 		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.toiletCommentsCommentsLinearLayout);
+		linearLayout.removeAllViews();
+		
+		int textColor = Color.argb(255, 255, 255, 255);
+		
 		for(IComment comment : comments)
 		{
 			commentView = inflater.inflate(R.layout.toilet_comment_row, null);
@@ -104,6 +109,12 @@ public class ToiletCommentsActivity extends Activity
 	        commentMessage.setText(comment.getMessage());
 	        user.setText(comment.getUser());
 	        commentDate.setText(comment.getDate());
+	        
+	        commentTitle.setTextColor(textColor);
+	        commentMessage.setTextColor(textColor);
+	        user.setTextColor(textColor);
+	        commentDate.setTextColor(textColor);
+	        
 	        linearLayout.addView(commentView);
 		}
 	}

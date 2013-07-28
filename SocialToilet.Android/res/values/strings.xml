@@ -10,7 +10,7 @@
     <string name="rateButton">Calificar</string>
     <string name="changeCalificationButton">Cambiar</string>
     <string name="detailToilet_calificationCount">Obteniendo calificaciones</string>
-    <string name="detailToilet_galeryButton">Galería</string>
+    <string name="detailToilet_galeryButton">Fotos</string>
     <string name="detailToilet_commentsButton">Comentarios</string>
     <string name="calification_dialog_message">Califica el Toilet</string>
     <string name="calification_dialog_calificate">Calificar</string>

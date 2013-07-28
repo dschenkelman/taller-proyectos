@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/generalBackground"
     tools:context=".DetailToiletActivity" >
 
     <requestFocus />
@@ -30,6 +31,7 @@
                 android:id="@+id/toiletDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/generalFont"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
 
@@ -38,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
+                android:textColor="@color/generalFont"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="italic" />
 
@@ -45,7 +48,7 @@
                 android:id="@+id/lineSeparator2"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/black" />
+                android:background="@android:color/white" />
             
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -57,6 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rateButton"
+                    android:textColor="@color/generalFont"
                     android:onClick="onCalificationButtonTapped" />
                 
                 <Button
@@ -65,6 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/changeCalificationButton"
+                    android:textColor="@color/generalFont"
                     android:onClick="onCalificationButtonTapped"
                     android:visibility="gone" />
                 
@@ -83,6 +88,7 @@
                 android:id="@+id/calificationCount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/generalFont"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/detailToilet_calificationCount" />
 
@@ -90,7 +96,7 @@
                 android:id="@+id/lineSeparator1"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/black" />
+                android:background="@android:color/white" />
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
@@ -103,6 +109,7 @@
                     android:id="@+id/checkBox1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToiletCheckbox1" 
                     android:clickable="false"/>
 
@@ -111,6 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.22"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToiletCheckbox2"
                     android:clickable="false" />
 
@@ -119,6 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.22"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToiletCheckbox3"
                     android:clickable="false" />
 
@@ -127,6 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.22"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToiletCheckbox4"
                     android:clickable="false" />
 
@@ -135,6 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.22"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToiletCheckbox5"
                     android:clickable="false" />
 
@@ -143,6 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.22"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToiletCheckbox6"
                     android:clickable="false" />
 
@@ -151,6 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.22"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToiletCheckbox7"
                     android:clickable="false" />
 
@@ -158,29 +171,36 @@
                     android:id="@+id/checkBox8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToiletCheckbox8"
                     android:clickable="false" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
                 <Button
                     android:id="@+id/commentsButton"
+   					android:layout_alignParentLeft="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToilet_commentsButton"
                     android:onClick="onCommentsButtonTapped" />
 
                 <Button
                     android:id="@+id/galeryButton"
+    				android:layout_alignParentRight="true"
+    				android:layout_alignTop="@+id/commentsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/generalFont"
                     android:text="@string/detailToilet_galeryButton"
                     android:onClick="onGaleryButtonTapped" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
         

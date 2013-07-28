@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
@@ -42,7 +42,7 @@
 	        android:id="@+id/lineSeparator2"
 	        android:layout_width="fill_parent"
 	        android:layout_height="1dp"
-	        android:background="@android:color/black" />
+	        android:background="@android:color/white" />
 
     </LinearLayout>
 
