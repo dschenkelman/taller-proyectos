@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v4.app.FragmentActivity;
@@ -96,7 +97,7 @@ public class ToiletCommentsActivity extends FragmentActivity
 	    TextView commentMessage;
 	    TextView user;
 	    TextView commentDate;
-	    Button eraseComment;
+	    ImageButton eraseComment;
 		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.toiletCommentsCommentsLinearLayout);
 		linearLayout.removeAllViews();
 		
@@ -107,7 +108,7 @@ public class ToiletCommentsActivity extends FragmentActivity
 	        commentMessage = (TextView) commentView.findViewById(R.id.comment_message);
 	        user = (TextView) commentView.findViewById(R.id.comment_user);
 	        commentDate = (TextView) commentView.findViewById(R.id.comment_date);
-	        eraseComment = (Button) commentView.findViewById(R.id.comment_erase);
+	        eraseComment = (ImageButton) commentView.findViewById(R.id.comment_erase);
 	        if(0 != comment.getTitle().length())
 	        {
 	        	commentTitle.setText(comment.getTitle());

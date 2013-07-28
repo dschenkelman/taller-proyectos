@@ -27,13 +27,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-		<Button
+		<ImageButton
 		    android:id="@+id/comment_erase"
-		    style="@style/socialToiletEraseCommentButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:padding="1dp"
-		    android:text="x" />
+		    android:layout_marginTop="6dp"
+		    android:background="@color/generalBackground"
+		    android:src="@drawable/close_button" />
                 
         <TextView
             android:id="@+id/comment_user"
