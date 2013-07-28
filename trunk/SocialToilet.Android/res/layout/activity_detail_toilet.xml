@@ -57,6 +57,7 @@
                 <Button
                     android:id="@+id/calificateButton"
         			style="@style/SocialToiletButton"
+                    android:layout_margin="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rateButton"
@@ -64,11 +65,11 @@
                 
                 <Button
                     android:id="@+id/changeCalificationButton"
-                    style="?android:attr/buttonStyleSmall"
+        			style="@style/SocialToiletButton"
+                    android:layout_margin="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/changeCalificationButton"
-                    android:textColor="@color/generalFont"
                     android:onClick="onCalificationButtonTapped"
                     android:visibility="gone" />
                 
@@ -187,7 +188,8 @@
                     android:layout_height="wrap_content"
         			style="@style/SocialToiletButton"
                     android:text="@string/detailToilet_commentsButton"
-                    android:onClick="onCommentsButtonTapped" />
+                    android:onClick="onCommentsButtonTapped"
+                    android:layout_margin="5dp" />
 
                 <Button
                     android:id="@+id/galeryButton"
@@ -196,7 +198,8 @@
                     android:layout_height="wrap_content"
         			style="@style/SocialToiletButton"
                     android:text="@string/detailToilet_galeryButton"
-                    android:onClick="onGaleryButtonTapped" />
+                    android:onClick="onGaleryButtonTapped"
+                    android:layout_margin="5dp" />
 
             </LinearLayout>
 
