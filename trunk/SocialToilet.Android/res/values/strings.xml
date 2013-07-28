@@ -34,6 +34,8 @@
     <string name="addButton">Agregar</string>
     <string name="hintDescription">Descripción</string>
     <string name="hintAddress">Dirección</string>
+    <string name="hintTitle">Título</string>
+    <string name="hintComment">Comentar</string>
     <string name="addButton">Agregar</string>
     <string name="title_activity_toilet_comments">Comentarios del Toilet</string>
     <string name="tioletCommetns_headerTextView">Lee los comentarios de los usuarios y agrega los tuyos:</string>

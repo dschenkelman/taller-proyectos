@@ -1,5 +1,7 @@
 package socialtoilet.android.activities;
 
+import java.util.UUID;
+
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
@@ -46,4 +48,13 @@ public class MainActivity extends Activity
     	Intent intent = new Intent(this, AddToiletActivity.class);
     	startActivity(intent);
     }
+    
+    // TODO borrar ese metodo
+    public void onJumpMapTapped(View view)
+    {
+    	Intent intent = new Intent(this, DetailToiletActivity.class);
+		intent.putExtra(MappingToiletActivity.EXTRA_TOILET_ID, UUID.randomUUID().toString());
+    	startActivity(intent);
+    }
+    
 }
