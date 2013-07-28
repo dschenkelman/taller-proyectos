@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
     
-
-</ListView>
+	<TextView
+        android:id="@+id/commentOf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:text="COMENTARIO DE" />
+	
+	<TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:text="myusuario" />
+	
+    <View
+		android:id="@+id/lineSeparator"
+		android:layout_width="fill_parent"
+		android:layout_height="1dp"
+		android:background="@android:color/holo_blue_light"
+	 	android:layout_margin="5dp"/>
+    
+	<EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hintTitle"
+        android:inputType="text" />
+	
+	<EditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hintComment"
+        android:inputType="text" />
+    
+</LinearLayout>
