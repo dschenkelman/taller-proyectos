@@ -9,6 +9,7 @@ import socialtoilet.android.activities.dialogs.AddCommentDialogFragment;
 import socialtoilet.android.activities.dialogs.AddCommentDialogFragment.IAddCommentDialogDataSource;
 import socialtoilet.android.activities.dialogs.AddCommentDialogFragment.IAddCommentDialogDelegate;
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment;
+import socialtoilet.android.model.Comment;
 import socialtoilet.android.model.IComment;
 import socialtoilet.android.services.IRetrieveToiletCommentsService;
 import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
@@ -177,15 +178,17 @@ public class ToiletCommentsActivity extends FragmentActivity
 	}
 
 	@Override
-	public void onDialogCommentClick(AddCommentDialogFragment dialog) {
-		// TODO Auto-generated method stub
-		
+	public void onDialogCommentClick(AddCommentDialogFragment dialog)
+	{
+		Comment newComment = new Comment();
+		newComment.setUser(Settings.getInstance().getUser());
+		newComment.setTitle(dialog.getTitle());
+		newComment.setMessage(dialog.getMessage());
+		newComment.setEpoch(1);
+		// TODO call a service to send comment
 	}
 
 	@Override
-	public void onDialogCancelClick(AddCommentDialogFragment dialog) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onDialogCancelClick(AddCommentDialogFragment dialog) { }
 
 }

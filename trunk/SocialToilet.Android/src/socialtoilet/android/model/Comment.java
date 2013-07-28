@@ -4,6 +4,7 @@ package socialtoilet.android.model;
 import android.annotation.SuppressLint;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.TimeZone;
@@ -17,6 +18,11 @@ public class Comment implements IComment
 	private long epoch;
 	private Collection<String> likeUsers;
 
+	public Comment()
+	{
+		likeUsers = new ArrayList<String>();
+	}
+	
 	@Override
 	public String getTitle()
 	{
@@ -53,6 +59,26 @@ public class Comment implements IComment
 	public Collection<String> getLikeUsers()
 	{
 		return likeUsers;
+	}
+
+	public void setUser(String user)
+	{
+		this.user = user;
+	}
+
+	public void setEpoch(int epoch)
+	{
+		this.epoch = epoch;
+	}
+
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
+
+	public void setMessage(String message)
+	{
+		this.message = message;
 	}
 
 }

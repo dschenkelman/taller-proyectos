@@ -28,7 +28,8 @@ public class AddCommentDialogFragment extends DialogFragment
         LayoutInflater inflater = getActivity().getLayoutInflater();
         dialogView = inflater.inflate(R.layout.dialog_comment, null);
 
-        builder.setView(dialogView)
+        builder.setMessage(R.string.comment_dialog_message)
+        		.setView(dialogView)
         		.setPositiveButton(R.string.comment_dialog_comment, new DialogInterface.OnClickListener()
         		{
         			public void onClick(DialogInterface dialog, int id)
@@ -88,4 +89,16 @@ public class AddCommentDialogFragment extends DialogFragment
     {
         UUID getToiletId();
     }
+
+	public String getTitle()
+	{
+		// TODO Auto-generated method stub
+		return "";
+	}
+
+	public String getMessage()
+	{
+		// TODO Auto-generated method stub
+		return "";
+	}
 }
