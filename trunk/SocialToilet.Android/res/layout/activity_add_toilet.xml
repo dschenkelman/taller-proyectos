@@ -64,7 +64,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/linearLayout1"
                 android:layout_marginTop="17dp"
-                android:textColor="@color/generalFont"
+        		style="@style/SocialToiletButton"
                 android:text="@string/addButton" />
 
             <LinearLayout

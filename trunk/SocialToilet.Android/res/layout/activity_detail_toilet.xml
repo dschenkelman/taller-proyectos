@@ -56,11 +56,10 @@
 
                 <Button
                     android:id="@+id/calificateButton"
-                    style="?android:attr/buttonStyleSmall"
+        			style="@style/SocialToiletButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rateButton"
-                    android:textColor="@color/generalFont"
                     android:onClick="onCalificationButtonTapped" />
                 
                 <Button
@@ -186,7 +185,7 @@
                     android:layout_weight="1.0"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/generalFont"
+        			style="@style/SocialToiletButton"
                     android:text="@string/detailToilet_commentsButton"
                     android:onClick="onCommentsButtonTapped" />
 
@@ -195,7 +194,7 @@
                     android:layout_weight="1.0"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/generalFont"
+        			style="@style/SocialToiletButton"
                     android:text="@string/detailToilet_galeryButton"
                     android:onClick="onGaleryButtonTapped" />
 
