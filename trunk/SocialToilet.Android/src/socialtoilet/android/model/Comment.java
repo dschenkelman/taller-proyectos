@@ -1,11 +1,11 @@
 package socialtoilet.android.model;
 
 
+import android.annotation.SuppressLint;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.TimeZone;
 
 public class Comment implements IComment
@@ -35,6 +35,7 @@ public class Comment implements IComment
 		return user;
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	@Override
 	public String getDate()
 	{    

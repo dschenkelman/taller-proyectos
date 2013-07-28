@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">Social Toilet</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_exit">Cerrar sesión</string>
     <string name="hello_world">Hello world!</string>
     <string name="findToilets">Encontrar Baños</string>
     <string name="admob_id">a151f08d228786e</string>
