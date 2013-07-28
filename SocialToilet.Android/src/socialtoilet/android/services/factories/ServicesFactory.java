@@ -238,7 +238,7 @@ public class ServicesFactory
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
-						public String getDate() { return "2013/07/13"; }
+						public String getDate() { return "15:56hs 2013/07/13"; }
 					});
 					comments.add(new IComment()
 					{
@@ -253,12 +253,12 @@ public class ServicesFactory
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(
 							    Arrays.asList("damian", "gus", "matias")); }
 						@Override
-						public String getDate() { return "2013/07/18"; }
+						public String getDate() { return "11:11hs 2013/07/18"; }
 					});
 					comments.add(new IComment()
 					{
 						@Override
-						public String getUser() { return "matias"; }
+						public String getUser() { return "mservetto"; }
 						@Override
 						public String getTitle() { return "Patético"; }
 						@Override
@@ -267,7 +267,7 @@ public class ServicesFactory
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
-						public String getDate() { return "2013/07/22"; }
+						public String getDate() { return "25:25hs 2013/07/22"; }
 					});
 					comments.add(new IComment()
 					{
@@ -281,7 +281,7 @@ public class ServicesFactory
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
-						public String getDate() { return "2013/07/22"; }
+						public String getDate() { return "15:25hs 2013/07/22"; }
 					});
 					comments.add(new IComment()
 					{
@@ -295,7 +295,7 @@ public class ServicesFactory
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
-						public String getDate() { return "2013/07/24"; }
+						public String getDate() { return "5:05hs 2013/07/24"; }
 					});
 					comments.add(new IComment()
 					{
@@ -309,12 +309,12 @@ public class ServicesFactory
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
-						public String getDate() { return "2013/07/25"; }
+						public String getDate() { return "88:99hs 2013/07/25"; }
 					});
 					comments.add(new IComment()
 					{
 						@Override
-						public String getUser() { return "matias"; }
+						public String getUser() { return "mservetto"; }
 						@Override
 						public String getTitle() { return "R: Dueño"; }
 						@Override
@@ -323,7 +323,7 @@ public class ServicesFactory
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
-						public String getDate() { return "2013/07/25"; }
+						public String getDate() { return "24:00hs 2013/07/25"; }
 					});
 					comments.add(new IComment()
 					{
@@ -337,7 +337,7 @@ public class ServicesFactory
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
-						public String getDate() { return "2013/07/26"; }
+						public String getDate() { return "15:99hs 2013/07/26"; }
 					});
 					delegate.retrieveToiletCommentsFinish(this, comments);
 				}
