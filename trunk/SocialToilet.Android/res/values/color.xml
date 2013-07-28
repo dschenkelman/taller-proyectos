@@ -4,4 +4,9 @@
     <color name="generalBackground">#111111</color>
     <color name="generalFont">#FFFFFF</color>
     
+    
+    <color name="social_toilet_button_default">#111111</color>
+    <color name="social_toilet_button_pressed">#333333</color>
+    <color name="social_toilet_button_on_focus">#111111</color>
+    
 </resources>
