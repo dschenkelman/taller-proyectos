@@ -35,7 +35,7 @@
                 android:layout_centerHorizontal="true"
                 android:ems="10"
                 android:hint="@string/hintDescription"
-                android:textColor="@color/generalFont"
+                style="@style/SocialToiletEditText"
                 android:inputType="textPersonName" />
 
             <EditText
@@ -47,7 +47,7 @@
                 android:layout_marginTop="17dp"
                 android:ems="10"
                 android:hint="@string/hintAddress"
-                android:textColor="@color/generalFont"
+                style="@style/SocialToiletEditText"
                 android:inputType="textPostalAddress" />
 
             <RatingBar
@@ -56,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editAddress"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp"
+                style="@style/SocialToiletRatingBar" />
 
             <Button
                 android:id="@+id/buttonAcceptEdit"

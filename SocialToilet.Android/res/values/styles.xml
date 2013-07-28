@@ -23,10 +23,19 @@
         
     </style>
     
+    <style name="SocialToiletEditText" parent="">
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    
+    <style name="SocialToiletRatingBar" parent="">
+        <item name="android:progressDrawable">@drawable/st_rating_bar</item>
+        <item name="android:numStars">5</item>
+    </style>
+    
 	<style name="socialToiletEraseCommentButton" parent="">
         <item name="android:textColor">@color/generalFont</item>
         <item name="android:background">@drawable/st_button_erase_comment_border</item>
     </style>
-    
     
 </resources>
