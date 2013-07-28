@@ -31,9 +31,8 @@
 		    android:id="@+id/comment_erase"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_marginTop="6dp"
 		    android:background="@color/generalBackground"
-		    android:src="@drawable/close_button" />
+		    android:src="@drawable/delete_button" />
                 
         <TextView
             android:id="@+id/comment_user"
@@ -51,12 +50,13 @@
 			android:text="15:45 08/08/2013" />
 
     </LinearLayout>
-    
+
     <View
-     android:id="@+id/lineSeparator2"
-     android:layout_width="fill_parent"
-     android:layout_height="1dp"
-     android:background="@android:color/white"
-	android:layout_marginBottom="5dp" />
+        android:id="@+id/lineSeparator2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/white" />
 
 </LinearLayout>
