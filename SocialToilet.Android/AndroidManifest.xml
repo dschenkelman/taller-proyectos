@@ -108,6 +108,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="socialtoilet.android.activities.DetailToiletActivity" />
         </activity>
+        <activity
+            android:name="socialtoilet.android.activities.StartSessionActivity"
+            android:label="@string/title_activity_start_session"
+            android:parentActivityName="socialtoilet.android.activities.MainActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="socialtoilet.android.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
