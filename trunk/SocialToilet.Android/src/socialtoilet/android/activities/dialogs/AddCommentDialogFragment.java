@@ -8,8 +8,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class AddCommentDialogFragment extends DialogFragment
@@ -49,10 +52,38 @@ public class AddCommentDialogFragment extends DialogFragment
              	    }
         		});
         alertDialog = builder.create();
+    	
+        TextWatcher textWatcher = new TextWatcher()
+        {
+			@Override
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
+			{
+				onTextCange();
+			}
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
+			@Override
+			public void afterTextChanged(Editable arg0) { }
+		};
 
+		EditText title = (EditText) dialogView.findViewById(R.id.title);
+		EditText comment = (EditText) dialogView.findViewById(R.id.comment);
+		title.addTextChangedListener(textWatcher);
+		comment.addTextChangedListener(textWatcher);
         return alertDialog;
     }
 	
+	protected void onTextCange()
+	{
+		EditText title = (EditText) dialogView.findViewById(R.id.title);
+		EditText comment = (EditText) dialogView.findViewById(R.id.comment);
+    	Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+    	
+		boolean commentButtonEnable = 0 != title.getText().toString().length() ||
+				0 != comment.getText().toString().length();
+    	positiveButton.setEnabled(commentButtonEnable);
+	}
+
 	@Override
     public void onAttach(Activity activity)
     {

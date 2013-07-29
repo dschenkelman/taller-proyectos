@@ -189,7 +189,7 @@ public class ToiletCommentsActivity extends FragmentActivity
 		newComment.setUser(Settings.getInstance().getUser());
 		newComment.setTitle(dialog.getTitle());
 		newComment.setMessage(dialog.getMessage());
-		newComment.setEpoch(1);
+		newComment.stampTime();
 		
 		IAddToiletCommentService service = ServicesFactory.createAddToiletCommentService();
 		service.addToiletComment(this, newComment);

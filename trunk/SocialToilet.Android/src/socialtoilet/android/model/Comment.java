@@ -46,7 +46,7 @@ public class Comment implements IComment
 	public String getDate()
 	{    
 		DateFormat objFormatter = new SimpleDateFormat("hh:mm'hs' dd/MM/yyyy");
-	    objFormatter.setTimeZone(TimeZone.getDefault());
+	    objFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 	    Calendar objCalendar = Calendar.getInstance(TimeZone.getDefault());
 	    objCalendar.setTimeInMillis(epoch);
@@ -66,9 +66,11 @@ public class Comment implements IComment
 		this.user = user;
 	}
 
-	public void setEpoch(int epoch)
+	public void stampTime()
 	{
-		this.epoch = epoch;
+	    Calendar objCalendar = Calendar.getInstance(TimeZone.getDefault());
+	    long timeStamp = objCalendar.getTimeInMillis()/1000;
+		this.epoch = timeStamp;
 	}
 
 	public void setTitle(String title)

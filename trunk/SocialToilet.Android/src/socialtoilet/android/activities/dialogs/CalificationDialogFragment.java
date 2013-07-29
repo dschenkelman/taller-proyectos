@@ -59,7 +59,7 @@ public class CalificationDialogFragment extends DialogFragment
              	    {
         				if(null != delegate)
         				{
-        					delegate.onDialogCalificateClick(CalificationDialogFragment.this);
+        					delegate.onDialogCancelClick(CalificationDialogFragment.this);
         				}
              	    }
         		});
