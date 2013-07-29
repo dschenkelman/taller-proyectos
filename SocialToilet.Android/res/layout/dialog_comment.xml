@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <requestFocus />
-    
     <View
 		android:id="@+id/lineSeparator"
 		android:layout_width="fill_parent"
@@ -19,7 +17,10 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hintTitle"
-        android:inputType="text" />
+        android:inputType="text" >
+        
+    	<requestFocus />
+	</EditText>
 	
     <EditText
         android:id="@+id/comment"

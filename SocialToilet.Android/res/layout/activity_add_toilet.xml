@@ -12,8 +12,6 @@
     android:background="@color/generalBackground"
     tools:context=".AddToiletActivity" >
 
-    <requestFocus/>
-
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
