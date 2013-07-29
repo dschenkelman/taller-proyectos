@@ -32,7 +32,8 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:background="@color/generalBackground"
-		    android:src="@drawable/delete_button" />
+		    android:src="@drawable/delete_button"
+		    android:layout_margin="1dp" />
                 
         <TextView
             android:id="@+id/comment_user"
@@ -47,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
         	android:textColor="@color/generalFont"
-			android:text="15:45 08/08/2013" />
+			android:text="15:45hs 08/08/2013" />
 
     </LinearLayout>
 
