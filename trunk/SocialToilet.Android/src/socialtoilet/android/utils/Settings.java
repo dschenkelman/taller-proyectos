@@ -5,6 +5,7 @@ public class Settings
 
 	private static Settings instance;
 	
+	private boolean sessionOn;
 	private String user;
 	private String password;
 	private int initialRadiusInMeters;
@@ -12,8 +13,9 @@ public class Settings
 	
 	private Settings()
 	{
-		user = "mservetto";
-		password = "password";
+		sessionOn = false;
+		user = "";
+		password = "";
 		initialRadiusInMeters = 10000;
 		servicesDebugMode = true;
 	}
@@ -25,6 +27,11 @@ public class Settings
 			instance = new Settings();
 		}
 		return instance;
+	}
+	
+	public boolean isSessionOn()
+	{
+		return sessionOn;
 	}
 	
 	public String getUser()
@@ -45,5 +52,13 @@ public class Settings
 	public boolean isServicesDebugMode()
 	{
 		return servicesDebugMode;
+	}
+	
+	public void retrieveUser()
+	{
+		// TODO encontrar una manera para guardar el usuario y contraseña y recuperarlo
+		sessionOn = true;
+		user = "mservetto";
+		password = "password";
 	}
 }
