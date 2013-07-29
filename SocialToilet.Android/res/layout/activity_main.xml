@@ -37,13 +37,17 @@
         android:onClick="onJumpMapTapped"
         android:text="Saltar mapa" />
 
-    <ImageView
-        android:id="@+id/imageView1"
+    <Button
+        android:id="@+id/button1"
+        style="@style/SocialToiletButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/logo3" />
+        android:layout_marginTop="32dp"
+        android:drawableLeft="@drawable/map"
+        android:onClick="findNearToiletsTapped"
+        android:text="@string/findToilets" />
 
     <Button
         android:id="@+id/button2"
@@ -52,21 +56,20 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
         android:layout_alignRight="@+id/button1"
-        android:layout_centerVertical="true"
-        android:drawableLeft="@drawable/icon"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="21dp"
+        android:drawableLeft="@drawable/bath"
         android:onClick="addToiletHereTapped"
         android:text="@string/addToiletNow" />
 
-    <Button
-        android:id="@+id/button1"
-        style="@style/SocialToiletButton"
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:drawableLeft="@drawable/map"
-        android:onClick="findNearToiletsTapped"
-        android:text="@string/findToilets" />
+        android:layout_marginTop="21dp"
+        android:contentDescription="@string/addToiletHere"
+        android:src="@drawable/logo3" />
 
 </RelativeLayout>
