@@ -45,7 +45,7 @@ public class Comment implements IComment
 	@Override
 	public String getDate()
 	{    
-		DateFormat objFormatter = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat objFormatter = new SimpleDateFormat("hh:mm'hs' dd/MM/yyyy");
 	    objFormatter.setTimeZone(TimeZone.getDefault());
 
 	    Calendar objCalendar = Calendar.getInstance(TimeZone.getDefault());

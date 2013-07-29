@@ -8,12 +8,16 @@ import java.util.UUID;
 import android.util.Log;
 
 import socialtoilet.android.location.GPSTracker;
+import socialtoilet.android.model.Comment;
 import socialtoilet.android.model.IComment;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletPicture;
 import socialtoilet.android.model.Toilet;
+import socialtoilet.android.services.AddToiletCommentService;
 import socialtoilet.android.services.AddToiletService;
 import socialtoilet.android.services.CalificateToiletService;
+import socialtoilet.android.services.IAddToiletCommentService;
+import socialtoilet.android.services.IAddToiletCommentServiceDelegate;
 import socialtoilet.android.services.IAddToiletService;
 import socialtoilet.android.services.IAddToiletServiceDelegate;
 import socialtoilet.android.services.ICalificateToiletService;
@@ -364,5 +368,23 @@ public class ServicesFactory
 			};
 		}
 		return new RetrieveToiletGaleryService();
+	}
+
+	public static IAddToiletCommentService createAddToiletCommentService()
+	{
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			return new IAddToiletCommentService()
+			{
+				@Override
+				public void addToiletComment(
+						IAddToiletCommentServiceDelegate delegate,
+						Comment comment)
+				{
+					delegate.addToiletCommentFinish(this, comment);
+				}
+			};
+		}
+		return new AddToiletCommentService();
 	}
 }

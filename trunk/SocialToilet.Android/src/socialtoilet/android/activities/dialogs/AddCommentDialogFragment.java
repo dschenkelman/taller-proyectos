@@ -1,7 +1,5 @@
 package socialtoilet.android.activities.dialogs;
 
-import java.util.UUID;
-
 import socialtoilet.android.R;
 
 import android.app.Activity;
@@ -12,12 +10,12 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 
 public class AddCommentDialogFragment extends DialogFragment
 {
     
     private IAddCommentDialogDelegate delegate;
-	private IAddCommentDialogDataSource datasource;
 	private View dialogView;
 	private AlertDialog alertDialog;
 
@@ -68,15 +66,6 @@ public class AddCommentDialogFragment extends DialogFragment
             throw new ClassCastException(activity.toString()
                     + " must implement IAddCommentDialogDelegate");
         }
-        try
-        {
-        	datasource = (IAddCommentDialogDataSource)activity;
-        }
-        catch (ClassCastException e)
-        {
-            throw new ClassCastException(activity.toString()
-                    + " must implement IAddCommentDialogDataSource");
-        }
     }
 	
     public interface IAddCommentDialogDelegate
@@ -85,20 +74,15 @@ public class AddCommentDialogFragment extends DialogFragment
         void onDialogCancelClick(AddCommentDialogFragment dialog);
     }
     
-    public interface IAddCommentDialogDataSource
-    {
-        UUID getToiletId();
-    }
-
 	public String getTitle()
 	{
-		// TODO Auto-generated method stub
-		return "";
+		EditText title = (EditText) dialogView.findViewById(R.id.title);
+		return title.getText().toString();
 	}
 
 	public String getMessage()
 	{
-		// TODO Auto-generated method stub
-		return "";
+		EditText comment = (EditText) dialogView.findViewById(R.id.comment);
+		return comment.getText().toString();
 	}
 }

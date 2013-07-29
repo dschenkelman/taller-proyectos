@@ -6,17 +6,16 @@ import java.util.UUID;
 
 import socialtoilet.android.R;
 import socialtoilet.android.activities.dialogs.AddCommentDialogFragment;
-import socialtoilet.android.activities.dialogs.AddCommentDialogFragment.IAddCommentDialogDataSource;
 import socialtoilet.android.activities.dialogs.AddCommentDialogFragment.IAddCommentDialogDelegate;
-import socialtoilet.android.activities.dialogs.CalificationDialogFragment;
 import socialtoilet.android.model.Comment;
 import socialtoilet.android.model.IComment;
+import socialtoilet.android.services.IAddToiletCommentService;
+import socialtoilet.android.services.IAddToiletCommentServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletCommentsService;
 import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.utils.Settings;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,12 +29,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 
 public class ToiletCommentsActivity extends FragmentActivity 
 	implements IRetrieveToiletCommentsServiceDelegate,
-		IAddCommentDialogDelegate, IAddCommentDialogDataSource
+		IAddCommentDialogDelegate, IAddToiletCommentServiceDelegate
 {
 
 	private Collection<IComment> comments;
@@ -91,6 +89,22 @@ public class ToiletCommentsActivity extends FragmentActivity
 
 	private void populateCommentsView()
 	{
+		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.toiletCommentsCommentsLinearLayout);
+		linearLayout.removeAllViews();
+		for(IComment comment : comments)
+		{
+			addCommentToView(comment);
+		}
+	}
+
+	private void appendComment(IComment comment)
+	{
+		comments.add(comment);
+		addCommentToView(comment);
+	}
+
+	private void addCommentToView(final IComment comment)
+	{
 	    LayoutInflater inflater = getLayoutInflater();
 	    View commentView;
 	    TextView commentTitle;
@@ -99,46 +113,42 @@ public class ToiletCommentsActivity extends FragmentActivity
 	    TextView commentDate;
 	    ImageButton eraseComment;
 		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.toiletCommentsCommentsLinearLayout);
-		linearLayout.removeAllViews();
 		
-		for(final IComment comment : comments)
-		{
-			commentView = inflater.inflate(R.layout.toilet_comment_row, null);
-	        commentTitle = (TextView) commentView.findViewById(R.id.comment_title);
-	        commentMessage = (TextView) commentView.findViewById(R.id.comment_message);
-	        user = (TextView) commentView.findViewById(R.id.comment_user);
-	        commentDate = (TextView) commentView.findViewById(R.id.comment_date);
-	        eraseComment = (ImageButton) commentView.findViewById(R.id.comment_erase);
-	        if(0 != comment.getTitle().length())
-	        {
-	        	commentTitle.setText(comment.getTitle());
-	        }
-	        else
-	        {
-	        	commentTitle.setVisibility(TextView.GONE);
-	        }
-	        commentMessage.setText(comment.getMessage());
-	        user.setText(comment.getUser() + " - ");
-	        commentDate.setText(comment.getDate());
-	        
-	        if(false == comment.getUser().equals(Settings.getInstance().getUser()))
-	        {
-	        	eraseComment.setVisibility(Button.GONE);
-	        }
-	        else
-	        {
-	        	final View commentViewToRemove = commentView;
-	        	eraseComment.setOnClickListener(new OnClickListener()
-	        	{
-					@Override
-					public void onClick(View v)
-					{
-						removeComment(comment, commentViewToRemove);
-					}
-				});
-	        }
-	        linearLayout.addView(commentView);
-		}
+		commentView = inflater.inflate(R.layout.toilet_comment_row, null);
+        commentTitle = (TextView) commentView.findViewById(R.id.comment_title);
+        commentMessage = (TextView) commentView.findViewById(R.id.comment_message);
+        user = (TextView) commentView.findViewById(R.id.comment_user);
+        commentDate = (TextView) commentView.findViewById(R.id.comment_date);
+        eraseComment = (ImageButton) commentView.findViewById(R.id.comment_erase);
+        if(0 != comment.getTitle().length())
+        {
+        	commentTitle.setText(comment.getTitle());
+        }
+        else
+        {
+        	commentTitle.setVisibility(TextView.GONE);
+        }
+        commentMessage.setText(comment.getMessage());
+        user.setText(comment.getUser() + " - ");
+        commentDate.setText(comment.getDate());
+        
+        if(false == comment.getUser().equals(Settings.getInstance().getUser()))
+        {
+        	eraseComment.setVisibility(Button.GONE);
+        }
+        else
+        {
+        	final View commentViewToRemove = commentView;
+        	eraseComment.setOnClickListener(new OnClickListener()
+        	{
+				@Override
+				public void onClick(View v)
+				{
+					removeComment(comment, commentViewToRemove);
+				}
+			});
+        }
+        linearLayout.addView(commentView);
 	}
 
 	protected void removeComment(IComment comment, View commentViewToRemove)
@@ -173,12 +183,6 @@ public class ToiletCommentsActivity extends FragmentActivity
 	}
 
 	@Override
-	public UUID getToiletId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void onDialogCommentClick(AddCommentDialogFragment dialog)
 	{
 		Comment newComment = new Comment();
@@ -186,10 +190,23 @@ public class ToiletCommentsActivity extends FragmentActivity
 		newComment.setTitle(dialog.getTitle());
 		newComment.setMessage(dialog.getMessage());
 		newComment.setEpoch(1);
-		// TODO call a service to send comment
+		
+		IAddToiletCommentService service = ServicesFactory.createAddToiletCommentService();
+		service.addToiletComment(this, newComment);
 	}
 
 	@Override
 	public void onDialogCancelClick(AddCommentDialogFragment dialog) { }
+
+	@Override
+	public void addToiletCommentFinish(IAddToiletCommentService service,
+			Comment addedComment)
+	{
+		appendComment(addedComment);
+	}
+
+	@Override
+	public void addToiletCommentFinishWithError(
+			IAddToiletCommentService service, String errorCode) { }
 
 }
