@@ -55,7 +55,8 @@
                 android:layout_below="@+id/editAddress"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                style="@style/SocialToiletRatingBar" />
+                style="@style/SocialToiletRatingBar"
+                android:stepSize="1.0" />
 
             <Button
                 android:id="@+id/buttonAcceptEdit"

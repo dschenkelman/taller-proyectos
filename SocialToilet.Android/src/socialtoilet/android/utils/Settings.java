@@ -57,8 +57,16 @@ public class Settings
 	public void retrieveUser()
 	{
 		// TODO encontrar una manera para guardar el usuario y contraseña y recuperarlo
-		sessionOn = true;
+		sessionOn = false;
 		user = "mservetto";
 		password = "password";
+	}
+
+	public void setUserAndPassword(String mEmail, String mPassword)
+	{
+		// TODO Auto-generated method stub
+		sessionOn = true;
+		user = mEmail;
+		password = mPassword;
 	}
 }
