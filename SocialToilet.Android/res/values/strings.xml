@@ -42,5 +42,6 @@
     <string name="toilet_comments_add_comment_button">Comentar</string>
     <string name="title_activity_toilet_galery">Fotos del Toilet</string>
     <string name="tioletGalery_headerTextView">Las fotos del toilet:</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
 
 </resources>
