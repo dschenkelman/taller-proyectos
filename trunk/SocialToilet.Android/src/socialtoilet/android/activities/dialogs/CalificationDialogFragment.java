@@ -64,10 +64,17 @@ public class CalificationDialogFragment extends DialogFragment
              	    }
         		});
         alertDialog = builder.create();
-
         return alertDialog;
     }
-
+    
+    @Override
+    public void onResume()
+    {
+    	Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+    	positiveButton.setEnabled(false);
+    	super.onResume();
+    }
+    
 	public int getUserCalification()
 	{
 		RatingBar rating = (RatingBar)dialogView.findViewById(R.id.calification_dialog_ratingBar);
