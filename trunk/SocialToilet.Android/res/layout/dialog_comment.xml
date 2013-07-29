@@ -19,12 +19,13 @@
         android:hint="@string/hintTitle"
         android:inputType="text" />
 	
-	<EditText
+    <EditText
         android:id="@+id/comment"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hintComment"
-        android:inputType="text" />
+        android:inputType="textMultiLine"
+        android:maxLines="5" />
     
 </LinearLayout>
