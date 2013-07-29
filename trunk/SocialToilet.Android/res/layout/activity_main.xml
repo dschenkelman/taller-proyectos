@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/generalBackground"
+    android:contentDescription="@string/addToiletNow"
     android:paddingBottom="@dimen/activity_vertical_bottom_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -26,38 +27,44 @@
     </com.google.ads.AdView>
 
     <Button
+        android:id="@+id/button3"
+        style="@style/SocialToiletButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ad"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="41dp"
+        android:onClick="onJumpMapTapped"
+        android:text="Saltar mapa" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo3" />
+
+    <Button
         android:id="@+id/button2"
         style="@style/SocialToiletButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
         android:layout_alignRight="@+id/button1"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="40dp"
+        android:layout_centerVertical="true"
         android:drawableLeft="@drawable/icon"
         android:onClick="addToiletHereTapped"
         android:text="@string/addToiletNow" />
-
-    <Button
-        android:id="@+id/button3"
-        style="@style/SocialToiletButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ad"
-        android:layout_below="@+id/button2"
-        android:layout_marginLeft="82dp"
-        android:layout_marginTop="52dp"
-        android:onClick="onJumpMapTapped"
-        android:text="Saltar mapa" />
 
     <Button
         android:id="@+id/button1"
         style="@style/SocialToiletButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="14dp"
         android:drawableLeft="@drawable/map"
         android:onClick="findNearToiletsTapped"
         android:text="@string/findToilets" />
