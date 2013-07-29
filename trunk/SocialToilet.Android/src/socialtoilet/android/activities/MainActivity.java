@@ -7,7 +7,6 @@ import com.google.ads.AdView;
 
 import socialtoilet.android.R;
 import socialtoilet.android.location.GPSTracker;
-import socialtoilet.android.utils.Settings;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -22,9 +21,7 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	
-		Settings.getInstance().retrieveUser();
-		
+
 		GPSTracker.initialize(getApplicationContext());
 		
 	    AdView adView = (AdView)this.findViewById(R.id.ad);
@@ -38,17 +35,6 @@ public class MainActivity extends Activity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
-	}
-	
-	@Override
-	public void onResume()
-	{
-	    if(false == Settings.getInstance().isSessionOn())
-	    {
-	    	Intent intent = new Intent(this, StartSessionActivity.class);
-	    	startActivity(intent);
-	    }
-		super.onResume();
 	}
 
     public void findNearToiletsTapped(View view)

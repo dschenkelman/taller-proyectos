@@ -1,26 +1,21 @@
 package socialtoilet.android.activities;
 
 import socialtoilet.android.R;
-import socialtoilet.android.R.id;
-import socialtoilet.android.R.layout;
-import socialtoilet.android.R.menu;
-import socialtoilet.android.R.string;
+import socialtoilet.android.utils.Settings;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -45,11 +40,11 @@ public class StartSessionActivity extends Activity {
 	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
-	private String mEmail;
+	private String mUser;
 	private String mPassword;
 
 	// UI references.
-	private EditText mEmailView;
+	private EditText mUserView;
 	private EditText mPasswordView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
@@ -60,12 +55,11 @@ public class StartSessionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_start_session);
-		setupActionBar();
 
 		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-		mEmailView = (EditText) findViewById(R.id.email);
-		mEmailView.setText(mEmail);
+		mUser = getIntent().getStringExtra(EXTRA_EMAIL);
+		mUserView = (EditText) findViewById(R.id.user);
+		mUserView.setText(mUser);
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
@@ -95,43 +89,6 @@ public class StartSessionActivity extends Activity {
 	}
 
 	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			// Show the Up button in the action bar.
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			// TODO: If Settings has multiple levels, Up should navigate up
-			// that hierarchy.
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.start_session, menu);
-		return true;
-	}
-
-	/**
 	 * Attempts to sign in or register the account specified by the login form.
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
@@ -142,11 +99,11 @@ public class StartSessionActivity extends Activity {
 		}
 
 		// Reset errors.
-		mEmailView.setError(null);
+		mUserView.setError(null);
 		mPasswordView.setError(null);
 
 		// Store values at the time of the login attempt.
-		mEmail = mEmailView.getText().toString();
+		mUser = mUserView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 
 		boolean cancel = false;
@@ -164,13 +121,9 @@ public class StartSessionActivity extends Activity {
 		}
 
 		// Check for a valid email address.
-		if (TextUtils.isEmpty(mEmail)) {
-			mEmailView.setError(getString(R.string.error_field_required));
-			focusView = mEmailView;
-			cancel = true;
-		} else if (!mEmail.contains("@")) {
-			mEmailView.setError(getString(R.string.error_invalid_email));
-			focusView = mEmailView;
+		if (TextUtils.isEmpty(mUser)) {
+			mUserView.setError(getString(R.string.error_field_required));
+			focusView = mUserView;
 			cancel = true;
 		}
 
@@ -181,10 +134,15 @@ public class StartSessionActivity extends Activity {
 		} else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
+			// TODO login mocked
+			Settings.getInstance().setUserAndPassword(mUser, mPassword);
+	    	Intent intent = new Intent(this, MainActivity.class);
+	    	startActivity(intent);
+	    	/*
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);
+			mAuthTask.execute((Void) null);*/
 		}
 	}
 
@@ -247,7 +205,7 @@ public class StartSessionActivity extends Activity {
 
 			for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
+				if (pieces[0].equals(mUser)) {
 					// Account exists, return true if the password matches.
 					return pieces[1].equals(mPassword);
 				}
