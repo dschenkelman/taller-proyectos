@@ -29,6 +29,8 @@
     <string name="detailToiletCheckbox6">Las puertas de las cabinas cierran</string>
     <string name="detailToiletCheckbox7">Tiene insumos femeninos a la venta</string>
     <string name="detailToiletCheckbox8">Tiene preservativos a la venta</string>
+    <string name="detailToiletCheckbox9">Apto para discapacitados</string>
+    <string name="detailToiletCheckbox10">Posee cambiador de bebés</string>
     <string name="addToiletHere">Agregar acá</string>
     <string name="title_activity_add_toilet">Crear Toilet</string>
     <string name="addButton">Agregar</string>
@@ -43,5 +45,4 @@
     <string name="title_activity_toilet_galery">Fotos del Toilet</string>
     <string name="tioletGalery_headerTextView">Las fotos del toilet:</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
-
 </resources>
