@@ -20,6 +20,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.support.v4.app.FragmentActivity;
@@ -41,6 +43,7 @@ public class DetailToiletActivity extends FragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail_toilet);
+		this.disableClickableCheckboxs();
 	    
 	    if(null == savedInstanceState)
 	    {
@@ -66,6 +69,16 @@ public class DetailToiletActivity extends FragmentActivity
 	    }
 	}
 
+	
+	private void disableClickableCheckboxs(){
+		LinearLayout myLayout = (LinearLayout) findViewById(R.id.checkboxLayout);
+		LinearLayout view = (LinearLayout) myLayout.getChildAt(0);
+		for ( int i = 0; i < view.getChildCount();  i++ ){
+		    View checkbox = view.getChildAt(i);
+		    checkbox.setClickable(false);
+		}
+	}
+	
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
 	 */

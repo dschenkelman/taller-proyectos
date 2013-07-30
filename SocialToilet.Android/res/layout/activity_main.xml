@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/generalBackground"
-    android:contentDescription="@string/addToiletNow"
+    android:contentDescription="@string/addToiletHere"
     android:paddingBottom="@dimen/activity_vertical_bottom_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -42,7 +42,6 @@
         style="@style/SocialToiletButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
         android:drawableLeft="@drawable/map"
@@ -60,16 +59,6 @@
         android:layout_marginTop="21dp"
         android:drawableLeft="@drawable/bath"
         android:onClick="addToiletHereTapped"
-        android:text="@string/addToiletNow" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:contentDescription="@string/addToiletHere"
-        android:src="@drawable/logo3" />
+        android:text="@string/addToiletHere" />
 
 </RelativeLayout>
