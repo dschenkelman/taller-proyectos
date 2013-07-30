@@ -83,6 +83,9 @@ public class ToiletCommentsActivity extends FragmentActivity
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.add_comment_button:
+			onAddCommentButtonTapped();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -159,7 +162,7 @@ public class ToiletCommentsActivity extends FragmentActivity
 		// and make visible view again if service does not respond
 	}
 	
-	public void onAddCommentButtonTapped(View commentButton)
+	public void onAddCommentButtonTapped()
 	{
     	AddCommentDialogFragment dialog = new AddCommentDialogFragment();
     	dialog.show(getSupportFragmentManager(), "addComment");
