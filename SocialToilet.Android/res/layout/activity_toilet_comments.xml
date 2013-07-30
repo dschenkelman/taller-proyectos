@@ -10,28 +10,11 @@
     android:background="@color/generalBackground"
     tools:context=".ToiletCommentsActivity" >
     
-    <TextView
-        android:id="@+id/toiletCommentsHeaderTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:textColor="@color/generalFont"
-        android:text="@string/tioletCommetns_headerTextView"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <View
-        android:id="@+id/lineSeparator2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/white"
-        android:layout_below="@+id/toiletCommentsHeaderTextView" />
-                
     <ScrollView
         android:id="@+id/toiletCommentsContentScrollView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/ad"
-        android:layout_below="@+id/lineSeparator2" >
+        android:layout_above="@+id/ad" >
 
         <LinearLayout
             android:id="@+id/scrollLinearLayout"
