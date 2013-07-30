@@ -1,5 +1,9 @@
 package socialtoilet.android.activities;
 
+import java.util.UUID;
+
+import com.google.ads.AdView;
+
 import socialtoilet.android.R;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.IAddToiletService;
@@ -10,9 +14,15 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class AddToiletActivity extends Activity implements IAddToiletServiceDelegate
@@ -98,4 +108,18 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 	{
 		Toast.makeText(getApplicationContext(), "Error adding toilet", Toast.LENGTH_SHORT).show();
 	}
+	
+    public void onCleanData(View view)
+    {
+    	((EditText)this.findViewById(R.id.editDescription)).setText("");
+    	((EditText)this.findViewById(R.id.editAddress)).setText("");
+    	((RatingBar)this.findViewById(R.id.toiletRatingBar)).setRating(0);
+    	
+    	RelativeLayout myLayout = (RelativeLayout) findViewById(R.id.checkboxLayout);
+		LinearLayout checkboxLayout = (LinearLayout) myLayout.getChildAt(0);
+		for ( int i = 0; i < checkboxLayout.getChildCount();  i++ ){
+			CheckBox checkbox = (CheckBox)checkboxLayout.getChildAt(i);
+		    checkbox.setChecked(false);
+		}
+    }
 }
