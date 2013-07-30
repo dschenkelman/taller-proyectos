@@ -97,83 +97,12 @@
                 android:background="@android:color/white" />
 
             <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:orientation="vertical" >
-
-                <CheckBox
-                    android:id="@+id/checkBox1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/generalFont"
-                    android:text="@string/detailToiletCheckbox1" 
-                    android:clickable="false"/>
-
-                <CheckBox
-                    android:id="@+id/checkBox2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.22"
-                    android:textColor="@color/generalFont"
-                    android:text="@string/detailToiletCheckbox2"
-                    android:clickable="false" />
-
-                <CheckBox
-                    android:id="@+id/checkBox3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.22"
-                    android:textColor="@color/generalFont"
-                    android:text="@string/detailToiletCheckbox3"
-                    android:clickable="false" />
-
-                <CheckBox
-                    android:id="@+id/checkBox4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.22"
-                    android:textColor="@color/generalFont"
-                    android:text="@string/detailToiletCheckbox4"
-                    android:clickable="false" />
-
-                <CheckBox
-                    android:id="@+id/checkBox5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.22"
-                    android:textColor="@color/generalFont"
-                    android:text="@string/detailToiletCheckbox5"
-                    android:clickable="false" />
-
-                <CheckBox
-                    android:id="@+id/checkBox6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.22"
-                    android:textColor="@color/generalFont"
-                    android:text="@string/detailToiletCheckbox6"
-                    android:clickable="false" />
-
-                <CheckBox
-                    android:id="@+id/checkBox7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.22"
-                    android:textColor="@color/generalFont"
-                    android:text="@string/detailToiletCheckbox7"
-                    android:clickable="false" />
-
-                <CheckBox
-                    android:id="@+id/checkBox8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/generalFont"
-                    android:text="@string/detailToiletCheckbox8"
-                    android:clickable="false" />
-            </LinearLayout>
-
+		        android:id="@+id/checkboxLayout"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content">
+		        <include layout="@layout/checkboxs_toilet" />
+    		</LinearLayout>
+    		
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
