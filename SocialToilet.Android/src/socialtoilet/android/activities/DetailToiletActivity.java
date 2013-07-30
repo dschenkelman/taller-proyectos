@@ -99,6 +99,7 @@ public class DetailToiletActivity extends FragmentActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
+		Intent intent = null;
 		switch (item.getItemId())
 		{
 		case android.R.id.home:
@@ -111,7 +112,14 @@ public class DetailToiletActivity extends FragmentActivity
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.item_comment_button:
+			onCommentsButtonTapped();
+	    	return true;
+		case R.id.item_gallery_button:
+			onGaleryButtonTapped();
+	    	return true;
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -166,14 +174,14 @@ public class DetailToiletActivity extends FragmentActivity
     	dialog.show(getSupportFragmentManager(), "calificate");
     }
     
-    public void onCommentsButtonTapped(View view)
+    public void onCommentsButtonTapped()
     {
     	Intent intent = new Intent(this, ToiletCommentsActivity.class);
 		intent.putExtra(DetailToiletActivity.EXTRA_TOILET_ID, toilet.getID().toString());
     	startActivity(intent);
     }
 
-    public void onGaleryButtonTapped(View view)
+    public void onGaleryButtonTapped()
     {
     	Intent intent = new Intent(this, ToiletGaleryActivity.class);
 		intent.putExtra(DetailToiletActivity.EXTRA_TOILET_ID, toilet.getID().toString());

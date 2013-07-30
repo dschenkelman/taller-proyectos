@@ -103,33 +103,6 @@
 		        <include layout="@layout/checkboxs_toilet" />
     		</LinearLayout>
     		
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/commentsButton"
-                    android:layout_weight="1.0"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-        			style="@style/SocialToiletButton"
-                    android:text="@string/detailToilet_commentsButton"
-                    android:onClick="onCommentsButtonTapped"
-                    android:layout_margin="5dp" />
-
-                <Button
-                    android:id="@+id/galeryButton"
-                    android:layout_weight="1.0"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-        			style="@style/SocialToiletButton"
-                    android:text="@string/detailToilet_galeryButton"
-                    android:onClick="onGaleryButtonTapped"
-                    android:layout_margin="5dp" />
-
-            </LinearLayout>
-
         </LinearLayout>
         
     </ScrollView>
