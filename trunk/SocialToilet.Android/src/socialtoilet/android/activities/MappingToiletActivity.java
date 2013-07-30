@@ -97,11 +97,27 @@ public class MappingToiletActivity extends FragmentActivity
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.action_add_toilet:
+			onAddToiletButtonTapped();
+	    	return true;
+		case R.id.action_close:
+			onCloseButtonTapped();
+	    	return true;
 		}
 		return super.onOptionsItemSelected(item);
 	} 
 	
-    public void onDestroy()
+    private void onCloseButtonTapped() {
+     	Intent intent = new Intent(this, StartSessionActivity.class);
+        startActivity(intent);	
+	}
+
+	private void onAddToiletButtonTapped() {
+	 	Intent intent = new Intent(this, AddToiletActivity.class);
+	    startActivity(intent);	
+	}
+
+	public void onDestroy()
     {
     	gps.removeChangeLocationListener(this);
         super.onDestroy();
