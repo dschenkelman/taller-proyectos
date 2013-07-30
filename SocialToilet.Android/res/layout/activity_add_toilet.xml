@@ -66,16 +66,31 @@
 		        android:layout_below="@+id/toiletRatingBar" >
 		        <include layout="@layout/checkboxs_toilet" />
     		</RelativeLayout>
-            
-            <Button
-                android:id="@+id/buttonAcceptEdit"
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/checkboxLayout"
-                android:layout_margin="5dp"
-        		style="@style/SocialToiletButton"
-                android:text="@string/addButton" />
+                android:layout_margin="5dp" >
+
+                <Button
+                    android:id="@+id/buttonAcceptEdit"
+                	android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                    style="@style/SocialToiletButton"
+                	android:text="@string/addButton" />
+
+                <Button
+                    android:id="@+id/buttonCleanData"
+                    style="@style/SocialToiletButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clean_data"
+                    android:layout_marginLeft="8.0dip"
+                    android:onClick="onCleanData" />
+
+            </LinearLayout>
             
         </RelativeLayout>
     </ScrollView>

@@ -33,7 +33,6 @@
     <string name="detailToiletCheckbox10">Posee cambiador de bebés</string>
     <string name="addToiletHere">Agregar acá</string>
     <string name="title_activity_add_toilet">Crear Toilet</string>
-    <string name="addButton">Agregar</string>
     <string name="hintDescription">Descripción</string>
     <string name="hintAddress">Dirección</string>
     <string name="hintTitle">Título</string>
@@ -43,4 +42,5 @@
     <string name="toilet_comments_add_comment_button">Comentar</string>
     <string name="title_activity_toilet_galery">Galería</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="clean_data">Borrar</string>
 </resources>
