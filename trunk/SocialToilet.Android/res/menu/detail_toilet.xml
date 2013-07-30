@@ -6,4 +6,18 @@
         android:showAsAction="never"
         android:title="@string/action_settings"/>
 
+    <item
+        android:id="@+id/item_comment_button"
+        android:icon="@drawable/comment_button"
+        android:showAsAction="always"
+        android:title="@string/title_activity_toilet_comments">
+    </item>
+    
+    <item
+        android:id="@+id/item_gallery_button"
+        android:icon="@drawable/gallery_button"
+        android:showAsAction="always"
+        android:title="@string/title_activity_toilet_galery">
+    </item>
+    
 </menu>
