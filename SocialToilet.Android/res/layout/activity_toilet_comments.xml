@@ -29,15 +29,6 @@
 	            android:orientation="vertical" >
 	      
 	        </LinearLayout>
-
-	        <Button
-	            android:id="@+id/button1"
-	            style="@style/SocialToiletButton"
-	            android:layout_margin="5dp"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/toilet_comments_add_comment_button"
-	            android:onClick="onAddCommentButtonTapped" />
 	        
         </LinearLayout>
         
