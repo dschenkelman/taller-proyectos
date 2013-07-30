@@ -20,7 +20,7 @@
     <string name="calification_dialog_cancel">Cancelar</string>
     <string name="comment_dialog_cancel">Cancelar</string>
     <string name="title_activity_mapping_toilet">Mapa de Toilets</string>
-    <string name="title_activity_detail_toilet">Toilet</string>
+    <string name="title_activity_detail_toilet">Detalle</string>
     <string name="detailToiletCheckbox1">Dejan pasar sin consumir</string>
     <string name="detailToiletCheckbox2">Tiene agua</string>
     <string name="detailToiletCheckbox3">Tiene papel</string>
@@ -39,10 +39,8 @@
     <string name="hintTitle">Título</string>
     <string name="hintComment">Comentar</string>
     <string name="addButton">Agregar</string>
-    <string name="title_activity_toilet_comments">Comentarios del Toilet</string>
-    <string name="tioletCommetns_headerTextView">Lee los comentarios de los usuarios y agrega los tuyos:</string>
+    <string name="title_activity_toilet_comments">Comentarios</string>
     <string name="toilet_comments_add_comment_button">Comentar</string>
-    <string name="title_activity_toilet_galery">Fotos del Toilet</string>
-    <string name="tioletGalery_headerTextView">Las fotos del toilet:</string>
+    <string name="title_activity_toilet_galery">Galería</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
 </resources>
