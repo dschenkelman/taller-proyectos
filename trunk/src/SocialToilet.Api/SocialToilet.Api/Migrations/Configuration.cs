@@ -2,6 +2,7 @@ namespace SocialToilet.Api.Migrations
 {
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     using SocialToilet.Api.Database;
     using SocialToilet.Api.Models;
@@ -16,7 +17,7 @@ namespace SocialToilet.Api.Migrations
 
         protected override void Seed(SocialToiletContext context)
         {
-            if (context.Users.Find("dschenkelman") != null)
+            if (context.Users.Count() != 0)
             {
                 return;
             }
@@ -57,9 +58,9 @@ namespace SocialToilet.Api.Migrations
 
             context.SaveChanges();
 
-            context.Ratings.Add(new Rating() { ToiletId = formosa.Id, UserName = damian.Name, Value = 5 });
-            context.Ratings.Add(new Rating() { ToiletId = viel.Id, UserName = sebastian.Name, Value = 2.5 });
-            context.Ratings.Add(new Rating() { ToiletId = fiuba.Id, UserName = matias.Name, Value = 1 });
+            context.Ratings.Add(new Rating() { ToiletId = formosa.Id, UserId = damian.Id, Value = 5 });
+            context.Ratings.Add(new Rating() { ToiletId = viel.Id, UserId = sebastian.Id, Value = 2.5 });
+            context.Ratings.Add(new Rating() { ToiletId = fiuba.Id, UserId = matias.Id, Value = 1 });
 
             context.SaveChanges();
         }

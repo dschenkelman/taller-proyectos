@@ -1,6 +1,7 @@
 ﻿namespace SocialToilet.Api.HttpModules
 {
     using System;
+    using System.Linq;
 
     using SocialToilet.Api.Database;
 
@@ -15,7 +16,7 @@
 
         protected override bool CheckPassword(string username, string password)
         {
-            var user = this.db.Users.Find(username);
+            var user = this.db.Users.FirstOrDefault(u => u.Name == username);
 
             if (user == null)
             {
