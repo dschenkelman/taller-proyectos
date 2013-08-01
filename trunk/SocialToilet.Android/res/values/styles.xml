@@ -23,10 +23,11 @@
         <item name="android:background">@drawable/st_button_border</item>
     </style>
 
-    <style name="SocialToiletEditText" parent="">
-        <item name="android:textCursorDrawable">@null</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
+	<style name="SocialToiletEditText" parent="">
+		<item name="android:cursorVisible">true</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:background">@color/generalBackground</item>
+	</style>
 
     <style name="SocialToiletRatingBar" parent="">
         <item name="android:progressDrawable">@drawable/st_rating_bar</item>
