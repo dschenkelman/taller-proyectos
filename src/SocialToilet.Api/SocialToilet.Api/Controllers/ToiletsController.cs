@@ -16,15 +16,8 @@
     using SocialToilet.Api.ViewModels;
 
     [Authorize]
-    public class ToiletsController : ApiController
+    public class ToiletsController : BaseController
     {
-        private SocialToiletContext db;
-
-        public ToiletsController()
-        {
-            this.db = new SocialToiletContext();
-        }
-
         [HttpGet]
         public async Task<IEnumerable<ToiletViewModel>> Near(double lat, double @long, double radiusInMeters)
         {
@@ -59,12 +52,6 @@
             var message = Request.CreateResponse(HttpStatusCode.Created, toilet.Id);
 
             return message;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            this.db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

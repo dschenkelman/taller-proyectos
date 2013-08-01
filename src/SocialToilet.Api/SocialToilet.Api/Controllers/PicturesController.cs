@@ -3,26 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
-    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
 
-    using SocialToilet.Api.Database;
     using SocialToilet.Api.Models;
 
     [Authorize]
-    public class PicturesController : ApiController
+    public class PicturesController : BaseController
     {
-        private readonly SocialToiletContext db;
-
-        public PicturesController()
-        {
-            this.db = new SocialToiletContext();
-        }
-
         public async Task<IEnumerable<Guid>> Get(Guid toiletId)
         {
             return await this.db.Pictures.Select(p => p.Id).ToListAsync();
@@ -49,12 +40,6 @@
             var message = Request.CreateResponse(HttpStatusCode.Created, picture.Id);
 
             return message;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            this.db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

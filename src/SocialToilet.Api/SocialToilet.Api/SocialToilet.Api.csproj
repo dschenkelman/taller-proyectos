@@ -149,30 +149,34 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\PicturesController.cs" />
     <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\ToiletsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Database\SocialToiletContext.cs" />
     <Compile Include="Handlers\RequireHttpsMessageHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CommentExtensions.cs" />
     <Compile Include="Helpers\ToiletExtensions.cs" />
     <Compile Include="HttpModules\BasicAuthHttpModule.cs" />
     <Compile Include="HttpModules\SocialToiletBasicAuthHttpModule.cs" />
-    <Compile Include="Migrations\201307280224163_InitialCreate.cs" />
-    <Compile Include="Migrations\201307280224163_InitialCreate.Designer.cs">
-      <DependentUpon>201307280224163_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Toilet.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\PictureViewModel.cs" />
+    <Compile Include="ViewModels\UserCommentViewModel.cs" />
+    <Compile Include="ViewModels\NewCommentViewModel.cs" />
     <Compile Include="ViewModels\ToiletViewModel.cs" />
+    <Compile Include="ViewModels\UserInfoViewModel.cs" />
+    <Compile Include="ViewModels\UserRatingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -190,11 +194,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201307280224163_InitialCreate.resx">
-      <DependentUpon>201307280224163_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

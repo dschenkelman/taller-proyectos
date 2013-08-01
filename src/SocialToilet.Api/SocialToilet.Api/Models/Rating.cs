@@ -10,9 +10,9 @@
         public Guid ToiletId { get; set; }
 
         [Key, Column(Order = 1)]
-        public string UserName { get; set; }
+        public Guid UserId { get; set; }
 
-        [ForeignKey("UserName")]
+        [ForeignKey("UserId")]
         public virtual User User { get; set; }
 
         [ForeignKey("ToiletId")]
