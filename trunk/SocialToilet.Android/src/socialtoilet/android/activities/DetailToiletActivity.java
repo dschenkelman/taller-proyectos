@@ -169,17 +169,13 @@ public class DetailToiletActivity extends FragmentActivity
 
 	private void populateRanking()
 	{
-		RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar1);
+		RatingBar ratingBar = (RatingBar) findViewById(R.id.globalRating);
 		ratingBar.setRating(toilet.getRanking());
 		TextView calificationsCount = (TextView) findViewById(R.id.calificationCount);
-		calificationsCount.setText(toilet.getUserCalificationsCount() + " calificaciones");
+		calificationsCount.setText(toilet.getUserCalificationsCount() + "");
 
-		int calificateButtonVisibility = 0 == toilet.getUserCalification() ? Button.VISIBLE : Button.GONE;
-		int changeCalificationButtonVisibility = 0 == toilet.getUserCalification() ? Button.GONE : Button.VISIBLE;
-		Button calificateButton = (Button) findViewById(R.id.calificateButton);
-		calificateButton.setVisibility(calificateButtonVisibility);
-		Button changeCalificationButton = (Button) findViewById(R.id.changeCalificationButton);
-		changeCalificationButton.setVisibility(changeCalificationButtonVisibility);
+		RatingBar userCalificationBar = (RatingBar) findViewById(R.id.userCalification);
+		userCalificationBar.setRating(toilet.getUserCalification());
 	}
 
     public void onCalificationButtonTapped(View view)

@@ -22,7 +22,13 @@
         <item name="android:textColor">@color/generalFont</item>
         <item name="android:background">@drawable/st_button_border</item>
     </style>
-
+    
+	<style name="SocialToiletCalificateButton" parent="">
+        <item name="android:textColor">@color/generalFont</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:background">@drawable/st_button_no_border</item>
+    </style>
+    
 	<style name="SocialToiletEditText" parent="">
 		<item name="android:cursorVisible">true</item>
 		<item name="android:textColor">@android:color/white</item>
