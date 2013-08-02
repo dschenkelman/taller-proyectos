@@ -72,16 +72,18 @@
                 android:layout_height="1dp"
                 android:background="@android:color/white" />
             
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <Button
                     android:id="@+id/calificateButton"
                     style="@style/SocialToiletCalificateButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/userCalification"
                     android:onClick="onCalificationButtonTapped"
                     android:text="@string/rateButton" />
                 
@@ -90,12 +92,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
+                    android:layout_alignParentRight="true"
                     android:isIndicator="true"
                     android:rating="0.0"
                     android:stepSize="1.0"
                     style="@style/SocialToiletRatingBar" />
                                     
-            </LinearLayout>
+            </RelativeLayout>
 
             <View
                 android:id="@+id/lineSeparator1"
