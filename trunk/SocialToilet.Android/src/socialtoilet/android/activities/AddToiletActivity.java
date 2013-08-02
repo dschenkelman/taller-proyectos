@@ -1,9 +1,5 @@
 package socialtoilet.android.activities;
 
-import java.util.UUID;
-
-import com.google.ads.AdView;
-
 import socialtoilet.android.R;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.IAddToiletService;
@@ -22,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
 
 public class AddToiletActivity extends Activity implements IAddToiletServiceDelegate
@@ -34,15 +29,6 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_toilet);
 		setupActionBar();
-	    
-	    if(null == savedInstanceState)
-	    {
-	    	// TODO initialize with the default data
-	    }
-	    else
-	    {
-	    	// TODO retrieve the data before the orientation change
-	    }
 	}
 
 	/**
