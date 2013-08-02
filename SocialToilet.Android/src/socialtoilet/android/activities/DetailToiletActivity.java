@@ -18,7 +18,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -67,6 +69,18 @@ public class DetailToiletActivity extends FragmentActivity
 		    toilet = StateSaver.getInstance().retrieveToilet(objectToRetrieveUUID.toString());
 			this.populateData();
 	    }
+	    
+	    final RatingBar ratingBar = (RatingBar) findViewById(R.id.userCalification);
+	    ratingBar.setIsIndicator(true);
+	    ratingBar.setOnTouchListener(new OnTouchListener()
+	    {
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1)
+			{
+				onCalificationButtonTapped(ratingBar);
+				return false;
+			}
+	    });
 	}
 
 	
