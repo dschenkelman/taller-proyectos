@@ -109,6 +109,7 @@ public class MappingToiletActivity extends FragmentActivity
 	
     private void onCloseButtonTapped() {
      	Intent intent = new Intent(this, StartSessionActivity.class);
+     	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);	
 	}
 
