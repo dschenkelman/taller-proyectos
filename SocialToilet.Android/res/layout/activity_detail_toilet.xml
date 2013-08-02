@@ -32,12 +32,36 @@
                 android:textColor="@color/generalFont"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
-
+            
+			<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                android:orientation="horizontal" >
+                
+	            <RatingBar
+	                android:id="@+id/globalRating"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:isIndicator="true"
+	                android:rating="0.0"
+	                android:stepSize="0.5"
+	                style="?android:attr/ratingBarStyleSmall" />
+                        
+				<TextView
+	                android:id="@+id/calificationCount"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:textColor="@color/generalFont"
+	                android:textAppearance="?android:attr/textAppearanceSmall"
+	                android:text="@string/detailToilet_calificationCount" />
+				
+            </LinearLayout>
+            
             <TextView
                 android:id="@+id/toiletAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
+                android:layout_marginTop="1dp"
                 android:textColor="@color/generalFont"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="italic" />
@@ -54,41 +78,24 @@
 
                 <Button
                     android:id="@+id/calificateButton"
-        			style="@style/SocialToiletButton"
-                    android:layout_margin="5dp"
+                    style="@style/SocialToiletCalificateButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/rateButton"
-                    android:onClick="onCalificationButtonTapped" />
-                
-                <Button
-                    android:id="@+id/changeCalificationButton"
-        			style="@style/SocialToiletButton"
-                    android:layout_margin="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/changeCalificationButton"
+                    android:layout_margin="2dp"
                     android:onClick="onCalificationButtonTapped"
-                    android:visibility="gone" />
+                    android:text="@string/rateButton" />
                 
                 <RatingBar
-                    android:id="@+id/ratingBar1"
+                    android:id="@+id/userCalification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
                     android:isIndicator="true"
                     android:rating="0.0"
-                    android:stepSize="0.5"
+                    android:stepSize="1.0"
                     style="@style/SocialToiletRatingBar" />
                                     
             </LinearLayout>
-            
-            <TextView
-                android:id="@+id/calificationCount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/generalFont"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/detailToilet_calificationCount" />
 
             <View
                 android:id="@+id/lineSeparator1"
