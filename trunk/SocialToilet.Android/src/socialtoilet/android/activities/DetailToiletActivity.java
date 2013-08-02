@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -56,7 +55,6 @@ public class DetailToiletActivity extends FragmentActivity
 			String toiletId = intent.getStringExtra(MappingToiletActivity.EXTRA_TOILET_ID);
 			
 			UUID id = UUID.fromString(toiletId);
-			
 			
 			IRetrieveToiletService service = ServicesFactory.createRetrieveToiletService();//new RetrieveToiletService();
 			service.retrieveToilet(id, this);
