@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -140,7 +141,29 @@ public class DetailToiletActivity extends FragmentActivity
 
 		TextView address = (TextView) findViewById(R.id.toiletAddress);
 		address.setText(toilet.getAddress());
-
+		
+		CheckBox cb;
+		cb = (CheckBox) findViewById(R.id.canBeUsedWithoutConsumption);
+		cb.setChecked(toilet.canBeUsedWithoutConsumption());
+		cb = (CheckBox) findViewById(R.id.hasWater);
+		cb.setChecked(toilet.hasWater());
+		cb = (CheckBox) findViewById(R.id.hasToiletPaper);
+		cb.setChecked(toilet.hasToiletPaper());
+		cb = (CheckBox) findViewById(R.id.hasSoap);
+		cb.setChecked(toilet.hasSoap());
+		cb = (CheckBox) findViewById(R.id.hasMirror);
+		cb.setChecked(toilet.hasMirror());
+		cb = (CheckBox) findViewById(R.id.doToiletDoorCloses);
+		cb.setChecked(toilet.doToiletDoorCloses());
+		cb = (CheckBox) findViewById(R.id.hasGotLadiesItemsOnSale);
+		cb.setChecked(toilet.hasGotLadiesItemsOnSale());
+		cb = (CheckBox) findViewById(R.id.hasGotCondomsOnSale);
+		cb.setChecked(toilet.hasGotCondomsOnSale());
+		cb = (CheckBox) findViewById(R.id.isAptForHandicapped);
+		cb.setChecked(toilet.isAptForHandicapped());
+		cb = (CheckBox) findViewById(R.id.hasBabyRoom);
+		cb.setChecked(toilet.hasBabyRoom());
+		
 		populateRanking();
 	}
 

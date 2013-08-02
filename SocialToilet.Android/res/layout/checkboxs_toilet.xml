@@ -6,14 +6,14 @@
         android:background="@color/generalBackground">
 		
 	<CheckBox
-		android:id="@+id/checkBox1"
+		android:id="@+id/canBeUsedWithoutConsumption"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:textColor="@color/generalFont"
 		android:text="@string/detailToiletCheckbox1" />
 	
    <CheckBox
-       android:id="@+id/checkBox2"
+       android:id="@+id/hasWater"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_weight="0.22"
@@ -21,7 +21,7 @@
        android:text="@string/detailToiletCheckbox2" />
 	   
 	<CheckBox
-       android:id="@+id/checkBox3"
+       android:id="@+id/hasToiletPaper"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_weight="0.22"
@@ -29,7 +29,7 @@
        android:text="@string/detailToiletCheckbox3" />
 
    <CheckBox
-       android:id="@+id/checkBox4"
+       android:id="@+id/hasSoap"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_weight="0.22"
@@ -37,7 +37,7 @@
        android:text="@string/detailToiletCheckbox4" />
 
    <CheckBox
-       android:id="@+id/checkBox5"
+       android:id="@+id/hasMirror"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_weight="0.22"
@@ -45,7 +45,7 @@
        android:text="@string/detailToiletCheckbox5" />
 
    <CheckBox
-       android:id="@+id/checkBox6"
+       android:id="@+id/doToiletDoorCloses"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_weight="0.22"
@@ -53,7 +53,7 @@
        android:text="@string/detailToiletCheckbox6" />
 
    <CheckBox
-       android:id="@+id/checkBox7"
+       android:id="@+id/hasGotLadiesItemsOnSale"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_weight="0.22"
@@ -61,21 +61,21 @@
        android:text="@string/detailToiletCheckbox7" />
 
    <CheckBox
-       android:id="@+id/checkBox8"
+       android:id="@+id/hasGotCondomsOnSale"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:textColor="@color/generalFont"
        android:text="@string/detailToiletCheckbox8" />
    
    <CheckBox
-       android:id="@+id/checkBox9"
+       android:id="@+id/isAptForHandicapped"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:textColor="@color/generalFont"
        android:text="@string/detailToiletCheckbox9" />
    
    <CheckBox
-       android:id="@+id/checkBox10"
+       android:id="@+id/hasBabyRoom"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:textColor="@color/generalFont"

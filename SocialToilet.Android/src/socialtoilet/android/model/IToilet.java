@@ -13,4 +13,15 @@ public interface IToilet extends IMapMarked
 	int getUserCalificationsCount();
 	void setUserCalification(int calification);
 	void revertUserCalification();
+	
+	boolean canBeUsedWithoutConsumption();
+	boolean hasWater();
+	boolean hasToiletPaper();
+	boolean hasSoap();
+	boolean hasMirror();
+	boolean doToiletDoorCloses();
+	boolean hasGotLadiesItemsOnSale();
+	boolean hasGotCondomsOnSale();
+	boolean isAptForHandicapped();
+	boolean hasBabyRoom();
 }

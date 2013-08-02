@@ -70,59 +70,54 @@ public class ServicesFactory
 					Collection<IToilet> toilets = new ArrayList<IToilet>();
 					toilets.add(new IToilet()
 						{
-							@Override
 							public String getMapTitle() { return "La Roma"; }
-							@Override
 							public String getMapSnippet() { return "También venden pizza.";}
-							@Override
 							public double getLongitude() { return GPSTracker.getInstance().getLongitude() + 0.001; }
-							@Override
 							public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.002; }
-							@Override
 							public float getRanking() { return 2.5f; }
-							@Override
 							public UUID getID() { return UUID.randomUUID(); }
-							@Override
 							public String getDescription() { return "Es un buen baño"; }
-							@Override
 							public String getAddress() { return "Av. Yrigoyen 1565, El Talar"; }
-							@Override
 							public int getUserCalification() { return 0; }
-							@Override
 							public int getUserCalificationsCount() { return 25; }
-							@Override
 							public void setUserCalification(int calification) { }
-							@Override
 							public void revertUserCalification() { }
+							public boolean canBeUsedWithoutConsumption() { return false; }
+							public boolean hasWater() { return false; }
+							public boolean hasToiletPaper() { return false; }
+							public boolean hasSoap() { return false; }
+							public boolean hasMirror() { return false; }
+							public boolean doToiletDoorCloses() { return false; }
+							public boolean hasGotLadiesItemsOnSale() { return false; }
+							public boolean hasGotCondomsOnSale() { return false; }
+							public boolean isAptForHandicapped() { return false; }
+							public boolean hasBabyRoom() { return false; }
 						});
 					toilets.add(new IToilet()
 						{
-							@Override
 							public String getMapTitle() { return "Eso"; }
-							@Override
 							public String getMapSnippet() { return "Siempre cerrado.";}
-							@Override
 							public double getLongitude() { return GPSTracker.getInstance().getLongitude() + 0.003; }
-							@Override
 							public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.005; }
-							@Override
 							public float getRanking() { return 2.5f; }
-							@Override
 							public UUID getID() { return UUID.randomUUID(); }
-							@Override
 							public String getDescription() { return "Esta re cuidado"; }
-							@Override
 							public String getAddress() { return "Av. Yrigoyen 1355, El Talar"; }
-							@Override
 							public int getUserCalification() { return 2; }
-							@Override
 							public int getUserCalificationsCount() { return 31; }
-							@Override
 							public void setUserCalification(int calification) { }
-							@Override
 							public void revertUserCalification() { }
+							public boolean canBeUsedWithoutConsumption() { return false; }
+							public boolean hasWater() { return false; }
+							public boolean hasToiletPaper() { return false; }
+							public boolean hasSoap() { return false; }
+							public boolean hasMirror() { return false; }
+							public boolean doToiletDoorCloses() { return false; }
+							public boolean hasGotLadiesItemsOnSale() { return false; }
+							public boolean hasGotCondomsOnSale() { return false; }
+							public boolean isAptForHandicapped() { return false; }
+							public boolean hasBabyRoom() { return false; }
 						});
-					
 					delegate.retrieveNearToiletsFinish(this, toilets);
 				}
 			};
@@ -146,28 +141,16 @@ public class ServicesFactory
 						private int userCalification = 0;
 						private float ranking = 1.5f;
 						private int userCalificationsCount = 2;
-						
-						@Override
 						public String getMapTitle() { return "La Roma"; }
-						@Override
 						public String getMapSnippet() { return "También venden pizza.";}
-						@Override
 						public double getLongitude() { return -34.465849; }
-						@Override
 						public double getLatitude() { return -58.645337; }
-						@Override
 						public float getRanking() { return ranking; }
-						@Override
 						public UUID getID() { return id; }
-						@Override
 						public String getDescription() { return "Es un buen baño"; }
-						@Override
 						public String getAddress() { return "Av. Yrigoyen 1565, El Talar"; }
-						@Override
 						public int getUserCalification() { return userCalification; }
-						@Override
 						public int getUserCalificationsCount() { return userCalificationsCount; }
-						@Override
 						public void setUserCalification(int calification)
 						{
 							Log.d("Social Toilet", "Ranking viejo: " + ranking);
@@ -184,7 +167,6 @@ public class ServicesFactory
 							userCalification = calification;
 							Log.d("Social Toilet", "Ranking Nuevo: " + ranking);
 						}
-						@Override
 						public void revertUserCalification()
 						{
 							if(0 != userCalification)
@@ -194,6 +176,16 @@ public class ServicesFactory
 								userCalificationsCount--;
 							}
 						}
+						public boolean canBeUsedWithoutConsumption() { return false; }
+						public boolean hasWater() { return true; }
+						public boolean hasToiletPaper() { return true; }
+						public boolean hasSoap() { return false; }
+						public boolean hasMirror() { return true; }
+						public boolean doToiletDoorCloses() { return false; }
+						public boolean hasGotLadiesItemsOnSale() { return false; }
+						public boolean hasGotCondomsOnSale() { return true; }
+						public boolean isAptForHandicapped() { return true; }
+						public boolean hasBabyRoom() { return false; }
 					});
 				}
 			};
@@ -238,7 +230,7 @@ public class ServicesFactory
 						public String getTitle() { return ""; }
 						@Override
 						public String getMessage() { 
-							return "Cague re bien en este baño. Totalmente recomendado."; }
+							return "Totalmente recomendado."; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
@@ -249,10 +241,10 @@ public class ServicesFactory
 						@Override
 						public String getUser() { return "sebas"; }
 						@Override
-						public String getTitle() { return "Es una porongaaaaa"; }
+						public String getTitle() { return "Excelente"; }
 						@Override
 						public String getMessage() { 
-							return "Cuando llegué, estaba cerrado. Me mee todo! baño de mierda!"; }
+							return "Cuando llegué, estaba cerrado. Pero me lo abrieron y después me tome un café muy bueno."; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(
 							    Arrays.asList("damian", "gus", "matias")); }
@@ -267,7 +259,7 @@ public class ServicesFactory
 						public String getTitle() { return "Patético"; }
 						@Override
 						public String getMessage() { 
-							return "Ya no estan limpiando este baño. Estan las tablas cagadas y llenas de papeles"; }
+							return "Ya no están limpiando este baño. Están las tablas sucias"; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
@@ -309,7 +301,7 @@ public class ServicesFactory
 						public String getTitle() { return "Dueño"; }
 						@Override
 						public String getMessage() { 
-							return "Aplicación de mierda!!!! quiero que saquen mi baño de acá! desde que aparecimos toda la gente vienen a cagar en mi baño!"; }
+							return "Disculpen por las molestias. ya lo limpiamos y lo pusimos  punto. Vengan y de paso coman nuestras tortas, las más ricas de Buenos Aires!"; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
@@ -323,7 +315,7 @@ public class ServicesFactory
 						public String getTitle() { return "R: Dueño"; }
 						@Override
 						public String getMessage() { 
-							return "Te cabio!"; }
+							return "Las mejores!!"; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
@@ -337,7 +329,7 @@ public class ServicesFactory
 						public String getTitle() { return "R: Dueño"; }
 						@Override
 						public String getMessage() { 
-							return "Abri el baño puto!!!"; }
+							return "Genio. Amo esta aplicación"; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
 						@Override
