@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -201,6 +202,10 @@ public class MappingToiletActivity extends FragmentActivity
 			MarkerOptions markerOptions = new MarkerOptions()
 	        	.position(mapPosition)
 	        	.title(toilet.getMapTitle())
+	        	
+	        	//Indicador de social toilet, probar donde se pueda visualizar el mapa
+	        	//.icon(BitmapDescriptorFactory.fromResource(R.drawable.socialmarker))
+	        	
 	        	.snippet(toilet.getMapSnippet());
 			
 			Marker marker = map.addMarker(markerOptions);
