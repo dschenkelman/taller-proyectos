@@ -83,12 +83,10 @@ public class AddCommentDialogFragment extends DialogFragment
 	
 	protected void onTextCange()
 	{
-		EditText title = (EditText) dialogView.findViewById(R.id.title);
 		EditText comment = (EditText) dialogView.findViewById(R.id.comment);
     	Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
     	
-		boolean commentButtonEnable = 0 != title.getText().toString().length() ||
-				0 != comment.getText().toString().length();
+		boolean commentButtonEnable = 0 != comment.getText().toString().length();
     	positiveButton.setEnabled(commentButtonEnable);
 	}
 

@@ -123,16 +123,17 @@ public class ToiletCommentsActivity extends FragmentActivity
         user = (TextView) commentView.findViewById(R.id.comment_user);
         commentDate = (TextView) commentView.findViewById(R.id.comment_date);
         eraseComment = (ImageButton) commentView.findViewById(R.id.comment_erase);
+        
         if(0 != comment.getTitle().length())
         {
-        	commentTitle.setText(comment.getTitle());
+        	commentTitle.setText(comment.getTitle() + ":");
         }
         else
         {
         	commentTitle.setVisibility(TextView.GONE);
         }
         commentMessage.setText(comment.getMessage());
-        user.setText(comment.getUser() + " - ");
+        user.setText("Por " + comment.getUser() + " - ");
         commentDate.setText(comment.getDate());
         
         if(false == comment.getUser().equals(Settings.getInstance().getUser()))
