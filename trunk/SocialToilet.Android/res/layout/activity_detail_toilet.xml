@@ -37,23 +37,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" 
                 android:orientation="horizontal" >
-                
-	            <RatingBar
-	                android:id="@+id/globalRating"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:isIndicator="true"
-	                android:rating="0.0"
-	                android:stepSize="0.5"
-	                style="?android:attr/ratingBarStyleSmall" />
-                        
+
+				<RatingBar
+				    android:id="@+id/globalRating"
+				    style="@style/SocialToiletRatingBarSmall"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:clickable="false"
+				    android:isIndicator="true"
+				    android:maxHeight="20dp"
+				    android:minHeight="20dp"
+				    android:rating="0.0"
+				    android:stepSize="1.0" />
+
 				<TextView
-	                android:id="@+id/calificationCount"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:textColor="@color/generalFont"
-	                android:textAppearance="?android:attr/textAppearanceSmall"
-	                android:text="@string/detailToilet_calificationCount" />
+				    android:id="@+id/calificationCount"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:text="@string/detailToilet_calificationCount"
+				    android:textAppearance="?android:attr/textAppearanceSmall"
+				    android:textColor="@color/generalFont" />
 				
             </LinearLayout>
             

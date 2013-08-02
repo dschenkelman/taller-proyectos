@@ -39,6 +39,11 @@
         <item name="android:progressDrawable">@drawable/st_rating_bar</item>
         <item name="android:numStars">5</item>
     </style>
+    
+    <style name="SocialToiletRatingBarSmall" parent="">
+        <item name="android:progressDrawable">@drawable/st_rating_bar_small</item>
+        <item name="android:numStars">5</item>
+    </style>
 
     <style name="socialToiletEraseCommentButton" parent="">
         <item name="android:textColor">@color/generalFont</item>
