@@ -68,7 +68,7 @@
     		</RelativeLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/checkboxLayout"
@@ -76,18 +76,21 @@
 
                 <Button
                     android:id="@+id/buttonAcceptEdit"
-                	android:layout_width="wrap_content"
-                	android:layout_height="wrap_content"
                     style="@style/SocialToiletButton"
+                	android:layout_width="0dp"
+                	android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp"
                 	android:text="@string/addButton" />
 
                 <Button
                     android:id="@+id/buttonCleanData"
                     style="@style/SocialToiletButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp"
                     android:text="@string/clean_data"
-                    android:layout_marginLeft="8.0dip"
                     android:onClick="onCleanData" />
 
             </LinearLayout>
