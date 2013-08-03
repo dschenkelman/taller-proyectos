@@ -86,6 +86,9 @@ public class ToiletCommentsActivity extends FragmentActivity
 		case R.id.add_comment_button:
 			onAddCommentButtonTapped();
 			return true;
+		case R.id.action_settings:
+	        startActivity(new Intent(this, SettingsActivity.class));
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

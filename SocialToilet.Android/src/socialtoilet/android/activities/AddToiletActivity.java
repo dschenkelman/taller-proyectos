@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class AddToiletActivity extends Activity implements IAddToiletServiceDelegate
@@ -58,6 +59,9 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 		{
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		case R.id.action_settings:
+	        startActivity(new Intent(this, SettingsActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
