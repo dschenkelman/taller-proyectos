@@ -1,5 +1,7 @@
 package socialtoilet.android.service.api;
 
+import socialtoilet.android.utils.Settings;
+
 public class APIService
 {
 	private static APIService instance;
@@ -12,8 +14,8 @@ public class APIService
 	{
 		hostURL = "https://192.168.1.35";
 		port = 44300;
-		serviceURL = hostURL + ":" + port + "/api/";
-		//serviceURL = "https://socialtoilet.apphb.com/api/";
+		//serviceURL = hostURL + ":" + port + "/api/";
+		serviceURL = "https://socialtoilet.apphb.com/api/";
 	}
 	
 	public static APIService getInstance()
@@ -89,5 +91,11 @@ public class APIService
 	public String getAuthPostURL()
 	{
 		return serviceURL + "users/auth";
+	}
+
+	public String getRetrieveToiletUserCalificationURL(String toiletId)
+	{
+		return serviceURL + "toilets/" + toiletId + "/ratings?userId=" +
+				Settings.getInstance().getUserId().toString();
 	}
 }
