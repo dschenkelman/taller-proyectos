@@ -100,7 +100,7 @@ public class MappingToiletActivity extends FragmentActivity
 		case R.id.action_add_toilet:
 			onAddToiletButtonTapped();
 	    	return true;
-		case R.id.action_close:
+		case R.id.action_exit:
 			onCloseButtonTapped();
 	    	return true;
 		case R.id.action_settings:
@@ -110,7 +110,8 @@ public class MappingToiletActivity extends FragmentActivity
 		return super.onOptionsItemSelected(item);
 	} 
 	
-    private void onCloseButtonTapped() {
+    private void onCloseButtonTapped()
+    {
      	Intent intent = new Intent(this, StartSessionActivity.class);
      	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);	

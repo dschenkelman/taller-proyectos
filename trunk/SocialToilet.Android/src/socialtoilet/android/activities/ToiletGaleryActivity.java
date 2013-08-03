@@ -68,13 +68,23 @@ public class ToiletGaleryActivity extends Activity
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.action_exit:
+			onCloseButtonTapped();
+	    	return true;
 		case R.id.action_settings:
 	        startActivity(new Intent(this, SettingsActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
+    private void onCloseButtonTapped()
+    {
+     	Intent intent = new Intent(this, StartSessionActivity.class);
+     	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);	
+	}
+    
 	@Override
 	public void retrieveToiletGaleryServiceFinish(
 			IRetrieveToiletGaleryService service,

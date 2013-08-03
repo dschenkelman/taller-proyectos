@@ -83,6 +83,9 @@ public class ToiletCommentsActivity extends FragmentActivity
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.action_exit:
+			onCloseButtonTapped();
+	    	return true;
 		case R.id.add_comment_button:
 			onAddCommentButtonTapped();
 			return true;
@@ -92,7 +95,14 @@ public class ToiletCommentsActivity extends FragmentActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
+    private void onCloseButtonTapped()
+    {
+     	Intent intent = new Intent(this, StartSessionActivity.class);
+     	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);	
+	}
+    
 	private void populateCommentsView()
 	{
 		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.toiletCommentsCommentsLinearLayout);

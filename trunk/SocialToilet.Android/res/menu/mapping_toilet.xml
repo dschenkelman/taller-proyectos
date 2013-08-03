@@ -13,6 +13,5 @@
         android:title="@string/action_exit"/>
 	
     <item android:id="@+id/action_add_toilet" android:showAsAction="always" android:icon="@drawable/content_new"></item>
-    <item android:id="@+id/action_close" android:showAsAction="always" android:icon="@drawable/content_remove"></item>
 
 </menu>
