@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 public class RetrieveToiletRatingService extends GetService implements
 		IRetrieveToiletRatingService
 {
-
 	private IRetrieveToiletRatingServiceDelegate delegate;
 	
 	public RetrieveToiletRatingService()
