@@ -194,7 +194,7 @@ public class StartSessionActivity extends FragmentActivity
 		attemptingLogin = false;
 		showProgress(false);
 		Settings.getInstance().setUser(user);
-    	Intent intent = new Intent(this, MainActivity.class);
+    	Intent intent = new Intent(this, MappingToiletActivity.class);
     	startActivity(intent);
 	}
 

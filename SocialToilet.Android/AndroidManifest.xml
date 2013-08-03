@@ -65,11 +65,7 @@
         <activity
             android:name="socialtoilet.android.activities.MappingToiletActivity"
             android:label="@string/title_activity_mapping_toilet"
-            android:launchMode="singleTop"
-            android:parentActivityName="socialtoilet.android.activities.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="socialtoilet.android.MainActivity" />
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name="socialtoilet.android.activities.DetailToiletActivity"
