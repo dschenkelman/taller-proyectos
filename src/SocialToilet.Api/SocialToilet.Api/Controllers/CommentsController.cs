@@ -23,6 +23,11 @@
 
         public async Task<HttpResponseMessage> Post(Guid toiletId, NewCommentViewModel viewModel)
         {
+            if (string.IsNullOrEmpty(viewModel.Content) || viewModel.UserId == Guid.Empty)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
             var comment = new Comment
                               {
                                   Content = viewModel.Content, 

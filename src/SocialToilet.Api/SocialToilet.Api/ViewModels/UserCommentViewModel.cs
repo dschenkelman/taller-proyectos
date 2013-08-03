@@ -10,6 +10,6 @@
 
         public Guid UserId { get; set; }
 
-        public DateTimeOffset PostedOn { get; set; }
+        public string PostedOn { get; set; }
     }
 }
