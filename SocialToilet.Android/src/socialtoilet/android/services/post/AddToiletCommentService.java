@@ -9,7 +9,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import socialtoilet.android.model.Comment;
-import socialtoilet.android.model.Toilet;
 import socialtoilet.android.service.api.APIService;
 
 public class AddToiletCommentService extends PostService implements
@@ -33,19 +32,27 @@ public class AddToiletCommentService extends PostService implements
 		postBodyObject = comment;
 		performingRequest = true;
 		this.delegate = delegate;
-		Log.d("Social Toiler", "addToiletComment.execute()");
 		execute(APIService.getInstance().getAddToiletCommentPostURL(toiletId));
 	}
 
     @Override
     protected void onPostExecute(String result) 
     {
-		Log.d("Social Toiler", "addToiletComment.onPostExecute()");
         super.onPostExecute(result);
-		Log.d("Social Toiler", "addToiletComment.addToiletCommentFinish()");
-        delegate.addToiletCommentFinish(this, postBodyObject);
-        performingRequest = false;
-        delegate = null;
+        if(performingRequest)
+        {
+            if(200 > statusLine.getStatusCode()|| statusLine.getStatusCode() >= 400)
+            {
+            	delegate.addToiletCommentFinishWithError(this, statusLine.getStatusCode() + "");
+            }
+            else
+            {
+            	postBodyObject.stapTime();
+                delegate.addToiletCommentFinish(this, postBodyObject);
+            }
+            performingRequest = false;
+            delegate = null;
+        }
     }
 
     @Override

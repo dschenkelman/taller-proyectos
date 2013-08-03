@@ -13,7 +13,6 @@ import socialtoilet.android.utils.Settings;
 
 public class QualificateToiletService extends PostService implements IQualificateToiletService
 {
-	
 	private UserQualificationPostBody postBodyObject;
 	private IQualificateToiletServiceDelegate delegate;
 	

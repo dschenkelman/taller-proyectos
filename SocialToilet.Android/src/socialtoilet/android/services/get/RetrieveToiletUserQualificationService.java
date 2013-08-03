@@ -36,6 +36,7 @@ public class RetrieveToiletUserQualificationService extends GetService implement
         //Do anything with response..
         if(performingRequest)
         {
+        
             if( null != result )
             {
                 delegate.retrieveToiletUserQualificationServiceFinish(this,
