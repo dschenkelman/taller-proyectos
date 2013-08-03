@@ -17,7 +17,7 @@ public class Settings
 	private Settings()
 	{
 		sessionOn = false;
-		initialRadiusInMeters = 10000;
+		initialRadiusInMeters = 1000;
 		servicesDebugMode = false;
 	}
 	
