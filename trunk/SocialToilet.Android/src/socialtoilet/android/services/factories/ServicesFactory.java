@@ -36,15 +36,15 @@ import socialtoilet.android.services.IRetrieveToiletRatingServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
 import socialtoilet.android.services.IAuthService;
-import socialtoilet.android.services.IRetrieveToiletUserCalificationService;
-import socialtoilet.android.services.IRetrieveToiletUserCalificationServiceDelegate;
+import socialtoilet.android.services.IRetrieveToiletUserQualificationService;
+import socialtoilet.android.services.IRetrieveToiletUserQualificationServiceDelegate;
 import socialtoilet.android.services.RetrieveNearToiletsService;
 import socialtoilet.android.services.RetrieveToiletCommentsService;
 import socialtoilet.android.services.RetrieveToiletGaleryService;
 import socialtoilet.android.services.RetrieveToiletRatingService;
 import socialtoilet.android.services.RetrieveToiletService;
 import socialtoilet.android.services.IAuthServiceDelegate;
-import socialtoilet.android.services.RetrieveToiletUserCalificationService;
+import socialtoilet.android.services.RetrieveToiletUserQualificationService;
 import socialtoilet.android.utils.Settings;
 
 public class ServicesFactory
@@ -433,20 +433,20 @@ public class ServicesFactory
 		return new AuthService();
 	}
 
-	public static IRetrieveToiletUserCalificationService
+	public static IRetrieveToiletUserQualificationService
 		createRetrieveToiletUserCalificationService()
 	{
 		if(Settings.getInstance().isServicesDebugMode())
 		{
-			return new IRetrieveToiletUserCalificationService()
+			return new IRetrieveToiletUserQualificationService()
 			{
 				@Override
 				public void retrieveToiletUserCalification(
-						IRetrieveToiletUserCalificationServiceDelegate delegate, String toiletId) {
-					delegate.retrieveToiletUserCalificationServiceFinishWithError(this, 402);
+						IRetrieveToiletUserQualificationServiceDelegate delegate, String toiletId) {
+					delegate.retrieveToiletUserQualificationServiceFinishWithError(this, 402);
 				}
 			};
 		}
-		return new RetrieveToiletUserCalificationService();
+		return new RetrieveToiletUserQualificationService();
 	}
 }

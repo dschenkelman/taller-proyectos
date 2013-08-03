@@ -12,8 +12,8 @@ import socialtoilet.android.services.IQualificateToiletService;
 import socialtoilet.android.services.IQualificateToiletServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletRatingService;
 import socialtoilet.android.services.IRetrieveToiletRatingServiceDelegate;
-import socialtoilet.android.services.IRetrieveToiletUserCalificationService;
-import socialtoilet.android.services.IRetrieveToiletUserCalificationServiceDelegate;
+import socialtoilet.android.services.IRetrieveToiletUserQualificationService;
+import socialtoilet.android.services.IRetrieveToiletUserQualificationServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.utils.StateSaver;
 
@@ -36,7 +36,7 @@ import android.os.Build;
 public class DetailToiletActivity extends FragmentActivity
 	implements ICalificationDialogDataSource,
 	ICalificationDialogDelegate, IQualificateToiletServiceDelegate,
-	IRetrieveToiletRatingServiceDelegate, IRetrieveToiletUserCalificationServiceDelegate
+	IRetrieveToiletRatingServiceDelegate, IRetrieveToiletUserQualificationServiceDelegate
 {
 
 	public final static String KEY_UUID_OBJECT_RETRIEVER = "kToiletStream";
@@ -60,7 +60,7 @@ public class DetailToiletActivity extends FragmentActivity
 				
 				IRetrieveToiletRatingService service = ServicesFactory.createRetrieveToiletRatingService();
 				service.retrieveToiletRating(toilet.getID().toString(), this);
-				IRetrieveToiletUserCalificationService calificationService = 
+				IRetrieveToiletUserQualificationService calificationService = 
 						ServicesFactory.createRetrieveToiletUserCalificationService();
 				calificationService.retrieveToiletUserCalification(this, toilet.getID().toString());
 			}
@@ -272,18 +272,18 @@ public class DetailToiletActivity extends FragmentActivity
 	}
 
 	@Override
-	public void retrieveToiletUserCalificationServiceFinish(
-			IRetrieveToiletUserCalificationService service, int calification)
+	public void retrieveToiletUserQualificationServiceFinish(
+			IRetrieveToiletUserQualificationService service, double calification)
 	{
-		toilet.setUserCalification(calification);
+		toilet.setUserCalification((int)calification);
 		populateGlobalRating();
 		populateUserCalification();
 	}
 
 
 	@Override
-	public void retrieveToiletUserCalificationServiceFinishWithError(
-			IRetrieveToiletUserCalificationService service, int errorCode)
+	public void retrieveToiletUserQualificationServiceFinishWithError(
+			IRetrieveToiletUserQualificationService service, int errorCode)
 	{
 	}
 }

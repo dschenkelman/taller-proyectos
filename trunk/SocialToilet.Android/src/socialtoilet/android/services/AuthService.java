@@ -46,7 +46,7 @@ public class AuthService extends PostService implements IAuthService
         	}
         	else
         	{
-                postBodyObject.setUserId(UUID.fromString(result.substring(1, result.length() - 2)));
+                postBodyObject.setUserId(UUID.fromString(result.substring(1, result.length() - 1)));
                 delegate.authServiceDelegateFinish(this, postBodyObject);
         	}
             performingRequest = false;
