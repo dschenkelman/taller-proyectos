@@ -86,6 +86,12 @@ public class StartSessionActivity extends Activity {
 						attemptLogin();
 					}
 				});
+		
+		if(Settings.getInstance().isSessionOn())
+		{
+	    	Intent intent = new Intent(this, MainActivity.class);
+	    	startActivity(intent);
+		}
 	}
 
 	/**

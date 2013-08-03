@@ -57,7 +57,7 @@ public class Settings
 	public void retrieveUser()
 	{
 		// TODO encontrar una manera para guardar el usuario y contraseña y recuperarlo
-		sessionOn = false;
+		sessionOn = true;
 		user = "mservetto";
 		password = "password";
 	}
