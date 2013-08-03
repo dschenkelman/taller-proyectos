@@ -63,6 +63,19 @@ namespace SocialToilet.Api.Migrations
             context.Ratings.Add(new Rating() { ToiletId = fiuba.Id, UserId = matias.Id, Value = 1 });
 
             context.SaveChanges();
+
+            context.Traits.Add(new Trait { Description = "Dejan pasar sin consumir" });
+            context.Traits.Add(new Trait { Description = "Tiene agua" });
+            context.Traits.Add(new Trait { Description = "Tiene papel" });
+            context.Traits.Add(new Trait { Description = "Tiene jabon" });
+            context.Traits.Add(new Trait { Description = "Tiene espejo" });
+            context.Traits.Add(new Trait { Description = "Las puertas de las cabinas cierran" });
+            context.Traits.Add(new Trait { Description = "Vende insumos de higiene femenina" });
+            context.Traits.Add(new Trait { Description = "Vende preservativos" });
+            context.Traits.Add(new Trait { Description = "Apto para discapacitados" });
+            context.Traits.Add(new Trait { Description = "Posee cambiador de bebes" });
+
+            context.SaveChanges();
         }
     }
 }

@@ -17,5 +17,7 @@
         public string Description { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
+
+        public virtual ICollection<Trait> Traits { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace SocialToilet.Api.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201308031537550_BaseMigration"; }
+            get { return "201308032010187_BaseMigration"; }
         }
         
         string IMigrationMetadata.Source

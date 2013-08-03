@@ -1,5 +1,6 @@
 namespace SocialToilet.Api.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
     
     public partial class BaseMigration : DbMigration
@@ -42,6 +43,15 @@ namespace SocialToilet.Api.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Traits",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Description = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Pictures",
                 c => new
                     {
@@ -69,6 +79,19 @@ namespace SocialToilet.Api.Migrations
                 .Index(t => t.ToiletId)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.TraitToilets",
+                c => new
+                    {
+                        Trait_Id = c.Int(nullable: false),
+                        Toilet_Id = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Trait_Id, t.Toilet_Id })
+                .ForeignKey("dbo.Traits", t => t.Trait_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Toilets", t => t.Toilet_Id, cascadeDelete: true)
+                .Index(t => t.Trait_Id)
+                .Index(t => t.Toilet_Id);
+            
         }
         
         public override void Down()
@@ -76,15 +99,21 @@ namespace SocialToilet.Api.Migrations
             DropForeignKey("dbo.Comments", "UserId", "dbo.Users");
             DropForeignKey("dbo.Comments", "ToiletId", "dbo.Toilets");
             DropForeignKey("dbo.Pictures", "ToiletId", "dbo.Toilets");
+            DropForeignKey("dbo.TraitToilets", "Toilet_Id", "dbo.Toilets");
+            DropForeignKey("dbo.TraitToilets", "Trait_Id", "dbo.Traits");
             DropForeignKey("dbo.Ratings", "ToiletId", "dbo.Toilets");
             DropForeignKey("dbo.Ratings", "UserId", "dbo.Users");
             DropIndex("dbo.Comments", new[] { "UserId" });
             DropIndex("dbo.Comments", new[] { "ToiletId" });
             DropIndex("dbo.Pictures", new[] { "ToiletId" });
+            DropIndex("dbo.TraitToilets", new[] { "Toilet_Id" });
+            DropIndex("dbo.TraitToilets", new[] { "Trait_Id" });
             DropIndex("dbo.Ratings", new[] { "ToiletId" });
             DropIndex("dbo.Ratings", new[] { "UserId" });
+            DropTable("dbo.TraitToilets");
             DropTable("dbo.Comments");
             DropTable("dbo.Pictures");
+            DropTable("dbo.Traits");
             DropTable("dbo.Users");
             DropTable("dbo.Ratings");
             DropTable("dbo.Toilets");
