@@ -25,4 +25,5 @@ public interface IToilet extends IMapMarked
 	boolean hasGotCondomsOnSale();
 	boolean isAptForHandicapped();
 	boolean hasBabyRoom();
+	void userCalificationRetrieved(int calification);
 }

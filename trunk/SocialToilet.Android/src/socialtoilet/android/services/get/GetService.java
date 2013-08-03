@@ -21,6 +21,7 @@ public class GetService extends AsyncTask<String, String, String>{
 	public static String ioResponseErrorType = "kIOResponseError";
 	
 	protected boolean performingRequest;
+	protected StatusLine statusLine;
 	
 	@Override
 	protected String doInBackground(String... uri)
@@ -28,7 +29,6 @@ public class GetService extends AsyncTask<String, String, String>{
         HttpClient httpclient = HttpClientFactory.createClient();
         HttpResponse response;
         String responseString = null;
-        StatusLine statusLine = null;
         try {
             response = httpclient.execute(new HttpGet(uri[0]));
             statusLine = response.getStatusLine();

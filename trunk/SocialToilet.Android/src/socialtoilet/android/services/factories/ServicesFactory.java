@@ -106,6 +106,7 @@ public class ServicesFactory
 							public boolean hasGotCondomsOnSale() { return false; }
 							public boolean isAptForHandicapped() { return false; }
 							public boolean hasBabyRoom() { return false; }
+							public void userCalificationRetrieved( int calification) { }
 						});
 					toilets.add(new IToilet()
 						{
@@ -132,6 +133,7 @@ public class ServicesFactory
 							public boolean hasGotCondomsOnSale() { return false; }
 							public boolean isAptForHandicapped() { return false; }
 							public boolean hasBabyRoom() { return false; }
+							public void userCalificationRetrieved( int calification) { }
 						});
 					delegate.retrieveNearToiletsFinish(this, toilets);
 				}
@@ -202,6 +204,7 @@ public class ServicesFactory
 						public boolean hasGotCondomsOnSale() { return true; }
 						public boolean isAptForHandicapped() { return true; }
 						public boolean hasBabyRoom() { return false; }
+						public void userCalificationRetrieved( int calification) { }
 					});
 				}
 			};

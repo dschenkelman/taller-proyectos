@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import org.apache.http.client.ClientProtocolException;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 
 import socialtoilet.android.model.LoginUser;

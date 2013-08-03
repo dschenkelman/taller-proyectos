@@ -97,4 +97,9 @@ public class APIService
 		return serviceURL + "toilets/" + toiletId + "/ratings?userId=" +
 				Settings.getInstance().getUserId().toString();
 	}
+
+	public String getEditCalificationToiletPutURL(String toiletId)
+	{
+		return serviceURL + "toilets/" + toiletId + "/ratings";
+	}
 }

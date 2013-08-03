@@ -12,4 +12,9 @@ public class UserQualificationPostBody
 		this.userId = userId;
 		this.qualification = qualification;
 	}
+
+	public float getQualification()
+	{
+		return qualification;
+	}
 }

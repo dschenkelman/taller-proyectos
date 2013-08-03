@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+import android.text.format.Time;
+
 public class Comment implements IComment
 {
 
@@ -58,6 +60,13 @@ public class Comment implements IComment
 	public void setContent(String content)
 	{
 		this.content = content;
+	}
+
+	public void stapTime()
+	{
+		Time time = new Time();
+		time.setToNow();
+		postedOn = time.format("%Y-%m-%d") + " " + time.format("%H:%M");
 	}
 
 }

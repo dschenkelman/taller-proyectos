@@ -284,7 +284,7 @@ public class DetailToiletActivity extends FragmentActivity
 	public void retrieveToiletUserQualificationServiceFinish(
 			IRetrieveToiletUserQualificationService service, double calification)
 	{
-		toilet.setUserCalification((int)calification);
+		toilet.userCalificationRetrieved((int)calification);
 		populateGlobalRating();
 		populateUserCalification();
 	}

@@ -171,4 +171,10 @@ public class Toilet implements IToilet
 	@Override
 	public boolean hasBabyRoom() { return hasBabyRoom; }
 
+	@Override
+	public void userCalificationRetrieved(int calification)
+	{
+		userCalification = calification;
+	}
+
 }
