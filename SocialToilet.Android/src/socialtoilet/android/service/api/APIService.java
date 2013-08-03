@@ -82,10 +82,9 @@ public class APIService
 		return serviceURL + "toilets/" + toiletId + "/ratings/average";
 	}
 
-	public String getCalificateToiletPostURL()
+	public String getCalificateToiletPostURL(String toiletId)
 	{
-		// TODO set the post url
-		return "";
+		return serviceURL + "toilets/" + toiletId + "/ratings";
 	}
 
 	public String getAuthPostURL()
