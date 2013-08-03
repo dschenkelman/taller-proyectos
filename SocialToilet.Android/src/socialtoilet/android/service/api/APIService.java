@@ -92,7 +92,7 @@ public class APIService
 		return serviceURL + "users/auth";
 	}
 
-	public String getRetrieveToiletUserCalificationURL(String toiletId)
+	public String getRetrieveToiletUserQualificationURL(String toiletId)
 	{
 		return serviceURL + "toilets/" + toiletId + "/ratings?userId=" +
 				Settings.getInstance().getUserId().toString();

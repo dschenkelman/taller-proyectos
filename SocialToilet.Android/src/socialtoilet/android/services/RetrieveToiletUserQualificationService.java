@@ -6,19 +6,19 @@ import org.apache.http.client.ClientProtocolException;
 
 import socialtoilet.android.service.api.APIService;
 
-public class RetrieveToiletUserCalificationService extends GetService implements
-		IRetrieveToiletUserCalificationService
+public class RetrieveToiletUserQualificationService extends GetService implements
+		IRetrieveToiletUserQualificationService
 {
-	private IRetrieveToiletUserCalificationServiceDelegate delegate;
+	private IRetrieveToiletUserQualificationServiceDelegate delegate;
 	
-	public RetrieveToiletUserCalificationService()
+	public RetrieveToiletUserQualificationService()
 	{
 		performingRequest = false;
 	}
 	
 	@Override
 	public void retrieveToiletUserCalification(
-			IRetrieveToiletUserCalificationServiceDelegate delegate, String toiletId)
+			IRetrieveToiletUserQualificationServiceDelegate delegate, String toiletId)
 	{
 		if(performingRequest || null == delegate)
 		{
@@ -26,7 +26,7 @@ public class RetrieveToiletUserCalificationService extends GetService implements
 		}
 		performingRequest = true;
 		this.delegate = delegate;
-		execute(APIService.getInstance().getRetrieveToiletUserCalificationURL(toiletId));
+		execute(APIService.getInstance().getRetrieveToiletUserQualificationURL(toiletId));
 	}
 	
     @Override
@@ -38,12 +38,12 @@ public class RetrieveToiletUserCalificationService extends GetService implements
         {
             if( null != result )
             {
-                delegate.retrieveToiletUserCalificationServiceFinish(this,
-                		Integer.parseInt(result.substring(1, result.length() - 2)));
+                delegate.retrieveToiletUserQualificationServiceFinish(this,
+                		Double.parseDouble(result));
             }
             else
             {
-            	delegate.retrieveToiletUserCalificationServiceFinishWithError(this, 10000);
+            	delegate.retrieveToiletUserQualificationServiceFinishWithError(this, 10000);
             }
             performingRequest = false;
             delegate = null;
@@ -53,7 +53,7 @@ public class RetrieveToiletUserCalificationService extends GetService implements
     @Override
     protected void handleStatusCodeNotOk(IOException e, int statusCode)
 	{
-    	delegate.retrieveToiletUserCalificationServiceFinishWithError(this, statusCode);
+    	delegate.retrieveToiletUserQualificationServiceFinishWithError(this, statusCode);
         performingRequest = false;
         delegate = null;
 	}
@@ -61,7 +61,7 @@ public class RetrieveToiletUserCalificationService extends GetService implements
     @Override
 	protected void handleClientProtocolException(ClientProtocolException e)
 	{
-    	delegate.retrieveToiletUserCalificationServiceFinishWithError(this, 10000);
+    	delegate.retrieveToiletUserQualificationServiceFinishWithError(this, 10000);
         performingRequest = false;
         delegate = null;
 	}
