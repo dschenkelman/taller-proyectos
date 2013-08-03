@@ -18,13 +18,13 @@ import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.AddToiletCommentService;
 import socialtoilet.android.services.AddToiletService;
 import socialtoilet.android.services.AuthService;
-import socialtoilet.android.services.CalificateToiletService;
+import socialtoilet.android.services.QualificateToiletService;
 import socialtoilet.android.services.IAddToiletCommentService;
 import socialtoilet.android.services.IAddToiletCommentServiceDelegate;
 import socialtoilet.android.services.IAddToiletService;
 import socialtoilet.android.services.IAddToiletServiceDelegate;
-import socialtoilet.android.services.ICalificateToiletService;
-import socialtoilet.android.services.ICalificateToiletServiceDelegate;
+import socialtoilet.android.services.IQualificateToiletService;
+import socialtoilet.android.services.IQualificateToiletServiceDelegate;
 import socialtoilet.android.services.IRetrieveNearToiletsService;
 import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletCommentsService;
@@ -206,21 +206,21 @@ public class ServicesFactory
 		return new RetrieveToiletService();
 	}
 	
-	public static ICalificateToiletService createCalificateToiletService()
+	public static IQualificateToiletService createCalificateToiletService()
 	{
 		if(Settings.getInstance().isServicesDebugMode())
 		{
-			return new ICalificateToiletService()
+			return new IQualificateToiletService()
 			{
 				@Override
-				public void calificateToiletService(IToilet toilet, int userCalification,
-						ICalificateToiletServiceDelegate delegate)
+				public void qualificateToiletService(IToilet toilet, int userCalification,
+						IQualificateToiletServiceDelegate delegate)
 				{
 					delegate.calificateToiletFinish(this);
 				}
 			};
 		}
-		return new CalificateToiletService();
+		return new QualificateToiletService();
 	}
 
 	public static IRetrieveToiletCommentsService createRetrieveToiletCommentsService()

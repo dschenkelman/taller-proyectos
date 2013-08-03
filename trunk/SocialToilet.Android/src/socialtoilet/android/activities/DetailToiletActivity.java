@@ -8,8 +8,8 @@ import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalif
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalificationDialogDelegate;
 import socialtoilet.android.model.IRating;
 import socialtoilet.android.model.IToilet;
-import socialtoilet.android.services.ICalificateToiletService;
-import socialtoilet.android.services.ICalificateToiletServiceDelegate;
+import socialtoilet.android.services.IQualificateToiletService;
+import socialtoilet.android.services.IQualificateToiletServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletRatingService;
 import socialtoilet.android.services.IRetrieveToiletRatingServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletUserCalificationService;
@@ -35,7 +35,7 @@ import android.os.Build;
 
 public class DetailToiletActivity extends FragmentActivity
 	implements ICalificationDialogDataSource,
-	ICalificationDialogDelegate, ICalificateToiletServiceDelegate,
+	ICalificationDialogDelegate, IQualificateToiletServiceDelegate,
 	IRetrieveToiletRatingServiceDelegate, IRetrieveToiletUserCalificationServiceDelegate
 {
 
@@ -232,8 +232,8 @@ public class DetailToiletActivity extends FragmentActivity
 			populateGlobalRating();
 		}
 		populateUserCalification();
-		ICalificateToiletService calificate = ServicesFactory.createCalificateToiletService();
-		calificate.calificateToiletService(toilet, userCalification, this);
+		IQualificateToiletService calificate = ServicesFactory.createCalificateToiletService();
+		calificate.qualificateToiletService(toilet, userCalification, this);
 	}
 
 	@Override
@@ -246,11 +246,11 @@ public class DetailToiletActivity extends FragmentActivity
 	}
 
 	@Override
-	public void calificateToiletFinish(ICalificateToiletService service) { }
+	public void calificateToiletFinish(IQualificateToiletService service) { }
 
 	@Override
 	public void calificateToiletFinishWithError(
-			ICalificateToiletService service, String errorCode)
+			IQualificateToiletService service, int errorCode)
 	{
 		toilet.revertUserCalification();
 		populateGlobalRating();
