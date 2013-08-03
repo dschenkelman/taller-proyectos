@@ -5,16 +5,16 @@ import java.util.UUID;
 public class UserQualificationPostBody
 {
 	UUID userId;
-	float qualification;
+	double rating;
 	
-	public UserQualificationPostBody(UUID userId, float qualification)
+	public UserQualificationPostBody(UUID userId, double rating)
 	{
 		this.userId = userId;
-		this.qualification = qualification;
+		this.rating = rating;
 	}
 
-	public float getQualification()
+	public double getQualification()
 	{
-		return qualification;
+		return rating;
 	}
 }
