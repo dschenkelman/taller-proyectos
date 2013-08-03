@@ -41,7 +41,7 @@ import socialtoilet.android.services.RetrieveToiletCommentsService;
 import socialtoilet.android.services.RetrieveToiletGaleryService;
 import socialtoilet.android.services.RetrieveToiletRatingService;
 import socialtoilet.android.services.RetrieveToiletService;
-import socialtoilet.android.services.authServiceDelegate;
+import socialtoilet.android.services.IAuthServiceDelegate;
 import socialtoilet.android.utils.Settings;
 
 public class ServicesFactory
@@ -420,7 +420,7 @@ public class ServicesFactory
 			return new IAuthService()
 			{
 				@Override
-				public void authUser(authServiceDelegate delegate, LoginUser user)
+				public void authUser(IAuthServiceDelegate delegate, LoginUser user)
 				{
 					user.setUserId(UUID.randomUUID());
 					delegate.authServiceDelegateFinish(this, user);

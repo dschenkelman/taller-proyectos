@@ -46,12 +46,12 @@ public class RetrieveToiletRatingService extends GetService implements
         if( null != result )
         {
         	rating = new Gson().fromJson(result, Rating.class);
+            delegate.retrieveToiletRatingServiceFinish(this, rating);
         }
         else
         {
         	delegate.retrieveToiletRatingServiceFinishWithError(this, emptyResponseErrorType);
         }
-        delegate.retrieveToiletRatingServiceFinish(this, rating);
         performingRequest = false;
         delegate = null;
     }

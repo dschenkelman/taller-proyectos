@@ -65,12 +65,12 @@ public class RetrieveNearToiletsService extends GetService implements IRetrieveN
     		{
     			e.printStackTrace();
     		}
+            delegate.retrieveNearToiletsFinish(this, toilets);
         }
         else
         {
         	delegate.retreiveNearToiletsFinishWithError(this, emptyResponseErrorType);
         }
-        delegate.retrieveNearToiletsFinish(this, toilets);
         performingRequest = false;
         delegate = null;
     }

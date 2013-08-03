@@ -4,5 +4,5 @@ import socialtoilet.android.model.LoginUser;
 
 public interface IAuthService
 {
-	void authUser(authServiceDelegate delegate, LoginUser user);
+	void authUser(IAuthServiceDelegate delegate, LoginUser user);
 }
