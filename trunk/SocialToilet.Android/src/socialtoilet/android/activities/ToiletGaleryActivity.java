@@ -68,6 +68,9 @@ public class ToiletGaleryActivity extends Activity
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.action_settings:
+	        startActivity(new Intent(this, SettingsActivity.class));
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

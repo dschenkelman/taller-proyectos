@@ -19,7 +19,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -104,6 +103,9 @@ public class MappingToiletActivity extends FragmentActivity
 		case R.id.action_close:
 			onCloseButtonTapped();
 	    	return true;
+		case R.id.action_settings:
+	        startActivity(new Intent(this, SettingsActivity.class));
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	} 

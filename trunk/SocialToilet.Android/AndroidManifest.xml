@@ -22,7 +22,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!--
          The following two permissions are not required to use
-	     Google Maps Android API v2, but are recommended.
+	     Google Maps Android API v2, but are recommended.
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -112,6 +112,18 @@
             android:label="@string/title_activity_start_session"
             android:parentActivityName="socialtoilet.android.activities.MainActivity"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="socialtoilet.android.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name="socialtoilet.android.activities.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="socialtoilet.android.activities.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="socialtoilet.android.activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="socialtoilet.android.activities.MainActivity" />

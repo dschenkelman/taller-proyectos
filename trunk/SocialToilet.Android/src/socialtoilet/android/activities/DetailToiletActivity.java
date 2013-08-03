@@ -122,6 +122,9 @@ public class DetailToiletActivity extends FragmentActivity
 		case R.id.item_gallery_button:
 			onGaleryButtonTapped();
 	    	return true;
+		case R.id.action_settings:
+	        startActivity(new Intent(this, SettingsActivity.class));
+			return true;
 		}
 		
 		return super.onOptionsItemSelected(item);
