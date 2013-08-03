@@ -8,10 +8,10 @@ import socialtoilet.android.R;
 import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.location.IGPSTrakerListener;
 import socialtoilet.android.model.IToilet;
-import socialtoilet.android.services.IRetrieveNearToiletsService;
-import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
-import socialtoilet.android.services.RetrieveNearToiletsService;
 import socialtoilet.android.services.factories.ServicesFactory;
+import socialtoilet.android.services.get.IRetrieveNearToiletsService;
+import socialtoilet.android.services.get.IRetrieveNearToiletsServiceDelegate;
+import socialtoilet.android.services.get.RetrieveNearToiletsService;
 import socialtoilet.android.utils.Settings;
 import socialtoilet.android.utils.StateSaver;
 

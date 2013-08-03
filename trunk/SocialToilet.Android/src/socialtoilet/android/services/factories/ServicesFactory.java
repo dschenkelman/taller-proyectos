@@ -15,36 +15,39 @@ import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletPicture;
 import socialtoilet.android.model.LoginUser;
 import socialtoilet.android.model.Toilet;
-import socialtoilet.android.services.AddToiletCommentService;
-import socialtoilet.android.services.AddToiletService;
-import socialtoilet.android.services.AuthService;
-import socialtoilet.android.services.QualificateToiletService;
-import socialtoilet.android.services.IAddToiletCommentService;
-import socialtoilet.android.services.IAddToiletCommentServiceDelegate;
-import socialtoilet.android.services.IAddToiletService;
-import socialtoilet.android.services.IAddToiletServiceDelegate;
-import socialtoilet.android.services.IQualificateToiletService;
-import socialtoilet.android.services.IQualificateToiletServiceDelegate;
-import socialtoilet.android.services.IRetrieveNearToiletsService;
-import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
-import socialtoilet.android.services.IRetrieveToiletCommentsService;
-import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
-import socialtoilet.android.services.IRetrieveToiletGaleryService;
-import socialtoilet.android.services.IRetrieveToiletGaleryServiceDelegate;
-import socialtoilet.android.services.IRetrieveToiletRatingService;
-import socialtoilet.android.services.IRetrieveToiletRatingServiceDelegate;
-import socialtoilet.android.services.IRetrieveToiletService;
-import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
-import socialtoilet.android.services.IAuthService;
-import socialtoilet.android.services.IRetrieveToiletUserQualificationService;
-import socialtoilet.android.services.IRetrieveToiletUserQualificationServiceDelegate;
-import socialtoilet.android.services.RetrieveNearToiletsService;
-import socialtoilet.android.services.RetrieveToiletCommentsService;
-import socialtoilet.android.services.RetrieveToiletGaleryService;
-import socialtoilet.android.services.RetrieveToiletRatingService;
-import socialtoilet.android.services.RetrieveToiletService;
-import socialtoilet.android.services.IAuthServiceDelegate;
-import socialtoilet.android.services.RetrieveToiletUserQualificationService;
+import socialtoilet.android.services.get.IRetrieveNearToiletsService;
+import socialtoilet.android.services.get.IRetrieveNearToiletsServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveToiletCommentsService;
+import socialtoilet.android.services.get.IRetrieveToiletCommentsServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveToiletGaleryService;
+import socialtoilet.android.services.get.IRetrieveToiletGaleryServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveToiletRatingService;
+import socialtoilet.android.services.get.IRetrieveToiletRatingServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveToiletService;
+import socialtoilet.android.services.get.IRetrieveToiletServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveToiletUserQualificationService;
+import socialtoilet.android.services.get.IRetrieveToiletUserQualificationServiceDelegate;
+import socialtoilet.android.services.get.RetrieveNearToiletsService;
+import socialtoilet.android.services.get.RetrieveToiletCommentsService;
+import socialtoilet.android.services.get.RetrieveToiletGaleryService;
+import socialtoilet.android.services.get.RetrieveToiletRatingService;
+import socialtoilet.android.services.get.RetrieveToiletService;
+import socialtoilet.android.services.get.RetrieveToiletUserQualificationService;
+import socialtoilet.android.services.post.AddToiletCommentService;
+import socialtoilet.android.services.post.AddToiletService;
+import socialtoilet.android.services.post.AuthService;
+import socialtoilet.android.services.post.IAddToiletCommentService;
+import socialtoilet.android.services.post.IAddToiletCommentServiceDelegate;
+import socialtoilet.android.services.post.IAddToiletService;
+import socialtoilet.android.services.post.IAddToiletServiceDelegate;
+import socialtoilet.android.services.post.IAuthService;
+import socialtoilet.android.services.post.IAuthServiceDelegate;
+import socialtoilet.android.services.post.IQualificateToiletService;
+import socialtoilet.android.services.post.IQualificateToiletServiceDelegate;
+import socialtoilet.android.services.post.QualificateToiletService;
+import socialtoilet.android.services.put.EditQualificationToiletService;
+import socialtoilet.android.services.put.IEditQualificationToiletService;
+import socialtoilet.android.services.put.IEditQualificationToiletServiceDelegate;
 import socialtoilet.android.utils.Settings;
 
 public class ServicesFactory
@@ -448,5 +451,22 @@ public class ServicesFactory
 			};
 		}
 		return new RetrieveToiletUserQualificationService();
+	}
+
+	public static IEditQualificationToiletService createEditCalificationToiletService()
+	{
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			return new IEditQualificationToiletService()
+			{
+				@Override
+				public void editQualificationToiletService(IToilet toilet,
+						int userQualification,
+						IEditQualificationToiletServiceDelegate delegate) {
+					delegate.editQualificationToiletFinish(this, userQualification);
+				}
+			};
+		}
+		return new EditQualificationToiletService();
 	}
 }

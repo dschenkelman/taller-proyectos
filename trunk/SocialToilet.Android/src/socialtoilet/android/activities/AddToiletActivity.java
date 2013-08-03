@@ -2,9 +2,9 @@ package socialtoilet.android.activities;
 
 import socialtoilet.android.R;
 import socialtoilet.android.model.Toilet;
-import socialtoilet.android.services.IAddToiletService;
-import socialtoilet.android.services.IAddToiletServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
+import socialtoilet.android.services.post.IAddToiletService;
+import socialtoilet.android.services.post.IAddToiletServiceDelegate;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
