@@ -8,13 +8,15 @@ import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalif
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalificationDialogDelegate;
 import socialtoilet.android.model.IRating;
 import socialtoilet.android.model.IToilet;
-import socialtoilet.android.services.IQualificateToiletService;
-import socialtoilet.android.services.IQualificateToiletServiceDelegate;
-import socialtoilet.android.services.IRetrieveToiletRatingService;
-import socialtoilet.android.services.IRetrieveToiletRatingServiceDelegate;
-import socialtoilet.android.services.IRetrieveToiletUserQualificationService;
-import socialtoilet.android.services.IRetrieveToiletUserQualificationServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
+import socialtoilet.android.services.get.IRetrieveToiletRatingService;
+import socialtoilet.android.services.get.IRetrieveToiletRatingServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveToiletUserQualificationService;
+import socialtoilet.android.services.get.IRetrieveToiletUserQualificationServiceDelegate;
+import socialtoilet.android.services.post.IQualificateToiletService;
+import socialtoilet.android.services.post.IQualificateToiletServiceDelegate;
+import socialtoilet.android.services.put.IEditQualificationToiletService;
+import socialtoilet.android.services.put.IEditQualificationToiletServiceDelegate;
 import socialtoilet.android.utils.StateSaver;
 
 import android.os.Bundle;
@@ -36,7 +38,9 @@ import android.os.Build;
 public class DetailToiletActivity extends FragmentActivity
 	implements ICalificationDialogDataSource,
 	ICalificationDialogDelegate, IQualificateToiletServiceDelegate,
-	IRetrieveToiletRatingServiceDelegate, IRetrieveToiletUserQualificationServiceDelegate
+	IRetrieveToiletRatingServiceDelegate, 
+	IRetrieveToiletUserQualificationServiceDelegate, 
+	IEditQualificationToiletServiceDelegate
 {
 
 	public final static String KEY_UUID_OBJECT_RETRIEVER = "kToiletStream";
@@ -226,14 +230,19 @@ public class DetailToiletActivity extends FragmentActivity
 	public void onDialogCalificateClick(CalificationDialogFragment dialog)
 	{
 		int userCalification = dialog.getUserCalification();
-		toilet.setUserCalification(userCalification);
-		if(1 != toilet.getUserCalificationsCount())
+		if(0 == toilet.getUserCalification())
 		{
+			toilet.setUserCalification(userCalification);
 			populateGlobalRating();
+			populateUserCalification();
+			IQualificateToiletService calificate = ServicesFactory.createCalificateToiletService();
+			calificate.qualificateToiletService(toilet, userCalification, this);
 		}
-		populateUserCalification();
-		IQualificateToiletService calificate = ServicesFactory.createCalificateToiletService();
-		calificate.qualificateToiletService(toilet, userCalification, this);
+		else
+		{
+			IEditQualificationToiletService edit = ServicesFactory.createEditCalificationToiletService();
+			edit.editQualificationToiletService(toilet, userCalification, this);
+		}
 	}
 
 	@Override
@@ -284,6 +293,23 @@ public class DetailToiletActivity extends FragmentActivity
 	@Override
 	public void retrieveToiletUserQualificationServiceFinishWithError(
 			IRetrieveToiletUserQualificationService service, int errorCode)
+	{ 
+		// no hacer naaaa'
+	}
+
+	@Override
+	public void editQualificationToiletFinish(
+			IEditQualificationToiletService service, int newQualification)
 	{
+		toilet.setUserCalification(newQualification);
+		populateGlobalRating();
+		populateUserCalification();
+	}
+
+	@Override
+	public void editQualificationToiletFinishWithError(
+			IEditQualificationToiletService service, int errorCode)
+	{ 
+		// TODO mostrar ErrorDialog diciendo que no se pudo recalificar
 	}
 }
