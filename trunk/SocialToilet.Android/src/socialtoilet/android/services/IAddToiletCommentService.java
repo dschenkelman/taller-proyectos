@@ -4,5 +4,5 @@ import socialtoilet.android.model.Comment;
 
 public interface IAddToiletCommentService
 {
-	void addToiletComment(IAddToiletCommentServiceDelegate delegate, Comment comment);
+	void addToiletComment(IAddToiletCommentServiceDelegate delegate, String toiletId, Comment comment);
 }

@@ -13,6 +13,7 @@ public interface IToilet extends IMapMarked
 	int getUserCalificationsCount();
 	void setUserCalification(int calification);
 	void revertUserCalification();
+	void setRating(IRating rating);
 	
 	boolean canBeUsedWithoutConsumption();
 	boolean hasWater();

@@ -1,23 +1,24 @@
 package socialtoilet.android.utils;
 
+import java.util.UUID;
+
+import socialtoilet.android.model.LoginUser;
+
 public class Settings
 {
 
 	private static Settings instance;
 	
 	private boolean sessionOn;
-	private String user;
-	private String password;
+	private LoginUser user;
 	private int initialRadiusInMeters;
 	private boolean servicesDebugMode;
 	
 	private Settings()
 	{
 		sessionOn = false;
-		user = "";
-		password = "";
 		initialRadiusInMeters = 10000;
-		servicesDebugMode = true;
+		servicesDebugMode = false;
 	}
 	
 	public static Settings getInstance()
@@ -33,15 +34,20 @@ public class Settings
 	{
 		return sessionOn;
 	}
+
+	public UUID getUserId()
+	{
+		return user.getUserId();
+	}
 	
 	public String getUser()
 	{
-		return user;
+		return user.getUser();
 	}
 	
 	public String getPassword()
 	{
-		return password;
+		return user.getPassword();
 	}
 	
 	public int getInitialRadiusInMeters()
@@ -57,16 +63,18 @@ public class Settings
 	public void retrieveUser()
 	{
 		// TODO encontrar una manera para guardar el usuario y contraseña y recuperarlo
-		sessionOn = true;
-		user = "mservetto";
-		password = "password";
+		sessionOn = false;
 	}
 
-	public void setUserAndPassword(String mEmail, String mPassword)
+	public void setUser(LoginUser user)
 	{
-		// TODO Auto-generated method stub
 		sessionOn = true;
-		user = mEmail;
-		password = mPassword;
+		this.user = user;
+		// TODO dave user in disk
+	}
+
+	public void setAuthUser(LoginUser user)
+	{
+		this.user = user;
 	}
 }

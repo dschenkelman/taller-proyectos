@@ -13,6 +13,7 @@ import socialtoilet.android.services.IRetrieveNearToiletsServiceDelegate;
 import socialtoilet.android.services.RetrieveNearToiletsService;
 import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.utils.Settings;
+import socialtoilet.android.utils.StateSaver;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -277,6 +278,8 @@ public class MappingToiletActivity extends FragmentActivity
 		{
 			Toast.makeText(getApplicationContext(), "No toilet", Toast.LENGTH_SHORT).show(); 
 		}
+		
+		StateSaver.getInstance().saveToilet(EXTRA_TOILET_ID, toilet);
 		Intent intent = new Intent(this, DetailToiletActivity.class);
 		intent.putExtra(EXTRA_TOILET_ID, toilet.getID().toString());
 		startActivity(intent);

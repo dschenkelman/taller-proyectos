@@ -8,7 +8,7 @@ public class Toilet implements IToilet
     private String address;
     private String description;
     private Location location;
-    private float ranking;
+    private float rating;
     private int userCalification;
     private int userCalificationsCount;
 	private boolean canBeUsedWithoutConsume;
@@ -62,7 +62,7 @@ public class Toilet implements IToilet
 	@Override
 	public float getRanking()
 	{
-		return ranking;
+		return rating;
 	}
 
 	@Override
@@ -106,13 +106,13 @@ public class Toilet implements IToilet
 	{
 		if(0 == userCalification)
 		{
-			ranking = (ranking * userCalificationsCount + calification) / (userCalificationsCount + 1);
+			rating = (rating * userCalificationsCount + calification) / (userCalificationsCount + 1);
 			userCalificationsCount++;
 		}
 		else
 		{
-			ranking = (ranking * userCalificationsCount - userCalification) / (float)(userCalificationsCount - 1);
-			ranking = (ranking * userCalificationsCount + calification) / (float)userCalificationsCount;
+			rating = (rating * userCalificationsCount - userCalification) / (float)(userCalificationsCount - 1);
+			rating = (rating * userCalificationsCount + calification) / (float)userCalificationsCount;
 		}
 		userCalification = calification;
 	}
@@ -128,12 +128,19 @@ public class Toilet implements IToilet
 	{
 		if(0 != userCalification)
 		{
-			ranking = (ranking * userCalificationsCount - userCalification) / (float)(userCalificationsCount - 1);
+			rating = (rating * userCalificationsCount - userCalification) / (float)(userCalificationsCount - 1);
 			userCalification = 0;
 			userCalificationsCount--;
 		}
 	}
 
+	@Override
+	public void setRating(IRating rating)
+	{
+		this.rating = rating.getRating();
+		this.userCalificationsCount = rating.getCalificationCount();
+	}
+	
 	@Override
 	public boolean canBeUsedWithoutConsumption() { return canBeUsedWithoutConsume; }
 
@@ -163,4 +170,5 @@ public class Toilet implements IToilet
 
 	@Override
 	public boolean hasBabyRoom() { return hasBabyRoom; }
+
 }

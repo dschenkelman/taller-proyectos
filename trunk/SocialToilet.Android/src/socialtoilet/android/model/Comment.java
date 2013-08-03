@@ -1,58 +1,46 @@
 package socialtoilet.android.model;
 
 
-import android.annotation.SuppressLint;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.TimeZone;
+import java.util.UUID;
 
 public class Comment implements IComment
 {
 
-	private String title;
-	private String message;
-	private String user;
-	private long epoch;
+	private UUID userId;
+	private String content;
+	private String userName;
+	private String postedOn;
 	private Collection<String> likeUsers;
-
+	
 	public Comment()
 	{
 		likeUsers = new ArrayList<String>();
 	}
-	
-	@Override
-	public String getTitle()
-	{
-		return title;
-	}
 
 	@Override
-	public String getMessage()
+	public UUID getUserId()
 	{
-		return message;
+		return userId;
 	}
 
 	@Override
 	public String getUser()
 	{
-		return user;
+		return userName;
 	}
 
-	@SuppressLint("SimpleDateFormat")
+	@Override
+	public String getContent()
+	{
+		return content;
+	}
+
 	@Override
 	public String getDate()
 	{    
-		DateFormat objFormatter = new SimpleDateFormat("hh:mm'hs' dd/MM/yyyy");
-	    objFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-	    Calendar objCalendar = Calendar.getInstance(TimeZone.getDefault());
-	    objCalendar.setTimeInMillis(epoch);
-	    String result = objFormatter.format(objCalendar.getTime());
-	    objCalendar.clear();
-	    return result; 
+	    return postedOn; 
 	}
 
 	@Override
@@ -61,26 +49,15 @@ public class Comment implements IComment
 		return likeUsers;
 	}
 
-	public void setUser(String user)
+	public void setUser(UUID userId, String user)
 	{
-		this.user = user;
+		this.userId = userId;
+		this.userName = user;
 	}
 
-	public void stampTime()
+	public void setContent(String content)
 	{
-	    Calendar objCalendar = Calendar.getInstance(TimeZone.getDefault());
-	    long timeStamp = objCalendar.getTimeInMillis()/1000;
-		this.epoch = timeStamp;
-	}
-
-	public void setTitle(String title)
-	{
-		this.title = title;
-	}
-
-	public void setMessage(String message)
-	{
-		this.message = message;
+		this.content = content;
 	}
 
 }
