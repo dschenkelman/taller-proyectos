@@ -55,7 +55,8 @@ public class MappingToiletActivity extends FragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mapping_toilet);
 		// Show the Up button in the action bar.
-		setupActionBar();
+
+		GPSTracker.initialize(getApplicationContext());
 		
 		radialDistanceInMeters = Settings.getInstance().getInitialRadiusInMeters();
         dictionary = new HashMap<String, IToilet>();
@@ -63,17 +64,6 @@ public class MappingToiletActivity extends FragmentActivity
         setUpMapIfNeeded();
 	}
 
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar()
-	{
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-		{
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -89,13 +79,6 @@ public class MappingToiletActivity extends FragmentActivity
 		switch (item.getItemId())
 		{
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.action_add_toilet:
