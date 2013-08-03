@@ -50,17 +50,10 @@ public class DetailToiletActivity extends FragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail_toilet);
 		this.disableClickableCheckboxs();
-	    
+		setupActionBar();
+		
 	    if(null == savedInstanceState)
 	    {
-			Log.d("Social Toilet", "Primera vez que entro a la view");
-			setupActionBar();
-			
-			Intent intent = getIntent();
-			String toiletId = intent.getStringExtra(MappingToiletActivity.EXTRA_TOILET_ID);
-			
-			UUID id = UUID.fromString(toiletId);
-
 			toilet = StateSaver.getInstance().retrieveToilet(MappingToiletActivity.EXTRA_TOILET_ID);
 			if(null != toilet)
 			{
@@ -69,13 +62,13 @@ public class DetailToiletActivity extends FragmentActivity
 				IRetrieveToiletRatingService service = ServicesFactory.createRetrieveToiletRatingService();
 				service.retrieveToiletRating(toilet.getID().toString(), this);
 			}
-			/*
-			IRetrieveToiletService service = ServicesFactory.createRetrieveToiletService();//new RetrieveToiletService();
-			service.retrieveToilet(id, this);*/
+			else
+			{
+				// TODO onToiletNull
+			}
 	    }
 	    else
 	    {
-			Log.d("Social Toilet", "No es la primera vez, vengo de una rotación");
 		    String objectUUID = savedInstanceState.getString(KEY_UUID_OBJECT_RETRIEVER);
 		    UUID objectToRetrieveUUID = UUID.fromString(objectUUID);
 		    toilet = StateSaver.getInstance().retrieveToilet(objectToRetrieveUUID.toString());
@@ -203,8 +196,10 @@ public class DetailToiletActivity extends FragmentActivity
 	{
 		RatingBar ratingBar = (RatingBar) findViewById(R.id.globalRating);
 		ratingBar.setRating(toilet.getRanking());
+		ratingBar.setVisibility(RatingBar.VISIBLE);
 		TextView calificationsCount = (TextView) findViewById(R.id.calificationCount);
 		calificationsCount.setText(toilet.getUserCalificationsCount() + "");
+		calificationsCount.setVisibility(TextView.VISIBLE);
 
 		RatingBar userCalificationBar = (RatingBar) findViewById(R.id.userCalification);
 		userCalificationBar.setRating(toilet.getUserCalification());
@@ -279,6 +274,9 @@ public class DetailToiletActivity extends FragmentActivity
 	public void retrieveToiletRatingServiceFinishWithError(
 			IRetrieveToiletRatingService service, String errorCode)
 	{
-		// TODO Auto-generated method stub
+		RatingBar ratingBar = (RatingBar) findViewById(R.id.globalRating);
+		ratingBar.setVisibility(RatingBar.GONE);
+		TextView calificationsCount = (TextView) findViewById(R.id.calificationCount);
+		calificationsCount.setVisibility(TextView.GONE);
 	}
 }

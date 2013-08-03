@@ -5,7 +5,7 @@ import socialtoilet.android.activities.dialogs.ErrorDialogFragment;
 import socialtoilet.android.activities.dialogs.ErrorDialogFragment.IErrorDialogDataSource;
 import socialtoilet.android.model.LoginUser;
 import socialtoilet.android.services.IAuthService;
-import socialtoilet.android.services.authServiceDelegate;
+import socialtoilet.android.services.IAuthServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.utils.Settings;
 import android.animation.Animator;
@@ -23,7 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class StartSessionActivity extends FragmentActivity 
-	implements authServiceDelegate, IErrorDialogDataSource
+	implements IAuthServiceDelegate, IErrorDialogDataSource
 {
 	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 

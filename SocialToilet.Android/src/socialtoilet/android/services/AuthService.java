@@ -15,7 +15,7 @@ import socialtoilet.android.service.api.APIService;
 public class AuthService extends PostService implements IAuthService
 {
 	private LoginUser postBodyObject;
-	private authServiceDelegate delegate;
+	private IAuthServiceDelegate delegate;
 	
 	public AuthService()
 	{
@@ -23,7 +23,7 @@ public class AuthService extends PostService implements IAuthService
 	}
 	
 	@Override
-	public void authUser(authServiceDelegate delegate, LoginUser user)
+	public void authUser(IAuthServiceDelegate delegate, LoginUser user)
 	{
 		if(performingRequest || null == user)
 			return;

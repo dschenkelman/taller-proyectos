@@ -2,7 +2,7 @@ package socialtoilet.android.services;
 
 import socialtoilet.android.model.LoginUser;
 
-public interface authServiceDelegate
+public interface IAuthServiceDelegate
 {
 	void authServiceDelegateFinish(IAuthService service, 
 			LoginUser user);
