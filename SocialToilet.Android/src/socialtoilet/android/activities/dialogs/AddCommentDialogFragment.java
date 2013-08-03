@@ -66,9 +66,7 @@ public class AddCommentDialogFragment extends DialogFragment
 			public void afterTextChanged(Editable arg0) { }
 		};
 
-		EditText title = (EditText) dialogView.findViewById(R.id.title);
 		EditText comment = (EditText) dialogView.findViewById(R.id.comment);
-		title.addTextChangedListener(textWatcher);
 		comment.addTextChangedListener(textWatcher);
         return alertDialog;
     }
@@ -111,12 +109,6 @@ public class AddCommentDialogFragment extends DialogFragment
         void onDialogCancelClick(AddCommentDialogFragment dialog);
     }
     
-	public String getTitle()
-	{
-		EditText title = (EditText) dialogView.findViewById(R.id.title);
-		return title.getText().toString();
-	}
-
 	public String getMessage()
 	{
 		EditText comment = (EditText) dialogView.findViewById(R.id.comment);

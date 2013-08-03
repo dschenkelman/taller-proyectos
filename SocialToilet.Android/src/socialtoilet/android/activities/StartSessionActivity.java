@@ -1,15 +1,20 @@
 package socialtoilet.android.activities;
 
 import socialtoilet.android.R;
+import socialtoilet.android.activities.dialogs.ErrorDialogFragment;
+import socialtoilet.android.activities.dialogs.ErrorDialogFragment.IErrorDialogDataSource;
+import socialtoilet.android.model.LoginUser;
+import socialtoilet.android.services.IAuthService;
+import socialtoilet.android.services.authServiceDelegate;
+import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.utils.Settings;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,31 +22,15 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * Activity which displays a login screen to the user, offering registration as
- * well.
- */
-public class StartSessionActivity extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
-
-	/**
-	 * The default email to populate the email field with.
-	 */
+public class StartSessionActivity extends FragmentActivity 
+	implements authServiceDelegate, IErrorDialogDataSource
+{
 	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
-
-	/**
-	 * Keep track of the login task to ensure we can cancel it if requested.
-	 */
-	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
 	private String mUser;
 	private String mPassword;
+	private boolean attemptingLogin;
 
 	// UI references.
 	private EditText mUserView;
@@ -51,9 +40,9 @@ public class StartSessionActivity extends Activity {
 	private TextView mLoginStatusMessageView;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_start_session);
 
 		// Set up the login form.
@@ -94,16 +83,14 @@ public class StartSessionActivity extends Activity {
 		}
 	}
 
-	/**
-	 * Attempts to sign in or register the account specified by the login form.
-	 * If there are form errors (invalid email, missing fields, etc.), the
-	 * errors are presented and no actual login attempt is made.
-	 */
-	public void attemptLogin() {
-		if (mAuthTask != null) {
+	public void attemptLogin()
+	{
+		if (attemptingLogin)
+		{
 			return;
 		}
-
+		attemptingLogin = true;
+		
 		// Reset errors.
 		mUserView.setError(null);
 		mPasswordView.setError(null);
@@ -115,40 +102,39 @@ public class StartSessionActivity extends Activity {
 		boolean cancel = false;
 		View focusView = null;
 
-		// Check for a valid password.
-		if (TextUtils.isEmpty(mPassword)) {
+		if (TextUtils.isEmpty(mPassword))
+		{
 			mPasswordView.setError(getString(R.string.error_field_required));
 			focusView = mPasswordView;
 			cancel = true;
-		} else if (mPassword.length() < 4) {
+		}
+		else if (mPassword.length() < 4)
+		{
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
 			cancel = true;
 		}
 
-		// Check for a valid email address.
-		if (TextUtils.isEmpty(mUser)) {
+		if (TextUtils.isEmpty(mUser))
+		{
 			mUserView.setError(getString(R.string.error_field_required));
 			focusView = mUserView;
 			cancel = true;
 		}
 
-		if (cancel) {
-			// There was an error; don't attempt login and focus the first
-			// form field with an error.
+		if (cancel)
+		{
 			focusView.requestFocus();
-		} else {
-			// Show a progress spinner, and kick off a background task to
-			// perform the user login attempt.
-			// TODO login mocked
-			Settings.getInstance().setUserAndPassword(mUser, mPassword);
-	    	Intent intent = new Intent(this, MainActivity.class);
-	    	startActivity(intent);
-	    	/*
+		}
+		else
+		{
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
-			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);*/
+			
+			LoginUser user = new LoginUser(mUser, mPassword);
+			Settings.getInstance().setAuthUser(user);
+			IAuthService service = ServicesFactory.createAuthService();
+			service.authUser(this, user);
 		}
 	}
 
@@ -156,20 +142,24 @@ public class StartSessionActivity extends Activity {
 	 * Shows the progress UI and hides the login form.
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	private void showProgress(final boolean show) {
+	private void showProgress(final boolean show)
+	{
 		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
 		// for very easy animations. If available, use these APIs to fade-in
 		// the progress spinner.
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2)
+		{
 			int shortAnimTime = getResources().getInteger(
 					android.R.integer.config_shortAnimTime);
 
 			mLoginStatusView.setVisibility(View.VISIBLE);
 			mLoginStatusView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
+					.setListener(new AnimatorListenerAdapter()
+					{
 						@Override
-						public void onAnimationEnd(Animator animation) {
+						public void onAnimationEnd(Animator animation)
+						{
 							mLoginStatusView.setVisibility(show ? View.VISIBLE
 									: View.GONE);
 						}
@@ -178,14 +168,18 @@ public class StartSessionActivity extends Activity {
 			mLoginFormView.setVisibility(View.VISIBLE);
 			mLoginFormView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 0 : 1)
-					.setListener(new AnimatorListenerAdapter() {
+					.setListener(new AnimatorListenerAdapter()
+					{
 						@Override
-						public void onAnimationEnd(Animator animation) {
+						public void onAnimationEnd(Animator animation)
+						{
 							mLoginFormView.setVisibility(show ? View.GONE
 									: View.VISIBLE);
 						}
 					});
-		} else {
+		}
+		else
+		{
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
 			mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -193,52 +187,37 @@ public class StartSessionActivity extends Activity {
 		}
 	}
 
-	/**
-	 * Represents an asynchronous login/registration task used to authenticate
-	 * the user.
-	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
+	@Override
+	public void authServiceDelegateFinish(
+			IAuthService service, LoginUser user)
+	{
+		attemptingLogin = false;
+		showProgress(false);
+		Settings.getInstance().setUser(user);
+    	Intent intent = new Intent(this, MainActivity.class);
+    	startActivity(intent);
+	}
 
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
+	@Override
+	public void authServiceDelegateFinishWithError(
+			IAuthService service, String errorCode)
+	{
+		showProgress(false);
+		attemptingLogin = false;
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mUser)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
+		ErrorDialogFragment dialog = new ErrorDialogFragment();
+    	dialog.show(getSupportFragmentManager(), "error");
+	}
 
-			// TODO: register the new account here.
-			return true;
-		}
+	@Override
+	public String getErrorMessage()
+	{
+		return "Credenciales inválidas";
+	}
 
-		@Override
-		protected void onPostExecute(final Boolean success) {
-			mAuthTask = null;
-			showProgress(false);
-
-			if (success) {
-				finish();
-			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
-			}
-		}
-
-		@Override
-		protected void onCancelled() {
-			mAuthTask = null;
-			showProgress(false);
-		}
+	@Override
+	public String getErrorTitle()
+	{
+		return "Error";
 	}
 }

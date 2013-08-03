@@ -1,5 +1,6 @@
 package socialtoilet.android.services;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.apache.http.HttpResponse;
@@ -20,6 +21,7 @@ public abstract class PostService extends AsyncTask<String, String, String>
 	public static String ioResponseErrorType = "kIOResponseError";
 	
 	protected boolean performingRequest;
+	protected StatusLine statusLine;
 
 	@Override
 	protected String doInBackground(String... uri)
@@ -27,7 +29,6 @@ public abstract class PostService extends AsyncTask<String, String, String>
 		HttpClient httpclient = HttpClientFactory.createClient();
 	    HttpPost httppost = new HttpPost(uri[0]);
 	    HttpResponse response = null;
-        StatusLine statusLine = null;
 	    try 
 	    {
 	    	String object = generatePostBodyObject();
@@ -49,7 +50,21 @@ public abstract class PostService extends AsyncTask<String, String, String>
         {
         	handleStatusCodeNotOk(e, ((null == statusLine) ? -1 : statusLine.getStatusCode()));
 	    }
-		return response.toString();
+
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try
+        {
+			response.getEntity().writeTo(out);
+		} 
+        catch (IOException e) { e.printStackTrace(); }
+        
+        try
+        {
+			out.close();
+		} 
+        catch (IOException e) { e.printStackTrace(); }
+        return out.toString();
 	}
 	
 	abstract protected String generatePostBodyObject();

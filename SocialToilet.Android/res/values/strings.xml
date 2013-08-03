@@ -17,6 +17,7 @@
     <string name="comment_dialog_message">Comenta</string>
     <string name="calification_dialog_calificate">Calificar</string>
     <string name="comment_dialog_comment">Comentar</string>
+    <string name="comment_dialog_continue">Continuar</string>
     <string name="calification_dialog_cancel">Cancelar</string>
     <string name="comment_dialog_cancel">Cancelar</string>
     <string name="title_activity_mapping_toilet">Mapa de Toilets</string>

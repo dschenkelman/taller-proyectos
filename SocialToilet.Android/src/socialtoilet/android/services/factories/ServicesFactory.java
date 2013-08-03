@@ -10,11 +10,14 @@ import android.util.Log;
 import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.model.Comment;
 import socialtoilet.android.model.IComment;
+import socialtoilet.android.model.IRating;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletPicture;
+import socialtoilet.android.model.LoginUser;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.AddToiletCommentService;
 import socialtoilet.android.services.AddToiletService;
+import socialtoilet.android.services.AuthService;
 import socialtoilet.android.services.CalificateToiletService;
 import socialtoilet.android.services.IAddToiletCommentService;
 import socialtoilet.android.services.IAddToiletCommentServiceDelegate;
@@ -28,22 +31,26 @@ import socialtoilet.android.services.IRetrieveToiletCommentsService;
 import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletGaleryService;
 import socialtoilet.android.services.IRetrieveToiletGaleryServiceDelegate;
+import socialtoilet.android.services.IRetrieveToiletRatingService;
+import socialtoilet.android.services.IRetrieveToiletRatingServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
+import socialtoilet.android.services.IAuthService;
 import socialtoilet.android.services.RetrieveNearToiletsService;
 import socialtoilet.android.services.RetrieveToiletCommentsService;
 import socialtoilet.android.services.RetrieveToiletGaleryService;
+import socialtoilet.android.services.RetrieveToiletRatingService;
 import socialtoilet.android.services.RetrieveToiletService;
+import socialtoilet.android.services.authServiceDelegate;
 import socialtoilet.android.utils.Settings;
 
 public class ServicesFactory
 {
-
 	private ServicesFactory() {}
 	
 	public static IAddToiletService createAddToiletService()
 	{
-		if(Settings.getInstance().isServicesDebugMode())
+		if(Settings.getInstance().isServicesDebugMode() )
 		{
 			return new IAddToiletService()
 			{
@@ -82,6 +89,7 @@ public class ServicesFactory
 							public int getUserCalificationsCount() { return 25; }
 							public void setUserCalification(int calification) { }
 							public void revertUserCalification() { }
+							public void setRating(IRating rating) { }
 							public boolean canBeUsedWithoutConsumption() { return false; }
 							public boolean hasWater() { return false; }
 							public boolean hasToiletPaper() { return false; }
@@ -107,6 +115,7 @@ public class ServicesFactory
 							public int getUserCalificationsCount() { return 31; }
 							public void setUserCalification(int calification) { }
 							public void revertUserCalification() { }
+							public void setRating(IRating rating) { }
 							public boolean canBeUsedWithoutConsumption() { return false; }
 							public boolean hasWater() { return false; }
 							public boolean hasToiletPaper() { return false; }
@@ -176,6 +185,7 @@ public class ServicesFactory
 								userCalificationsCount--;
 							}
 						}
+						public void setRating(IRating rating) { }
 						public boolean canBeUsedWithoutConsumption() { return false; }
 						public boolean hasWater() { return true; }
 						public boolean hasToiletPaper() { return true; }
@@ -225,11 +235,11 @@ public class ServicesFactory
 					comments.add(new IComment()
 					{
 						@Override
+						public UUID getUserId() { return UUID.randomUUID(); }
+						@Override
 						public String getUser() { return "damian"; }
 						@Override
-						public String getTitle() { return ""; }
-						@Override
-						public String getMessage() { 
+						public String getContent() { 
 							return "Totalmente recomendado."; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
@@ -239,11 +249,11 @@ public class ServicesFactory
 					comments.add(new IComment()
 					{
 						@Override
+						public UUID getUserId() { return UUID.randomUUID(); }
+						@Override
 						public String getUser() { return "sebas"; }
 						@Override
-						public String getTitle() { return "Excelente"; }
-						@Override
-						public String getMessage() { 
+						public String getContent() { 
 							return "Cuando llegué, estaba cerrado. Pero me lo abrieron y después me tome un café muy bueno."; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(
@@ -254,11 +264,11 @@ public class ServicesFactory
 					comments.add(new IComment()
 					{
 						@Override
+						public UUID getUserId() { return UUID.randomUUID(); }
+						@Override
 						public String getUser() { return "mservetto"; }
 						@Override
-						public String getTitle() { return "Patético"; }
-						@Override
-						public String getMessage() { 
+						public String getContent() { 
 							return "Ya no están limpiando este baño. Están las tablas sucias"; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
@@ -268,11 +278,11 @@ public class ServicesFactory
 					comments.add(new IComment()
 					{
 						@Override
+						public UUID getUserId() { return UUID.randomUUID(); }
+						@Override
 						public String getUser() { return "damian"; }
 						@Override
-						public String getTitle() { return "R: Patético"; }
-						@Override
-						public String getMessage() { 
+						public String getContent() { 
 							return "Que raro, cuando fui yo estaba 10 puntos."; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
@@ -282,11 +292,11 @@ public class ServicesFactory
 					comments.add(new IComment()
 					{
 						@Override
+						public UUID getUserId() { return UUID.randomUUID(); }
+						@Override
 						public String getUser() { return "gus"; }
 						@Override
-						public String getTitle() { return "R: Patético"; }
-						@Override
-						public String getMessage() { 
+						public String getContent() { 
 							return "Lo confirmo."; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
@@ -296,11 +306,11 @@ public class ServicesFactory
 					comments.add(new IComment()
 					{
 						@Override
+						public UUID getUserId() { return UUID.randomUUID(); }
+						@Override
 						public String getUser() { return "ricardo"; }
 						@Override
-						public String getTitle() { return "Dueño"; }
-						@Override
-						public String getMessage() { 
+						public String getContent() { 
 							return "Disculpen por las molestias. ya lo limpiamos y lo pusimos  punto. Vengan y de paso coman nuestras tortas, las más ricas de Buenos Aires!"; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
@@ -310,11 +320,11 @@ public class ServicesFactory
 					comments.add(new IComment()
 					{
 						@Override
+						public UUID getUserId() { return UUID.randomUUID(); }
+						@Override
 						public String getUser() { return "mservetto"; }
 						@Override
-						public String getTitle() { return "R: Dueño"; }
-						@Override
-						public String getMessage() { 
+						public String getContent() { 
 							return "Las mejores!!"; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
@@ -324,11 +334,11 @@ public class ServicesFactory
 					comments.add(new IComment()
 					{
 						@Override
+						public UUID getUserId() { return UUID.randomUUID(); }
+						@Override
 						public String getUser() { return "sebas"; }
 						@Override
-						public String getTitle() { return "R: Dueño"; }
-						@Override
-						public String getMessage() { 
+						public String getContent() { 
 							return "Genio. Amo esta aplicación"; }
 						@Override
 						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
@@ -371,12 +381,52 @@ public class ServicesFactory
 				@Override
 				public void addToiletComment(
 						IAddToiletCommentServiceDelegate delegate,
-						Comment comment)
+						String toiletId, Comment comment)
 				{
 					delegate.addToiletCommentFinish(this, comment);
 				}
 			};
 		}
 		return new AddToiletCommentService();
+	}
+
+	public static IRetrieveToiletRatingService createRetrieveToiletRatingService()
+	{
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			return new IRetrieveToiletRatingService()
+			{
+				@Override
+				public void retrieveToiletRating(String string,
+						IRetrieveToiletRatingServiceDelegate delegate)
+				{
+					delegate.retrieveToiletRatingServiceFinish(this, new IRating()
+					{
+						@Override
+						public int getCalificationCount() { return 4; }
+						@Override
+						public float getRating() { return 1.2f; }
+					});
+				}
+			};
+		}
+		return new RetrieveToiletRatingService();
+	}
+
+	public static IAuthService createAuthService()
+	{
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			return new IAuthService()
+			{
+				@Override
+				public void authUser(authServiceDelegate delegate, LoginUser user)
+				{
+					user.setUserId(UUID.randomUUID());
+					delegate.authServiceDelegateFinish(this, user);
+				}
+			};
+		}
+		return new AuthService();
 	}
 }

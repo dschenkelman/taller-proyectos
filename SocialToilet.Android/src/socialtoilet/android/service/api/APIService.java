@@ -10,9 +10,10 @@ public class APIService
 	
 	private APIService()
 	{
-		hostURL = "https://192.168.1.250";
+		hostURL = "https://192.168.1.35";
 		port = 44300;
 		serviceURL = hostURL + ":" + port + "/api/";
+		//serviceURL = "https://socialtoilet.apphb.com/api/";
 	}
 	
 	public static APIService getInstance()
@@ -58,21 +59,35 @@ public class APIService
 		return port;
 	}
 
-	public String getCalificateToiletPostURL()
+	public String getRetrieveToiletCommentsURL(String toiletId)
 	{
-		// TODO set the post url
-		return "";
+		return serviceURL + "toilets/" + toiletId + "/comments";
 	}
 
-	public String getRetrieveToiletCommentsURL(String string)
+	public String getAddToiletCommentPostURL(String toiletId)
 	{
-		// TODO set the get url
-		return "";
+		return serviceURL + "toilets/" + toiletId + "/comments";
 	}
 
 	public String getRetrieveToiletGaleryURL(String string)
 	{
 		// TODO set the get url
 		return null;
+	}
+
+	public String getRetrieveToiletRatingURL(String toiletId)
+	{
+		return serviceURL + "toilets/" + toiletId + "/ratings/average";
+	}
+
+	public String getCalificateToiletPostURL()
+	{
+		// TODO set the post url
+		return "";
+	}
+
+	public String getAuthPostURL()
+	{
+		return serviceURL + "users/auth";
 	}
 }

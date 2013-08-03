@@ -16,6 +16,7 @@ import socialtoilet.android.services.IRetrieveToiletCommentsServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.utils.Settings;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +36,7 @@ public class ToiletCommentsActivity extends FragmentActivity
 	implements IRetrieveToiletCommentsServiceDelegate,
 		IAddCommentDialogDelegate, IAddToiletCommentServiceDelegate
 {
-
+	private UUID toiletId;
 	private Collection<IComment> comments;
 	
 	@Override
@@ -46,13 +47,13 @@ public class ToiletCommentsActivity extends FragmentActivity
 		setContentView(R.layout.activity_toilet_comments);
 		
 		Intent intent = getIntent();
-		String toiletId = intent.getStringExtra(DetailToiletActivity.EXTRA_TOILET_ID);
-		UUID id = UUID.fromString(toiletId);
+		String id = intent.getStringExtra(DetailToiletActivity.EXTRA_TOILET_ID);
+		toiletId = UUID.fromString(id);
 
 		comments = new ArrayList<IComment>();
 		
 		IRetrieveToiletCommentsService service = ServicesFactory.createRetrieveToiletCommentsService();
-		service.retrieveToiletComments(id, this);
+		service.retrieveToiletComments(toiletId, this);
 	}
 
 	/**
@@ -123,37 +124,23 @@ public class ToiletCommentsActivity extends FragmentActivity
 	{
 	    LayoutInflater inflater = getLayoutInflater();
 	    View commentView;
-	    TextView commentTitle;
-	    TextView commentMessage;
+	    TextView commentContent;
 	    TextView user;
 	    TextView commentDate;
 	    ImageButton eraseComment;
 		LinearLayout linearLayout = (LinearLayout)findViewById(R.id.toiletCommentsCommentsLinearLayout);
 		
 		commentView = inflater.inflate(R.layout.toilet_comment_row, null);
-        commentTitle = (TextView) commentView.findViewById(R.id.comment_title);
-        commentMessage = (TextView) commentView.findViewById(R.id.comment_message);
+        commentContent = (TextView) commentView.findViewById(R.id.comment_message);
         user = (TextView) commentView.findViewById(R.id.comment_user);
         commentDate = (TextView) commentView.findViewById(R.id.comment_date);
         eraseComment = (ImageButton) commentView.findViewById(R.id.comment_erase);
         
-        if(0 != comment.getTitle().length())
-        {
-        	commentTitle.setText(comment.getTitle() + ":");
-        }
-        else
-        {
-        	commentTitle.setVisibility(TextView.GONE);
-        }
-        commentMessage.setText(comment.getMessage());
+        commentContent.setText(comment.getContent());
         user.setText("Por " + comment.getUser() + " - ");
         commentDate.setText(comment.getDate());
         
-        if(false == comment.getUser().equals(Settings.getInstance().getUser()))
-        {
-        	eraseComment.setVisibility(Button.GONE);
-        }
-        else
+        if(comment.getUser().equals(Settings.getInstance().getUser()))
         {
         	final View commentViewToRemove = commentView;
         	eraseComment.setOnClickListener(new OnClickListener()
@@ -203,13 +190,12 @@ public class ToiletCommentsActivity extends FragmentActivity
 	public void onDialogCommentClick(AddCommentDialogFragment dialog)
 	{
 		Comment newComment = new Comment();
-		newComment.setUser(Settings.getInstance().getUser());
-		newComment.setTitle(dialog.getTitle());
-		newComment.setMessage(dialog.getMessage());
-		newComment.stampTime();
+		newComment.setUser(Settings.getInstance().getUserId(), Settings.getInstance().getUser());
+		newComment.setContent(dialog.getMessage());
 		
 		IAddToiletCommentService service = ServicesFactory.createAddToiletCommentService();
-		service.addToiletComment(this, newComment);
+		Log.d("Social Toiler", "service.addToiletComment()");
+		service.addToiletComment(this, toiletId.toString(), newComment);
 	}
 
 	@Override
@@ -219,11 +205,15 @@ public class ToiletCommentsActivity extends FragmentActivity
 	public void addToiletCommentFinish(IAddToiletCommentService service,
 			Comment addedComment)
 	{
+		Log.d("Social Toiler", "addToiletCommentFinish()");
 		appendComment(addedComment);
 	}
 
 	@Override
 	public void addToiletCommentFinishWithError(
-			IAddToiletCommentService service, String errorCode) { }
+			IAddToiletCommentService service, String errorCode)
+	{ 
+		Log.d("Social Toiler", "addToiletCommentFinishWithError() " + errorCode);
+	}
 
 }

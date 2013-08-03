@@ -6,9 +6,12 @@ import socialtoilet.android.R;
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment;
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalificationDialogDataSource;
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalificationDialogDelegate;
+import socialtoilet.android.model.IRating;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.services.ICalificateToiletService;
 import socialtoilet.android.services.ICalificateToiletServiceDelegate;
+import socialtoilet.android.services.IRetrieveToiletRatingService;
+import socialtoilet.android.services.IRetrieveToiletRatingServiceDelegate;
 import socialtoilet.android.services.IRetrieveToiletService;
 import socialtoilet.android.services.IRetrieveToiletServiceDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
@@ -32,7 +35,9 @@ import android.content.Intent;
 import android.os.Build;
 
 public class DetailToiletActivity extends FragmentActivity
-	implements IRetrieveToiletServiceDelegate, ICalificationDialogDataSource, ICalificationDialogDelegate, ICalificateToiletServiceDelegate
+	implements IRetrieveToiletServiceDelegate, ICalificationDialogDataSource,
+	ICalificationDialogDelegate, ICalificateToiletServiceDelegate,
+	IRetrieveToiletRatingServiceDelegate
 {
 
 	public final static String KEY_UUID_OBJECT_RETRIEVER = "kToiletStream";
@@ -55,9 +60,18 @@ public class DetailToiletActivity extends FragmentActivity
 			String toiletId = intent.getStringExtra(MappingToiletActivity.EXTRA_TOILET_ID);
 			
 			UUID id = UUID.fromString(toiletId);
-			
+
+			toilet = StateSaver.getInstance().retrieveToilet(MappingToiletActivity.EXTRA_TOILET_ID);
+			if(null != toilet)
+			{
+				populateData();
+				
+				IRetrieveToiletRatingService service = ServicesFactory.createRetrieveToiletRatingService();
+				service.retrieveToiletRating(toilet.getID().toString(), this);
+			}
+			/*
 			IRetrieveToiletService service = ServicesFactory.createRetrieveToiletService();//new RetrieveToiletService();
-			service.retrieveToilet(id, this);
+			service.retrieveToilet(id, this);*/
 	    }
 	    else
 	    {
@@ -251,5 +265,20 @@ public class DetailToiletActivity extends FragmentActivity
 	{
 		toilet.revertUserCalification();
 		populateRanking();
+	}
+
+	@Override
+	public void retrieveToiletRatingServiceFinish(
+			IRetrieveToiletRatingService service, IRating rating)
+	{
+		toilet.setRating(rating);
+		populateRanking();
+	}
+
+	@Override
+	public void retrieveToiletRatingServiceFinishWithError(
+			IRetrieveToiletRatingService service, String errorCode)
+	{
+		// TODO Auto-generated method stub
 	}
 }
