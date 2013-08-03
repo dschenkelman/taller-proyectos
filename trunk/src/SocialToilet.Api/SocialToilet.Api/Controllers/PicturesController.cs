@@ -31,6 +31,11 @@
             // Read the MIME multipart asynchronously content using the stream provider we just created.
             var imageBytes = await Request.Content.ReadAsByteArrayAsync();
 
+            if (imageBytes.LongLength == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
             var picture = new Picture { Content = imageBytes, ToiletId = toiletId };
 
             this.db.Pictures.Add(picture);

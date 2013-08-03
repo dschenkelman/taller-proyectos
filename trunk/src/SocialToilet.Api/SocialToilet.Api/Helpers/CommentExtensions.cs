@@ -12,7 +12,7 @@
                            Content = comment.Content,
                            UserId = comment.UserId,
                            UserName = comment.User.Name,
-                           PostedOn = comment.PostedOn
+                           PostedOn = comment.PostedOn.ToString("yyyy-MM-dd hh:mm")
                         };
         }
     }

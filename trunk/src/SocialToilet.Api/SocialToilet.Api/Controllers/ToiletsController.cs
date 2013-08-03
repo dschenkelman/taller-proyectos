@@ -10,7 +10,6 @@
     using System.Threading.Tasks;
     using System.Web.Http;
 
-    using SocialToilet.Api.Database;
     using SocialToilet.Api.Helpers;
     using SocialToilet.Api.Models;
     using SocialToilet.Api.ViewModels;
