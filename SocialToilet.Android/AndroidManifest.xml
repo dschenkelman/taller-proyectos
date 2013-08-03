@@ -83,6 +83,7 @@
         <activity
             android:name="socialtoilet.android.activities.AddToiletActivity"
             android:label="@string/title_activity_add_toilet"
+            android:launchMode="singleTop"
             android:parentActivityName="socialtoilet.android.activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -94,6 +95,7 @@
         <activity
             android:name="socialtoilet.android.activities.ToiletCommentsActivity"
             android:label="@string/title_activity_toilet_comments"
+            android:launchMode="singleTop"
             android:parentActivityName="socialtoilet.android.activities.DetailToiletActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -102,6 +104,7 @@
         <activity
             android:name="socialtoilet.android.activities.ToiletGaleryActivity"
             android:label="@string/title_activity_toilet_galery"
+            android:launchMode="singleTop"
             android:parentActivityName="socialtoilet.android.activities.DetailToiletActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -110,24 +113,12 @@
         <activity
             android:name="socialtoilet.android.activities.StartSessionActivity"
             android:label="@string/title_activity_start_session"
-            android:parentActivityName="socialtoilet.android.activities.MainActivity"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize|stateVisible" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="socialtoilet.android.activities.MainActivity" />
         </activity>
         <activity
             android:name="socialtoilet.android.activities.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
-        <activity
-            android:name="socialtoilet.android.activities.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName="socialtoilet.android.activities.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="socialtoilet.android.activities.MainActivity" />
-        </activity>
+            android:label="@string/title_activity_settings" />
     </application>
 
 </manifest>

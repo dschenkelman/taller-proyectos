@@ -116,6 +116,9 @@ public class DetailToiletActivity extends FragmentActivity
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.action_exit:
+			onCloseButtonTapped();
+	    	return true;
 		case R.id.item_comment_button:
 			onCommentsButtonTapped();
 	    	return true;
@@ -198,6 +201,13 @@ public class DetailToiletActivity extends FragmentActivity
     	CalificationDialogFragment dialog = new CalificationDialogFragment();
     	dialog.show(getSupportFragmentManager(), "calificate");
     }
+	
+    private void onCloseButtonTapped()
+    {
+     	Intent intent = new Intent(this, StartSessionActivity.class);
+     	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);	
+	}
     
     public void onCommentsButtonTapped()
     {
