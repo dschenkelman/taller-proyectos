@@ -19,6 +19,7 @@ import android.util.Log;
 public class GPSTracker extends Service implements LocationListener
 {
 	private static GPSTracker instance;
+	
 	public static void initialize(Context context)
 	{
 		instance = new GPSTracker(context);

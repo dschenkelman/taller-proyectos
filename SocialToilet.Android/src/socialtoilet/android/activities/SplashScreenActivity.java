@@ -24,7 +24,8 @@ public class SplashScreenActivity extends Activity
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,     WindowManager.LayoutParams.FLAG_FULLSCREEN);    // Removes notification bar
 		
 		setContentView(R.layout.activity_splash_screen);
-		
+
+		Settings.initialize(getPreferences(0));
 		Settings.getInstance().retrieveUser();
 		
 		  // Start timer and launch main activity

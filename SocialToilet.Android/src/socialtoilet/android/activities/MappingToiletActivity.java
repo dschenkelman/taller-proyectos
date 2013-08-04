@@ -95,6 +95,7 @@ public class MappingToiletActivity extends FragmentActivity
 	
     private void onCloseButtonTapped()
     {
+    	Settings.getInstance().logoutUser();
      	Intent intent = new Intent(this, StartSessionActivity.class);
      	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);	

@@ -78,7 +78,7 @@ public class StartSessionActivity extends FragmentActivity
 		
 		if(Settings.getInstance().isSessionOn())
 		{
-	    	Intent intent = new Intent(this, MainActivity.class);
+	    	Intent intent = new Intent(this, MappingToiletActivity.class);
 	    	startActivity(intent);
 		}
 	}
