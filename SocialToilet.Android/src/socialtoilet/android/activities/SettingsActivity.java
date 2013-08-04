@@ -1,8 +1,13 @@
 package socialtoilet.android.activities;
 
+import java.util.TooManyListenersException;
+
 import socialtoilet.android.R;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.SeekBar;
+import android.widget.ToggleButton;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.app.Activity;
@@ -15,7 +20,9 @@ public class SettingsActivity extends Activity
 	
 	private SeekBar bar; 
 	private TextView textProgress;
+	private ToggleButton debugButton;
 	private int currentDistance=200;
+	private boolean debugMode = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -23,21 +30,16 @@ public class SettingsActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 		
-		 bar = (SeekBar)findViewById(R.id.map_search_distance_seek_bar); // make seekbar object
-	    //bar.setOnSeekBarChangeListener(this);
-		 bar.setProgress(INITIAL_PROGRESS_VALUE);
-		 bar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+		bar = (SeekBar)findViewById(R.id.map_search_distance_seek_bar); 
+		bar.setProgress(INITIAL_PROGRESS_VALUE);
+		bar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
+			public void onStopTrackingTouch(SeekBar seekBar) {		
 			}
 			
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
+			public void onStartTrackingTouch(SeekBar seekBar) {		
 			}
 			
 			@Override
@@ -50,5 +52,18 @@ public class SettingsActivity extends Activity
 		});
 		 
 	    textProgress = (TextView)findViewById(R.id.map_search_distance_value);
+	    debugButton  = (ToggleButton)findViewById(R.id.toggleButton1);
+	    debugButton.setSelected(debugMode);
+	    debugButton.setOnClickListener(new OnClickListener() {
+	    	@Override
+	        public void onClick(View v) {
+	        	if((debugButton.isChecked())) {
+	                  debugMode = true;
+	            }
+	            else {
+	            	  debugMode = false;
+	            }
+	        }
+	    });
 	}
 }
