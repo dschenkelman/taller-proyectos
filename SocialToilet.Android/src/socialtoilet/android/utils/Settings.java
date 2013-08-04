@@ -19,14 +19,14 @@ public class Settings
 	
 	private boolean sessionOn;
 	private LoginUser user;
-	private int initialRadiusInMeters;
+	private int distanceForNearToiletsInMeters;
 	private boolean servicesDebugMode;
 	
 	private Settings(SharedPreferences settings)
 	{
 		this.settings = settings;
 		sessionOn = false;
-		initialRadiusInMeters = 10000;
+		distanceForNearToiletsInMeters = 200;
 		servicesDebugMode = false;
 	}
 	
@@ -62,13 +62,22 @@ public class Settings
 	
 	public int getInitialRadiusInMeters()
 	{
-		return initialRadiusInMeters;
+		return distanceForNearToiletsInMeters;
+	}
+
+	public void setDistanceForNearToiletsInMeters(int meters) {
+		this.distanceForNearToiletsInMeters = meters;
 	}
 
 	public boolean isServicesDebugMode()
 	{
 		return servicesDebugMode;
 	}
+	
+	public void setServicesDebugMode(boolean debugMode) {
+		this.servicesDebugMode = debugMode;
+	}
+
 	
 	public void retrieveUser()
 	{
