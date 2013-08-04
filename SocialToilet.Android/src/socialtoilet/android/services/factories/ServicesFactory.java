@@ -26,8 +26,8 @@ import socialtoilet.android.services.get.IRetrieveToiletRatingService;
 import socialtoilet.android.services.get.IRetrieveToiletRatingServiceDelegate;
 import socialtoilet.android.services.get.IRetrieveToiletService;
 import socialtoilet.android.services.get.IRetrieveToiletServiceDelegate;
-import socialtoilet.android.services.get.IRetrieveToiletTraitsService;
-import socialtoilet.android.services.get.IRetrieveToiletTraitsServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveTraitsService;
+import socialtoilet.android.services.get.IRetrieveTraitsServiceDelegate;
 import socialtoilet.android.services.get.IRetrieveToiletUserQualificationService;
 import socialtoilet.android.services.get.IRetrieveToiletUserQualificationServiceDelegate;
 import socialtoilet.android.services.get.RetrieveNearToiletsService;
@@ -35,7 +35,7 @@ import socialtoilet.android.services.get.RetrieveToiletCommentsService;
 import socialtoilet.android.services.get.RetrieveToiletGaleryService;
 import socialtoilet.android.services.get.RetrieveToiletRatingService;
 import socialtoilet.android.services.get.RetrieveToiletService;
-import socialtoilet.android.services.get.RetrieveToiletTraitsService;
+import socialtoilet.android.services.get.RetrieveTraitsService;
 import socialtoilet.android.services.get.RetrieveToiletUserQualificationService;
 import socialtoilet.android.services.post.AddToiletCommentService;
 import socialtoilet.android.services.post.AddToiletService;
@@ -480,15 +480,15 @@ public class ServicesFactory
 		return new EditQualificationToiletService();
 	}
 
-	public static IRetrieveToiletTraitsService createRetrieveToiletTraitsService()
+	public static IRetrieveTraitsService createRetrieveTraitsService()
 	{
 		if(Settings.getInstance().isServicesDebugMode())
 		{
-			return new IRetrieveToiletTraitsService()
+			return new IRetrieveTraitsService()
 			{
 				@Override
 				public void retrieveToiletTraits(
-						IRetrieveToiletTraitsServiceDelegate delegate)
+						IRetrieveTraitsServiceDelegate delegate)
 				{
 					Collection<IToiletTrait> traits = new ArrayList<IToiletTrait>();
 					traits.add(new IToiletTrait()
@@ -615,7 +615,7 @@ public class ServicesFactory
 				}
 			};
 		}
-		return new RetrieveToiletTraitsService();
+		return new RetrieveTraitsService();
 	}
 
 	public static IEditToiletTraitsService createEditToiletTraitsService()

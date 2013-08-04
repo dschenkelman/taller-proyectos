@@ -4,10 +4,10 @@ import java.util.Collection;
 
 import socialtoilet.android.model.IToiletTrait;
 
-public interface IRetrieveToiletTraitsServiceDelegate
+public interface IRetrieveTraitsServiceDelegate
 {
 	void retrieveToiletTraitsServiceFinish(
-			IRetrieveToiletTraitsService service, Collection<IToiletTrait> traits);
+			IRetrieveTraitsService service, Collection<IToiletTrait> traits);
 	void retrieveToiletTraitsServiceFinishWithError(
-			IRetrieveToiletTraitsService service, int errorCode);
+			IRetrieveTraitsService service, int errorCode);
 }
