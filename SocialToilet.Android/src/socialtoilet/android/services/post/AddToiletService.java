@@ -1,6 +1,7 @@
 package socialtoilet.android.services.post;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -34,9 +35,20 @@ public class AddToiletService extends PostService implements IAddToiletService
     protected void onPostExecute(String result) 
     {
         super.onPostExecute(result);
-        delegate.addToiletFinish(this);
-        performingRequest = false;
-        delegate = null;
+        if(performingRequest)
+        {
+            if(201 == statusLine.getStatusCode())
+            {
+            	postBodyObject.setID(UUID.fromString(result.substring(1, result.length() - 1)));
+                delegate.addToiletFinish(this, postBodyObject);
+            }
+            else
+            {
+            	delegate.addToiletFinishWithError(this, ioResponseErrorType);
+            }
+            performingRequest = false;
+            delegate = null;
+        }
     }
 
     @Override

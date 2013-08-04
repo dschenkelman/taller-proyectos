@@ -237,7 +237,7 @@ public class DetailToiletActivity extends FragmentActivity
 			toilet.setUserCalification(userCalification);
 			populateGlobalRating();
 			populateUserCalification();
-			IQualificateToiletService calificate = ServicesFactory.createCalificateToiletService();
+			IQualificateToiletService calificate = ServicesFactory.createQualificateToiletService();
 			calificate.qualificateToiletService(toilet, userCalification, this);
 		}
 		else
@@ -257,10 +257,10 @@ public class DetailToiletActivity extends FragmentActivity
 	}
 
 	@Override
-	public void calificateToiletFinish(IQualificateToiletService service) { }
+	public void qualificateToiletFinish(IQualificateToiletService service) { }
 
 	@Override
-	public void calificateToiletFinishWithError(
+	public void qualificateToiletFinishWithError(
 			IQualificateToiletService service, int errorCode)
 	{
 		toilet.revertUserCalification();

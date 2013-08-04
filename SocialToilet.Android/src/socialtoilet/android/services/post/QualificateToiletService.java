@@ -43,11 +43,11 @@ public class QualificateToiletService extends PostService implements IQualificat
         {
         	if(statusLine.getStatusCode() >= 400 || statusLine.getStatusCode() < 200)
         	{
-            	delegate.calificateToiletFinishWithError(this, statusLine.getStatusCode());
+            	delegate.qualificateToiletFinishWithError(this, statusLine.getStatusCode());
         	}
         	else
         	{
-                delegate.calificateToiletFinish(this);
+                delegate.qualificateToiletFinish(this);
         	}
             performingRequest = false;
             delegate = null;
@@ -57,7 +57,7 @@ public class QualificateToiletService extends PostService implements IQualificat
     @Override
     protected void handleStatusCodeNotOk(IOException e, int statusCode)
 	{
-    	delegate.calificateToiletFinishWithError(this, statusCode);
+    	delegate.qualificateToiletFinishWithError(this, statusCode);
         performingRequest = false;
         delegate = null;
 	}
@@ -65,7 +65,7 @@ public class QualificateToiletService extends PostService implements IQualificat
     @Override
 	protected void handleClientProtocolException(ClientProtocolException e)
 	{
-    	delegate.calificateToiletFinishWithError(this, -1);
+    	delegate.qualificateToiletFinishWithError(this, -1);
         performingRequest = false;
         delegate = null;
 	}

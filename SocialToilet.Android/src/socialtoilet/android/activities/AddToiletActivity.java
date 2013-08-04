@@ -3,6 +3,8 @@ package socialtoilet.android.activities;
 import java.util.Collection;
 
 import socialtoilet.android.R;
+import socialtoilet.android.location.GPSTracker;
+import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletTrait;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.factories.ServicesFactory;
@@ -10,6 +12,10 @@ import socialtoilet.android.services.get.IRetrieveToiletTraitsService;
 import socialtoilet.android.services.get.IRetrieveToiletTraitsServiceDelegate;
 import socialtoilet.android.services.post.IAddToiletService;
 import socialtoilet.android.services.post.IAddToiletServiceDelegate;
+import socialtoilet.android.services.post.IQualificateToiletService;
+import socialtoilet.android.services.post.IQualificateToiletServiceDelegate;
+import socialtoilet.android.services.put.IEditToiletTraitsService;
+import socialtoilet.android.services.put.IEditToiletTraitsServiceDelegate;
 import socialtoilet.android.utils.Settings;
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,12 +24,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -31,7 +37,8 @@ import android.graphics.Color;
 import android.os.Build;
 
 public class AddToiletActivity extends Activity implements 
-	IAddToiletServiceDelegate, IRetrieveToiletTraitsServiceDelegate
+	IAddToiletServiceDelegate, IRetrieveToiletTraitsServiceDelegate, 
+	IQualificateToiletServiceDelegate, IEditToiletTraitsServiceDelegate
 {
 
 	private Collection<IToiletTrait> traits;
@@ -94,36 +101,28 @@ public class AddToiletActivity extends Activity implements
         startActivity(intent);	
 	}
     
-	public void addToiletTapped(View view)
+	private Toilet generateToilet()
+	{
+
+    	EditText description = (EditText)this.findViewById(R.id.editDescription);
+    	EditText address = (EditText)this.findViewById(R.id.editAddress);
+    	
+		Toilet toilet = new Toilet();
+		toilet.setDescription(description.getText().toString());
+		toilet.setAddress(address.getText().toString());
+		toilet.setLocation(//-34.6208718, -58.4318558);
+				GPSTracker.getInstance().getLatitude(),
+				GPSTracker.getInstance().getLongitude());
+		
+		return toilet;
+	}
+
+	public void onAddToilet(View view)
 	{
 		Toilet toilet = generateToilet();
 		
 		IAddToiletService service = ServicesFactory.createAddToiletService();//new AddToiletService();
 		service.addToilet(toilet, this);
-	}
-
-	private Toilet generateToilet()
-	{
-		// TODO 
-		Toilet toilet = new Toilet();
-		toilet.setDescription("Damian");
-		toilet.setAddress("Lo de dami");
-		toilet.setLocation(-34.6208718, -58.4318558);
-		
-		return toilet;
-	}
-
-	@Override
-	public void addToiletFinish(IAddToiletService service)
-	{
-		Toast.makeText(getApplicationContext(), "Toilet added", Toast.LENGTH_SHORT).show();
-	}
-
-	@Override
-	public void addToiletFinishWithError(IAddToiletService service,
-			String errorCode)
-	{
-		Toast.makeText(getApplicationContext(), "Error adding toilet", Toast.LENGTH_SHORT).show();
 	}
 	
     public void onCleanData(View view)
@@ -132,18 +131,40 @@ public class AddToiletActivity extends Activity implements
     	((EditText)this.findViewById(R.id.editAddress)).setText("");
     	((RatingBar)this.findViewById(R.id.toiletRatingBar)).setRating(0);
     	
-    	RelativeLayout myLayout = (RelativeLayout) findViewById(R.id.checkboxLayout);
-		LinearLayout checkboxLayout = (LinearLayout) myLayout.getChildAt(0);
-		for ( int i = 0; i < checkboxLayout.getChildCount();  i++ ){
-			CheckBox checkbox = (CheckBox)checkboxLayout.getChildAt(i);
-		    checkbox.setChecked(false);
-		}
+    	for(IToiletTrait trait : traits)
+    	{
+    		trait.setHasDescription(false);
+    	}
+    	populateTraits();
     }
+
+	private void populateTraits()
+	{
+		LinearLayout container = (LinearLayout) findViewById(R.id.checkboxLayout);
+		container.removeAllViews();
+		for(final IToiletTrait trait : traits)
+		{
+			final CheckBox cb = new CheckBox(this);
+			cb.setId(trait.getId());
+			cb.setText(trait.getDescription());
+			cb.setTextColor(Color.WHITE);
+			cb.setButtonDrawable(getResources().getDrawable(R.drawable.st_checkbox));
+			cb.setChecked(trait.hasDescription());
+			cb.setOnCheckedChangeListener(new OnCheckedChangeListener()
+			{
+				@Override
+				public void onCheckedChanged(CompoundButton arg0, boolean arg1)
+				{
+					trait.setHasDescription(cb.isChecked());
+				}
+			});
+			container.addView(cb);
+		}
+	}
 
 	@Override
 	public void retrieveToiletTraitsServiceFinish(
-			IRetrieveToiletTraitsService service,
-			Collection<IToiletTrait> traits)
+			IRetrieveToiletTraitsService service, Collection<IToiletTrait> traits)
 	{
 		this.traits = traits;
 
@@ -153,28 +174,61 @@ public class AddToiletActivity extends Activity implements
 		populateTraits();
 	}
 
-	private void populateTraits()
-	{
-		LinearLayout container = (LinearLayout) findViewById(R.id.checkboxLayout);
-		for(IToiletTrait trait : traits)
-		{
-			CheckBox cb = new CheckBox(this);
-			cb.setId(trait.getId());
-			cb.setText(trait.getDescription());
-			cb.setTextColor(Color.WHITE);
-			
-			cb.setButtonDrawable(getResources().getDrawable(R.drawable.st_checkbox));
-			
-			container.addView(cb);
-		}
-	}
-
 	@Override
 	public void retrieveToiletTraitsServiceFinishWithError(
 			IRetrieveToiletTraitsService service, int errorCode)
 	{
-		// TODO
-		TextView loadingTraitsView = (TextView) findViewById(R.id.loadingTraits);
-		loadingTraitsView.setText("Reintentar");
+		// TODO retry
+	}
+
+	@Override
+	public void addToiletFinish(IAddToiletService service, IToilet toilet)
+	{
+		RatingBar qualificationBar = (RatingBar)this.findViewById(R.id.toiletRatingBar);
+		if(0 != (int)qualificationBar.getRating())
+		{
+			IQualificateToiletService qservice = ServicesFactory.createQualificateToiletService();
+			qservice.qualificateToiletService(toilet, (int)qualificationBar.getRating(), this);
+		}
+		
+		IEditToiletTraitsService etService = ServicesFactory.createEditToiletTraitsService();
+		etService.editToiletTraits(this, traits, toilet.getID().toString());
+		Log.d("Social Toilet", "addToiletFinish");
+	}
+
+	@Override
+	public void addToiletFinishWithError(IAddToiletService service,
+			String errorCode)
+	{
+		// TODO show error
+		Log.d("Social Toilet", "addToiletFinishWithError");
+	}
+
+	@Override
+	public void qualificateToiletFinish(IQualificateToiletService service)
+	{
+		Log.d("Social Toilet", "qualificateToiletFinish");
+	}
+
+	@Override
+	public void qualificateToiletFinishWithError(
+			IQualificateToiletService service, int errorCode)
+	{
+		// TODO retry
+		Log.d("Social Toilet", "qualificateToiletFinishWithError");
+	}
+
+	@Override
+	public void editToiletTraitsServiceFinish(IEditToiletTraitsService service)
+	{
+		Log.d("Social Toilet", "editToiletTraitsServiceFinish");
+	}
+
+	@Override
+	public void editToiletTraitsServiceFinishWithError(
+			IEditToiletTraitsService service, int errorCode)
+	{
+		// TODO retry
+		Log.d("Social Toilet", "editToiletTraitsServiceFinishWithError");
 	}
 }

@@ -65,11 +65,13 @@
         <activity
             android:name="socialtoilet.android.activities.MappingToiletActivity"
             android:label="@string/title_activity_mapping_toilet"
+        	android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop" >
         </activity>
         <activity
             android:name="socialtoilet.android.activities.DetailToiletActivity"
             android:label="@string/title_activity_detail_toilet"
+        	android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:parentActivityName="socialtoilet.android.activities.MappingToiletActivity" >
             <meta-data
@@ -79,6 +81,7 @@
         <activity
             android:name="socialtoilet.android.activities.AddToiletActivity"
             android:label="@string/title_activity_add_toilet"
+        	android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:parentActivityName="socialtoilet.android.activities.MappingToiletActivity" >
             <meta-data
@@ -91,6 +94,7 @@
         <activity
             android:name="socialtoilet.android.activities.ToiletCommentsActivity"
             android:label="@string/title_activity_toilet_comments"
+        	android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:parentActivityName="socialtoilet.android.activities.DetailToiletActivity" >
             <meta-data
@@ -100,6 +104,7 @@
         <activity
             android:name="socialtoilet.android.activities.ToiletGaleryActivity"
             android:label="@string/title_activity_toilet_galery"
+        	android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:parentActivityName="socialtoilet.android.activities.DetailToiletActivity" >
             <meta-data
@@ -110,11 +115,13 @@
             android:name="socialtoilet.android.activities.StartSessionActivity"
             android:label="@string/title_activity_start_session"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:windowSoftInputMode="adjustResize|stateVisible"
+        	android:configChanges="keyboardHidden|orientation|screenSize" >
         </activity>
         <activity
             android:name="socialtoilet.android.activities.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+        	android:configChanges="keyboardHidden|orientation|screenSize" />
     </application>
 
 </manifest>

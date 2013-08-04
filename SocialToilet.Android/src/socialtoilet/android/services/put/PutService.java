@@ -50,19 +50,23 @@ public abstract class PutService extends AsyncTask<String, String, String>
         	handleStatusCodeNotOk(e, ((null == statusLine) ? -1 : statusLine.getStatusCode()));
 	    }
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try
-        {
-			response.getEntity().writeTo(out);
-		} 
-        catch (IOException e) { e.printStackTrace(); }
-        
-        try
-        {
-			out.close();
-		} 
-        catch (IOException e) { e.printStackTrace(); }
-        return out.toString();
+	    if(null != response.getEntity())
+	    {
+	        ByteArrayOutputStream out = new ByteArrayOutputStream();
+	        try
+	        {
+				response.getEntity().writeTo(out);
+			} 
+	        catch (IOException e) { e.printStackTrace(); }
+	        
+	        try
+	        {
+				out.close();
+			} 
+	        catch (IOException e) { e.printStackTrace(); }
+	        return out.toString();
+	    }
+	    return statusLine.getStatusCode()+"";
 	}
 	
 	abstract protected String generatePutBodyObject();

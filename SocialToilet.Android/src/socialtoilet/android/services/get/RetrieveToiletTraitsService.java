@@ -60,9 +60,10 @@ public class RetrieveToiletTraitsService extends GetService implements
                     	for(int i = 0; i < jsonToiletTraits.length(); i++)
                     	{
                     		JSONObject jsonToiletTrait = jsonToiletTraits.getJSONObject(i);
-                    		IToiletTrait trait = new Gson().fromJson(jsonToiletTrait.toString(), ToiletTrait.class);
+                    		ToiletTrait trait = new Gson().fromJson(jsonToiletTrait.toString(), ToiletTrait.class);
                     		if(null != trait)
                     		{
+                    			trait.correct();
                     			traits.add(trait);
                     		}
                     	}

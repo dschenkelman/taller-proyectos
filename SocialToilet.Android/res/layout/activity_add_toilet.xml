@@ -91,7 +91,8 @@
                 	android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="4dp"
-                	android:text="@string/addButton" />
+                	android:text="@string/addButton"
+                    android:onClick="onAddToilet" />
 
                 <Button
                     android:id="@+id/buttonCleanData"
