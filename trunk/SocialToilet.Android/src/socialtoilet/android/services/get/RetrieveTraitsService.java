@@ -15,19 +15,19 @@ import socialtoilet.android.service.api.APIService;
 
 import com.google.gson.Gson;
 
-public class RetrieveToiletTraitsService extends GetService implements
-		IRetrieveToiletTraitsService
+public class RetrieveTraitsService extends GetService implements
+		IRetrieveTraitsService
 {
-	private IRetrieveToiletTraitsServiceDelegate delegate;
+	private IRetrieveTraitsServiceDelegate delegate;
 	
-	public RetrieveToiletTraitsService()
+	public RetrieveTraitsService()
 	{
 		performingRequest = false;
 	}
 	
 	@Override
 	public void retrieveToiletTraits(
-			IRetrieveToiletTraitsServiceDelegate delegate)
+			IRetrieveTraitsServiceDelegate delegate)
 	{
 		if(performingRequest || null == delegate)
 		{
@@ -35,7 +35,7 @@ public class RetrieveToiletTraitsService extends GetService implements
 		}
 		performingRequest = true;
 		this.delegate = delegate;
-		execute(APIService.getInstance().getRetrieveToiletTraitsURL());
+		execute(APIService.getInstance().getRetrieveTraitsURL());
 	}
 	
     @Override

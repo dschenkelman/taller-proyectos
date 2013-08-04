@@ -8,8 +8,8 @@ import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletTrait;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.factories.ServicesFactory;
-import socialtoilet.android.services.get.IRetrieveToiletTraitsService;
-import socialtoilet.android.services.get.IRetrieveToiletTraitsServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveTraitsService;
+import socialtoilet.android.services.get.IRetrieveTraitsServiceDelegate;
 import socialtoilet.android.services.post.IAddToiletService;
 import socialtoilet.android.services.post.IAddToiletServiceDelegate;
 import socialtoilet.android.services.post.IQualificateToiletService;
@@ -37,7 +37,7 @@ import android.graphics.Color;
 import android.os.Build;
 
 public class AddToiletActivity extends Activity implements 
-	IAddToiletServiceDelegate, IRetrieveToiletTraitsServiceDelegate, 
+	IAddToiletServiceDelegate, IRetrieveTraitsServiceDelegate, 
 	IQualificateToiletServiceDelegate, IEditToiletTraitsServiceDelegate
 {
 
@@ -50,8 +50,8 @@ public class AddToiletActivity extends Activity implements
 		setContentView(R.layout.activity_add_toilet);
 		setupActionBar();
 		
-		IRetrieveToiletTraitsService service = 
-				ServicesFactory.createRetrieveToiletTraitsService();
+		IRetrieveTraitsService service = 
+				ServicesFactory.createRetrieveTraitsService();
 		service.retrieveToiletTraits(this);
 	}
 
@@ -164,7 +164,7 @@ public class AddToiletActivity extends Activity implements
 
 	@Override
 	public void retrieveToiletTraitsServiceFinish(
-			IRetrieveToiletTraitsService service, Collection<IToiletTrait> traits)
+			IRetrieveTraitsService service, Collection<IToiletTrait> traits)
 	{
 		this.traits = traits;
 
@@ -176,7 +176,7 @@ public class AddToiletActivity extends Activity implements
 
 	@Override
 	public void retrieveToiletTraitsServiceFinishWithError(
-			IRetrieveToiletTraitsService service, int errorCode)
+			IRetrieveTraitsService service, int errorCode)
 	{
 		// TODO retry
 	}
