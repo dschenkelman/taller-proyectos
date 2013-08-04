@@ -102,4 +102,9 @@ public class APIService
 	{
 		return serviceURL + "toilets/" + toiletId + "/ratings";
 	}
+
+	public String getRetrieveToiletTraitsURL()
+	{
+		return serviceURL + "traits";
+	}
 }

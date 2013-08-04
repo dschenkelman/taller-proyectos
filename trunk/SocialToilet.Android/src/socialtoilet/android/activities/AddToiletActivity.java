@@ -1,13 +1,19 @@
 package socialtoilet.android.activities;
 
+import java.util.Collection;
+
 import socialtoilet.android.R;
+import socialtoilet.android.model.IToiletTrait;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.factories.ServicesFactory;
+import socialtoilet.android.services.get.IRetrieveToiletTraitsService;
+import socialtoilet.android.services.get.IRetrieveToiletTraitsServiceDelegate;
 import socialtoilet.android.services.post.IAddToiletService;
 import socialtoilet.android.services.post.IAddToiletServiceDelegate;
 import socialtoilet.android.utils.Settings;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +22,19 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 
-public class AddToiletActivity extends Activity implements IAddToiletServiceDelegate
+public class AddToiletActivity extends Activity implements 
+	IAddToiletServiceDelegate, IRetrieveToiletTraitsServiceDelegate
 {
+
+	private Collection<IToiletTrait> traits;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -31,6 +42,10 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_toilet);
 		setupActionBar();
+		
+		IRetrieveToiletTraitsService service = 
+				ServicesFactory.createRetrieveToiletTraitsService();
+		service.retrieveToiletTraits(this);
 	}
 
 	/**
@@ -124,4 +139,42 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 		    checkbox.setChecked(false);
 		}
     }
+
+	@Override
+	public void retrieveToiletTraitsServiceFinish(
+			IRetrieveToiletTraitsService service,
+			Collection<IToiletTrait> traits)
+	{
+		this.traits = traits;
+
+		TextView loadingTraitsView = (TextView) findViewById(R.id.loadingTraits);
+		loadingTraitsView.setVisibility(TextView.GONE);
+		
+		populateTraits();
+	}
+
+	private void populateTraits()
+	{
+		LinearLayout container = (LinearLayout) findViewById(R.id.checkboxLayout);
+		for(IToiletTrait trait : traits)
+		{
+			CheckBox cb = new CheckBox(this);
+			cb.setId(trait.getId());
+			cb.setText(trait.getDescription());
+			cb.setTextColor(Color.WHITE);
+			
+			cb.setButtonDrawable(getResources().getDrawable(R.drawable.st_checkbox));
+			
+			container.addView(cb);
+		}
+	}
+
+	@Override
+	public void retrieveToiletTraitsServiceFinishWithError(
+			IRetrieveToiletTraitsService service, int errorCode)
+	{
+		// TODO
+		TextView loadingTraitsView = (TextView) findViewById(R.id.loadingTraits);
+		loadingTraitsView.setText("Reintentar");
+	}
 }
