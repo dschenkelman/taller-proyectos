@@ -17,6 +17,7 @@ import socialtoilet.android.services.post.IQualificateToiletService;
 import socialtoilet.android.services.post.IQualificateToiletServiceDelegate;
 import socialtoilet.android.services.put.IEditQualificationToiletService;
 import socialtoilet.android.services.put.IEditQualificationToiletServiceDelegate;
+import socialtoilet.android.utils.Settings;
 import socialtoilet.android.utils.StateSaver;
 
 import android.os.Bundle;
@@ -207,6 +208,7 @@ public class DetailToiletActivity extends FragmentActivity
 	
     private void onCloseButtonTapped()
     {
+    	Settings.getInstance().logoutUser();
      	Intent intent = new Intent(this, StartSessionActivity.class);
      	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);	
