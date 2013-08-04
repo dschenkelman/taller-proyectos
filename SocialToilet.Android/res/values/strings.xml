@@ -45,5 +45,7 @@
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="clean_data">Borrar</string>
 	<string name="picture">Imagen</string>
+	<string name="debug">Modo debug</string>
+	<string name="map_distance_default_value">200 mts</string>
 
 </resources>

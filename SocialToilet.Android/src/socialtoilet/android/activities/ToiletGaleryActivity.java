@@ -33,6 +33,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.provider.MediaStore;
 
+@SuppressWarnings({ "deprecation", "unused" })
 public class ToiletGaleryActivity extends Activity
 	implements IRetrieveToiletGaleryServiceDelegate
 {
@@ -134,7 +135,7 @@ public class PicAdapter extends BaseAdapter {
 	        return position;
 	    }
 	    
-	    public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView, ViewGroup parent) {
 	        
 	    	ImageView imageView = new ImageView(galleryContext);
 	        imageView.setImageBitmap(imageBitmaps[position]);
@@ -194,8 +195,6 @@ public class PicAdapter extends BaseAdapter {
 						imgAdapt = new PicAdapter(this,currentSize, imgAdapt);
 						
 						picGallery.setAdapter(imgAdapt);
-						
-			//			currentPic = currentSize;
 						
 						imgAdapt.addPic(pic);
 						picGallery.setAdapter(imgAdapt);
