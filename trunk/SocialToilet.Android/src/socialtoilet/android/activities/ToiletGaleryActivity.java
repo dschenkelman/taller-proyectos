@@ -36,9 +36,10 @@ import android.provider.MediaStore;
 public class ToiletGaleryActivity extends Activity
 	implements IRetrieveToiletGaleryServiceDelegate
 {
-	private GaleryManager manager;  
+	private static final int DEFAULT_GALLERY_SIZE = 3; 
 	private final int PICKER = 1;
 	private int currentPic = 0;
+	private int currentSize = DEFAULT_GALLERY_SIZE;
 	private Gallery picGallery;
 	private ImageView picView;
 	private PicAdapter imgAdapt;
@@ -57,7 +58,7 @@ public class ToiletGaleryActivity extends Activity
 		
 		picView = (ImageView) findViewById(R.id.picture);
 		picGallery = (Gallery) findViewById(R.id.gallery);
-		imgAdapt = new PicAdapter(this);
+		imgAdapt = new PicAdapter(this, DEFAULT_GALLERY_SIZE);
 		picGallery.setAdapter(imgAdapt);
 			
 		picGallery.setOnItemClickListener(new OnItemClickListener() {
@@ -79,17 +80,33 @@ public class PicAdapter extends BaseAdapter {
 		private Context galleryContext;
 		private Bitmap[] imageBitmaps;
 		Bitmap placeholder;
+		int size;
 		
-		public PicAdapter(Context c) {
+		public PicAdapter(Context c, int size) {
 		    galleryContext = c;
-		    imageBitmaps  = new Bitmap[3];
-		    
+		    imageBitmaps  = new Bitmap[size];
+	
+// imagenes iniciales harcodeadas
 		    imageBitmaps[0] = BitmapFactory.decodeResource(getResources(), R.drawable.clean1);
 		    imageBitmaps[1] = BitmapFactory.decodeResource(getResources(), R.drawable.clean2);
 		    imageBitmaps[2] = BitmapFactory.decodeResource(getResources(), R.drawable.clean3);
  //		    placeholder = BitmapFactory.decodeResource(getResources(), R.drawable.clean1);   
 //		    for(int i=0; i<imageBitmaps.length; i++)
 //		        imageBitmaps[i]=placeholder;
+		    
+		    TypedArray styleAttrs = galleryContext.obtainStyledAttributes(R.styleable.PicGallery);
+		    defaultItemBackground = styleAttrs.getResourceId(
+		    		R.styleable.PicGallery_android_galleryItemBackground, 0);
+		    styleAttrs.recycle();
+		}
+		
+		public PicAdapter(Context c, int size, PicAdapter ad) {
+		    galleryContext = c;
+		    imageBitmaps  = new Bitmap[size];
+		    
+		    for(int i=0; i<ad.getCount(); i++)
+		    	imageBitmaps[i]=ad.getPic(i);
+
 		    
 		    TypedArray styleAttrs = galleryContext.obtainStyledAttributes(R.styleable.PicGallery);
 		    defaultItemBackground = styleAttrs.getResourceId(
@@ -109,8 +126,8 @@ public class PicAdapter extends BaseAdapter {
 	        return position;
 	    }
 
-	    public void addPic(Bitmap newPic) {
-	        imageBitmaps[currentPic] = newPic;
+	    public void addPic(Bitmap newPic) {	    	
+	        imageBitmaps[currentPic] = newPic;	        
 	    }
 	    
 	    public long getItemId(int position) {
@@ -130,48 +147,60 @@ public class PicAdapter extends BaseAdapter {
 	
 	
 
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-if (resultCode == RESULT_OK) {
-    if (requestCode == PICKER) {
-    	Uri pickedUri = data.getData();
-    	Bitmap pic = null;
-    	//declare the path string
-    	String imgPath = "";
-    	String[] medData = { MediaStore.Images.Media.DATA };
-    	Cursor picCursor = managedQuery(pickedUri, medData, null, null, null);
+
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			if (requestCode == PICKER) {
+				Uri pickedUri = data.getData();
+				Bitmap pic = null;
+				String imgPath = "";
+				String[] medData = { MediaStore.Images.Media.DATA };
+				Cursor picCursor = managedQuery(pickedUri, medData, null, null, null);
     	
-    	if(picCursor!=null)
-    	{
-    	    int index = picCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-    	    picCursor.moveToFirst();
-    	    imgPath = picCursor.getString(index);
-    	}
-    	else
-    	    imgPath = pickedUri.getPath();
-    	if(pickedUri!=null) {
-    		int targetWidth = 600;
-    		int targetHeight = 400;
-    		BitmapFactory.Options bmpOptions = new BitmapFactory.Options();
-    		bmpOptions.inJustDecodeBounds = true;
-    		BitmapFactory.decodeFile(imgPath, bmpOptions);
-    		int currHeight = bmpOptions.outHeight;
-    		int currWidth = bmpOptions.outWidth;
-    		int sampleSize = 1;
+				if(picCursor!=null) {
+					int index = picCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+					picCursor.moveToFirst();
+					imgPath = picCursor.getString(index);
+				}
+				else
+					imgPath = pickedUri.getPath();
+					if(pickedUri!=null) {
+						int targetWidth = 600;
+						int targetHeight = 400;
+						BitmapFactory.Options bmpOptions = new BitmapFactory.Options();
+						bmpOptions.inJustDecodeBounds = true;
+						BitmapFactory.decodeFile(imgPath, bmpOptions);
+						int currHeight = bmpOptions.outHeight;
+						int currWidth = bmpOptions.outWidth;
+						int sampleSize = 1;
     		
-    		if (currHeight>targetHeight || currWidth>targetWidth) {
-    		    if (currWidth>currHeight)
-    		        sampleSize = Math.round((float)currHeight/(float)targetHeight);
-    		    else
-    		        sampleSize = Math.round((float)currWidth/(float)targetWidth);
-    		}
+						if (currHeight>targetHeight || currWidth>targetWidth) {
+							if (currWidth>currHeight)
+								sampleSize = Math.round((float)currHeight/(float)targetHeight);
+							else
+								sampleSize = Math.round((float)currWidth/(float)targetWidth);
+						}
     		
-    		bmpOptions.inSampleSize = sampleSize;	    		
-    		bmpOptions.inJustDecodeBounds = false;	    		
-    		pic = BitmapFactory.decodeFile(imgPath, bmpOptions);
-    		imgAdapt.addPic(pic);
-    		picGallery.setAdapter(imgAdapt);
-    		picView.setImageBitmap(pic);
-    		picView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+						bmpOptions.inSampleSize = sampleSize;	    		
+						bmpOptions.inJustDecodeBounds = false;	    		
+						pic = BitmapFactory.decodeFile(imgPath, bmpOptions);
+    		
+						currentPic = currentSize;
+						currentSize++;
+						
+						picView = (ImageView) findViewById(R.id.picture);
+						picGallery = (Gallery) findViewById(R.id.gallery);
+						imgAdapt = new PicAdapter(this,currentSize, imgAdapt);
+						
+						picGallery.setAdapter(imgAdapt);
+						
+			//			currentPic = currentSize;
+						
+						imgAdapt.addPic(pic);
+						picGallery.setAdapter(imgAdapt);
+						picView.setImageBitmap(pic);
+						picView.setScaleType(ImageView.ScaleType.FIT_CENTER);
     		
     		}
     	}
