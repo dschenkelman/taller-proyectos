@@ -80,10 +80,10 @@
             android:name="socialtoilet.android.activities.AddToiletActivity"
             android:label="@string/title_activity_add_toilet"
             android:launchMode="singleTop"
-            android:parentActivityName="socialtoilet.android.activities.MainActivity" >
+            android:parentActivityName="socialtoilet.android.activities.MappingToiletActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="socialtoilet.android.MainActivity" />
+                android:value="socialtoilet.android.MappingToiletActivity" />
         </activity>
         <activity
             android:name="com.google.ads.AdActivity"
