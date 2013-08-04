@@ -14,6 +14,10 @@ public class Settings
     public static final String kAccountUserId = "kAccountUserId";
     public static final String kAccountIsSessionOn = "kAccountIsSessionOn";
     
+    public static final String kConfigurationIsDebugMode = "kConfigurationIsDebugMode";
+    public static final String kConfigurationMeters = "kConfigurationMeters";
+    
+    
     private static Settings instance;
 	private SharedPreferences settings;
 	
@@ -26,8 +30,8 @@ public class Settings
 	{
 		this.settings = settings;
 		sessionOn = false;
-		distanceForNearToiletsInMeters = 200;
-		servicesDebugMode = false;
+		distanceForNearToiletsInMeters = settings.getInt(kConfigurationMeters, 200);
+		servicesDebugMode = settings.getBoolean(kConfigurationIsDebugMode, false);
 	}
 	
 	public static void initialize(SharedPreferences settings)
@@ -65,8 +69,12 @@ public class Settings
 		return distanceForNearToiletsInMeters;
 	}
 
-	public void setDistanceForNearToiletsInMeters(int meters) {
-		this.distanceForNearToiletsInMeters = meters;
+	public void setDistanceForNearToiletsInMeters(int meters)
+	{
+		distanceForNearToiletsInMeters = meters;
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt(kConfigurationMeters, distanceForNearToiletsInMeters);
+		editor.commit();
 	}
 
 	public boolean isServicesDebugMode()
@@ -74,8 +82,12 @@ public class Settings
 		return servicesDebugMode;
 	}
 	
-	public void setServicesDebugMode(boolean debugMode) {
-		this.servicesDebugMode = debugMode;
+	public void setServicesDebugMode(boolean debugMode)
+	{
+		servicesDebugMode = debugMode;
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putBoolean(kConfigurationIsDebugMode, servicesDebugMode);
+		editor.commit();
 	}
 
 	
