@@ -107,12 +107,14 @@ public class StartSessionActivity extends FragmentActivity
 			mPasswordView.setError(getString(R.string.error_field_required));
 			focusView = mPasswordView;
 			cancel = true;
+			attemptingLogin=false;
 		}
 		else if (mPassword.length() < 4)
 		{
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
 			cancel = true;
+			attemptingLogin=false;
 		}
 
 		if (TextUtils.isEmpty(mUser))
@@ -120,6 +122,7 @@ public class StartSessionActivity extends FragmentActivity
 			mUserView.setError(getString(R.string.error_field_required));
 			focusView = mUserView;
 			cancel = true;
+			attemptingLogin=false;
 		}
 
 		if (cancel)
