@@ -47,5 +47,8 @@
 	<string name="picture">Imagen</string>
 	<string name="debug">Modo debug</string>
 	<string name="map_distance_default_value">200 mts</string>
+	<string name="update"></string>
+	<string name="add_new_toilet"></string>
+	<string name="toogleButton"></string>
 
 </resources>
