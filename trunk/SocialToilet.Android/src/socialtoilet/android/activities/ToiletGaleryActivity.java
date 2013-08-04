@@ -9,6 +9,7 @@ import socialtoilet.android.model.IToiletPicture;
 import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.services.get.IRetrieveToiletGaleryService;
 import socialtoilet.android.services.get.IRetrieveToiletGaleryServiceDelegate;
+import socialtoilet.android.utils.Settings;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
@@ -252,6 +253,7 @@ public class PicAdapter extends BaseAdapter {
 	
     private void onCloseButtonTapped()
     {
+    	Settings.getInstance().logoutUser();
      	Intent intent = new Intent(this, StartSessionActivity.class);
      	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);	

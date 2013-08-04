@@ -29,7 +29,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.app.AlertDialog;
@@ -145,8 +144,6 @@ public class MappingToiletActivity extends FragmentActivity
         	double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
             
-            Toast.makeText(getApplicationContext(), "Your Location is:\nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_SHORT).show(); 
-
             LatLng coordinate = new LatLng(latitude, longitude);
             CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 14);
             map.moveCamera(yourLocation);
@@ -159,7 +156,6 @@ public class MappingToiletActivity extends FragmentActivity
             // GPS or Network is not enabled
             // Ask user to enable GPS/network in settings
             gps.showSettingsAlert();
-            Toast.makeText(getApplicationContext(), "Default location: FIUBA (-34.617024, -58.368512)", Toast.LENGTH_SHORT).show(); 
             LatLng coordinate = new LatLng(-34.617024, -58.368512);
             CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 15);
             map.moveCamera(yourLocation);
@@ -204,8 +200,6 @@ public class MappingToiletActivity extends FragmentActivity
 	public void retreiveNearToiletsFinishWithError(
 			IRetrieveNearToiletsService service, String errorCode)
 	{
-		Toast.makeText(getApplicationContext(), "Error code: " + errorCode, Toast.LENGTH_SHORT).show();
-		
 		if( errorCode.equalsIgnoreCase(RetrieveNearToiletsService.emptyResponseErrorType) )
 		{
 			radialDistanceInMeters = 2 * radialDistanceInMeters;
@@ -245,8 +239,6 @@ public class MappingToiletActivity extends FragmentActivity
     	double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         
-        Toast.makeText(getApplicationContext(), "New Location:\nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_SHORT).show(); 
-
         LatLng coordinate = new LatLng(latitude, longitude);
         CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 14);
         map.moveCamera(yourLocation);
@@ -257,10 +249,6 @@ public class MappingToiletActivity extends FragmentActivity
 	public void onInfoWindowClick(Marker marker)
 	{
 		IToilet toilet = dictionary.get(marker.getTitle()+marker.getPosition().latitude+marker.getPosition().longitude);
-		if( toilet == null )
-		{
-			Toast.makeText(getApplicationContext(), "No toilet", Toast.LENGTH_SHORT).show(); 
-		}
 		
 		StateSaver.getInstance().saveToilet(EXTRA_TOILET_ID, toilet);
 		Intent intent = new Intent(this, DetailToiletActivity.class);

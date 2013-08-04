@@ -5,6 +5,7 @@ import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.services.post.IAddToiletService;
 import socialtoilet.android.services.post.IAddToiletServiceDelegate;
+import socialtoilet.android.utils.Settings;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -72,6 +73,7 @@ public class AddToiletActivity extends Activity implements IAddToiletServiceDele
 	
     private void onCloseButtonTapped()
     {
+    	Settings.getInstance().logoutUser();
      	Intent intent = new Intent(this, StartSessionActivity.class);
      	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);	
