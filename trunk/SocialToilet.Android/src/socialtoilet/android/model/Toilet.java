@@ -177,4 +177,9 @@ public class Toilet implements IToilet
 		userCalification = calification;
 	}
 
+	public void setID(UUID id)
+	{
+		this.id = id;
+	}
+
 }

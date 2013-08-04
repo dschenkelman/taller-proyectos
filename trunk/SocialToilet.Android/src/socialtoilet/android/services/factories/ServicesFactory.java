@@ -50,8 +50,11 @@ import socialtoilet.android.services.post.IQualificateToiletService;
 import socialtoilet.android.services.post.IQualificateToiletServiceDelegate;
 import socialtoilet.android.services.post.QualificateToiletService;
 import socialtoilet.android.services.put.EditQualificationToiletService;
+import socialtoilet.android.services.put.EditToiletTraitsService;
 import socialtoilet.android.services.put.IEditQualificationToiletService;
 import socialtoilet.android.services.put.IEditQualificationToiletServiceDelegate;
+import socialtoilet.android.services.put.IEditToiletTraitsService;
+import socialtoilet.android.services.put.IEditToiletTraitsServiceDelegate;
 import socialtoilet.android.utils.Settings;
 
 public class ServicesFactory
@@ -67,7 +70,7 @@ public class ServicesFactory
 				@Override
 				public void addToilet(Toilet toilet, IAddToiletServiceDelegate delegate)
 				{
-					delegate.addToiletFinish(this);
+					delegate.addToiletFinish(this, toilet);
 				}
 			};
 		}
@@ -216,7 +219,7 @@ public class ServicesFactory
 		return new RetrieveToiletService();
 	}
 	
-	public static IQualificateToiletService createCalificateToiletService()
+	public static IQualificateToiletService createQualificateToiletService()
 	{
 		if(Settings.getInstance().isServicesDebugMode())
 		{
@@ -226,7 +229,7 @@ public class ServicesFactory
 				public void qualificateToiletService(IToilet toilet, int userCalification,
 						IQualificateToiletServiceDelegate delegate)
 				{
-					delegate.calificateToiletFinish(this);
+					delegate.qualificateToiletFinish(this);
 				}
 			};
 		}
@@ -613,5 +616,23 @@ public class ServicesFactory
 			};
 		}
 		return new RetrieveToiletTraitsService();
+	}
+
+	public static IEditToiletTraitsService createEditToiletTraitsService()
+	{
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			return new IEditToiletTraitsService()
+			{
+				@Override
+				public void editToiletTraits(
+						IEditToiletTraitsServiceDelegate delegate,
+						Collection<IToiletTrait> traits, String toiletId)
+				{
+					delegate.editToiletTraitsServiceFinish(this);
+				}
+			};
+		}
+		return new EditToiletTraitsService();
 	}
 }

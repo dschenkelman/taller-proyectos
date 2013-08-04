@@ -54,7 +54,7 @@
 				    android:id="@+id/calificationCount"
 				    android:layout_width="match_parent"
 				    android:layout_height="wrap_content"
-				    android:text="@string/detailToilet_calificationCount"
+				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				    android:textColor="@color/generalFont" />
 				

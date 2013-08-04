@@ -107,4 +107,9 @@ public class APIService
 	{
 		return serviceURL + "traits";
 	}
+
+	public String getEditToiletTraitsPutURL(String toiletId)
+	{
+		return serviceURL + "toilets/" + toiletId + "/traits";
+	}
 }
