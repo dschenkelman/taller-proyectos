@@ -89,12 +89,19 @@ public class MappingToiletActivity extends FragmentActivity
 	        startActivity(new Intent(this, SettingsActivity.class));
 			return true;
 		case R.id.action_update:
+			oncUpdateButtonTapped();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	} 
 	
-    private void onCloseButtonTapped()
+    private void oncUpdateButtonTapped() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private void onCloseButtonTapped()
     {
     	Settings.getInstance().logoutUser();
      	Intent intent = new Intent(this, StartSessionActivity.class);
