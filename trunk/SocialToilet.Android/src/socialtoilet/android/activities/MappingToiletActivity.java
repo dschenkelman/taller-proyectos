@@ -10,6 +10,7 @@ import socialtoilet.android.activities.dialogs.AddToiletDialogFragment.INoticeDi
 import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.location.IGPSTrakerListener;
 import socialtoilet.android.model.IToilet;
+import socialtoilet.android.model.IToiletCreatedDelegate;
 import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.services.get.IRetrieveNearToiletsService;
 import socialtoilet.android.services.get.IRetrieveNearToiletsServiceDelegate;
@@ -40,12 +41,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 public class MappingToiletActivity extends FragmentActivity
-	implements IRetrieveNearToiletsServiceDelegate, IGPSTrakerListener, OnInfoWindowClickListener, INoticeDialogAddToiletListener
+	implements IRetrieveNearToiletsServiceDelegate, IGPSTrakerListener,
+		OnInfoWindowClickListener, INoticeDialogAddToiletListener,
+		IToiletCreatedDelegate
 {
 
 	public final static String EXTRA_TOILET_ID = "socialtoilet.andorid.mappingtoilet.TOILET";
 	public final static String EXTRA_LATITUDE = "socialtoilet.andorid.mappingtoilet.LATITUDE";
 	public final static String EXTRA_LONGITUDE = "socialtoilet.andorid.mappingtoilet.LONGITUDE";
+	public final static String TOILET_CREATED_DELEGATE = "socialtoilet.andorid.mappingtoilet.TOILET_CREATED_DELEGATE";
+	
 	private GoogleMap map;
 	private GPSTracker gps;
 	private int radialDistanceInMeters;
@@ -126,6 +131,7 @@ public class MappingToiletActivity extends FragmentActivity
 	 	Intent intent = new Intent(this, AddToiletActivity.class);
 	 	intent.putExtra(EXTRA_LATITUDE, GPSTracker.getInstance().getLatitude());
 	 	intent.putExtra(EXTRA_LONGITUDE, GPSTracker.getInstance().getLongitude());
+	 	StateSaver.getInstance().save(TOILET_CREATED_DELEGATE, this);
 	    startActivity(intent);	
 	}
 
@@ -214,21 +220,27 @@ public class MappingToiletActivity extends FragmentActivity
 		dictionary.clear();
 		for(IToilet toilet : nearToilets)
 		{
-			LatLng mapPosition = new LatLng(toilet.getLatitude(), toilet.getLongitude());
-			MarkerOptions markerOptions = new MarkerOptions()
-	        	.position(mapPosition)
-	        	.title(toilet.getMapTitle())
-	        	
-	        	//Indicador de social toilet, probar donde se pueda visualizar el mapa
-	        	.icon(BitmapDescriptorFactory.fromResource(R.drawable.socialmarker))
-	        	
-	        	.snippet(toilet.getMapSnippet());
-			
-			Marker marker = map.addMarker(markerOptions);
-			dictionary.put(marker.getTitle()+marker.getPosition().latitude+marker.getPosition().longitude, toilet);
+			addTOiletToMap(toilet);
 		}
 	}
 	
+	private void addTOiletToMap(IToilet toilet)
+	{
+		LatLng mapPosition = new LatLng(toilet.getLatitude(), toilet.getLongitude());
+		MarkerOptions markerOptions = new MarkerOptions()
+        	.position(mapPosition)
+        	.title(toilet.getMapTitle())
+        	
+        	//Indicador de social toilet, probar donde se pueda visualizar el mapa
+        	.icon(BitmapDescriptorFactory.fromResource(R.drawable.socialmarker))
+        	
+        	.snippet(toilet.getMapSnippet());
+		
+		Marker marker = map.addMarker(markerOptions);
+		dictionary.put(marker.getTitle()+marker.getPosition().latitude+marker.getPosition().longitude, toilet);
+	}
+
+
 	@Override
 	public void retreiveNearToiletsFinishWithError(
 			IRetrieveNearToiletsService service, String errorCode)
@@ -301,6 +313,20 @@ public class MappingToiletActivity extends FragmentActivity
 	 	Intent intent = new Intent(this, AddToiletActivity.class);
 	 	intent.putExtra(EXTRA_LATITUDE, manualSelectionMapUbication.latitude);
 	 	intent.putExtra(EXTRA_LONGITUDE, manualSelectionMapUbication.longitude);
+	 	StateSaver.getInstance().save(TOILET_CREATED_DELEGATE, this);
 	    startActivity(intent);
+	}
+
+
+	@Override
+	public void toiletCreated(IToilet toilet)
+	{
+		addTOiletToMap(toilet);
+    	double latitude = toilet.getLatitude();
+        double longitude = toilet.getLongitude();
+        
+        LatLng coordinate = new LatLng(latitude, longitude);
+        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(coordinate, 14);
+        map.moveCamera(yourLocation);
 	}
 }
