@@ -3,7 +3,6 @@ package socialtoilet.android.activities;
 import java.util.Collection;
 
 import socialtoilet.android.R;
-import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletTrait;
 import socialtoilet.android.model.Toilet;
@@ -42,7 +41,9 @@ public class AddToiletActivity extends Activity implements
 {
 
 	private Collection<IToiletTrait> traits;
-
+	private double latitude;
+	private double longitude;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -50,6 +51,10 @@ public class AddToiletActivity extends Activity implements
 		setContentView(R.layout.activity_add_toilet);
 		setupActionBar();
 		
+		Intent intent = getIntent();
+		latitude = intent.getDoubleExtra(MappingToiletActivity.EXTRA_LATITUDE, -34.6208718);
+		longitude = intent.getDoubleExtra(MappingToiletActivity.EXTRA_LONGITUDE, -58.4318558);
+
 		IRetrieveTraitsService service = 
 				ServicesFactory.createRetrieveTraitsService();
 		service.retrieveTraits(this);
@@ -110,9 +115,7 @@ public class AddToiletActivity extends Activity implements
 		Toilet toilet = new Toilet();
 		toilet.setDescription(description.getText().toString());
 		toilet.setAddress(address.getText().toString());
-		toilet.setLocation(//-34.6208718, -58.4318558);
-				GPSTracker.getInstance().getLatitude(),
-				GPSTracker.getInstance().getLongitude());
+		toilet.setLocation(latitude, longitude);
 		
 		return toilet;
 	}
