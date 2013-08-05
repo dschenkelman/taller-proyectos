@@ -294,7 +294,7 @@ public class MappingToiletActivity extends FragmentActivity
 	@Override
 	public void onDialogPositiveClick(DialogFragment dialog) {
 		onAddToiletButtonTapped();
-		//TODO: en vez de llamar al metodo de add toilet de la action bar, llenar el intent con los 
-		//datos de las coordenadas seleccionadas manualmente
+		//TODO: en vez de llamar al metodo de la action bar, llenar el intent con los 
+		//datos de las coordenadas seleccionadas manualmente que estan en manualSelectionMapUbication
 	}
 }
