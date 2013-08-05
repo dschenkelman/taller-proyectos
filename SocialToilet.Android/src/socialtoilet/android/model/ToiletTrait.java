@@ -3,6 +3,7 @@ package socialtoilet.android.model;
 public class ToiletTrait implements IToiletTrait
 {
 	private int id;
+	@SuppressWarnings("unused")
 	private int traitId;
 	private String description;
 	private boolean isActive;

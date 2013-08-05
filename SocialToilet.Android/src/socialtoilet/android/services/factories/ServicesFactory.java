@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
 
-import android.util.Log;
-
-import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.model.Comment;
 import socialtoilet.android.model.IComment;
 import socialtoilet.android.model.IRating;
@@ -16,6 +13,7 @@ import socialtoilet.android.model.IToiletPicture;
 import socialtoilet.android.model.IToiletTrait;
 import socialtoilet.android.model.LoginUser;
 import socialtoilet.android.model.Toilet;
+import socialtoilet.android.services.factories.mocks.ModelMockFactory;
 import socialtoilet.android.services.get.IRetrieveNearToiletsService;
 import socialtoilet.android.services.get.IRetrieveNearToiletsServiceDelegate;
 import socialtoilet.android.services.get.IRetrieveToiletCommentsService;
@@ -73,6 +71,7 @@ public class ServicesFactory
 				@Override
 				public void addToilet(Toilet toilet, IAddToiletServiceDelegate delegate)
 				{
+					ModelMockFactory.getIntance().addToilet(toilet);
 					delegate.addToiletFinish(this, toilet);
 				}
 			};
@@ -90,61 +89,8 @@ public class ServicesFactory
 				public void retrieveNearToilets(double latitude, double longitude,
 						int distanceInMeters, IRetrieveNearToiletsServiceDelegate delegate)
 				{
-					Collection<IToilet> toilets = new ArrayList<IToilet>();
-					toilets.add(new IToilet()
-						{
-							public String getMapTitle() { return "La Roma"; }
-							public String getMapSnippet() { return "También venden pizza.";}
-							public double getLongitude() { return GPSTracker.getInstance().getLongitude() + 0.001; }
-							public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.002; }
-							public float getRanking() { return 2.5f; }
-							public UUID getID() { return UUID.randomUUID(); }
-							public String getDescription() { return "Es un buen baño"; }
-							public String getAddress() { return "Av. Yrigoyen 1565, El Talar"; }
-							public int getUserCalification() { return 0; }
-							public int getUserCalificationsCount() { return 25; }
-							public void setUserCalification(int calification) { }
-							public void revertUserCalification() { }
-							public void setRating(IRating rating) { }
-							public boolean canBeUsedWithoutConsumption() { return false; }
-							public boolean hasWater() { return false; }
-							public boolean hasToiletPaper() { return false; }
-							public boolean hasSoap() { return false; }
-							public boolean hasMirror() { return false; }
-							public boolean doToiletDoorCloses() { return false; }
-							public boolean hasGotLadiesItemsOnSale() { return false; }
-							public boolean hasGotCondomsOnSale() { return false; }
-							public boolean isAptForHandicapped() { return false; }
-							public boolean hasBabyRoom() { return false; }
-							public void userCalificationRetrieved( int calification) { }
-						});
-					toilets.add(new IToilet()
-						{
-							public String getMapTitle() { return "Eso"; }
-							public String getMapSnippet() { return "Siempre cerrado.";}
-							public double getLongitude() { return GPSTracker.getInstance().getLongitude() + 0.003; }
-							public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.005; }
-							public float getRanking() { return 2.5f; }
-							public UUID getID() { return UUID.randomUUID(); }
-							public String getDescription() { return "Esta re cuidado"; }
-							public String getAddress() { return "Av. Yrigoyen 1355, El Talar"; }
-							public int getUserCalification() { return 2; }
-							public int getUserCalificationsCount() { return 31; }
-							public void setUserCalification(int calification) { }
-							public void revertUserCalification() { }
-							public void setRating(IRating rating) { }
-							public boolean canBeUsedWithoutConsumption() { return false; }
-							public boolean hasWater() { return false; }
-							public boolean hasToiletPaper() { return false; }
-							public boolean hasSoap() { return false; }
-							public boolean hasMirror() { return false; }
-							public boolean doToiletDoorCloses() { return false; }
-							public boolean hasGotLadiesItemsOnSale() { return false; }
-							public boolean hasGotCondomsOnSale() { return false; }
-							public boolean isAptForHandicapped() { return false; }
-							public boolean hasBabyRoom() { return false; }
-							public void userCalificationRetrieved( int calification) { }
-						});
+					Collection<IToilet> toilets = 
+							ModelMockFactory.getIntance().getNearToilets();
 					delegate.retrieveNearToiletsFinish(this, toilets);
 				}
 			};
@@ -162,60 +108,8 @@ public class ServicesFactory
 				public void retrieveToilet(UUID toiletId,
 						IRetrieveToiletServiceDelegate detailToiletActivity)
 				{
-					final UUID id = toiletId;
-					detailToiletActivity.retrieveToiletFinish(this, new IToilet()
-					{
-						private int userCalification = 0;
-						private float ranking = 1.5f;
-						private int userCalificationsCount = 2;
-						public String getMapTitle() { return "La Roma"; }
-						public String getMapSnippet() { return "También venden pizza.";}
-						public double getLongitude() { return -34.465849; }
-						public double getLatitude() { return -58.645337; }
-						public float getRanking() { return ranking; }
-						public UUID getID() { return id; }
-						public String getDescription() { return "Es un buen baño"; }
-						public String getAddress() { return "Av. Yrigoyen 1565, El Talar"; }
-						public int getUserCalification() { return userCalification; }
-						public int getUserCalificationsCount() { return userCalificationsCount; }
-						public void setUserCalification(int calification)
-						{
-							Log.d("Social Toilet", "Ranking viejo: " + ranking);
-							if(0 == userCalification)
-							{
-								ranking = (ranking * userCalificationsCount + calification) / (userCalificationsCount + 1);
-								userCalificationsCount++;
-							}
-							else
-							{
-								ranking = (ranking * userCalificationsCount - userCalification) / (float)(userCalificationsCount - 1);
-								ranking = (ranking * (userCalificationsCount - 1) + calification) / (float)userCalificationsCount;
-							}
-							userCalification = calification;
-							Log.d("Social Toilet", "Ranking Nuevo: " + ranking);
-						}
-						public void revertUserCalification()
-						{
-							if(0 != userCalification)
-							{
-								ranking = (ranking * userCalificationsCount - userCalification) / (float)(userCalificationsCount - 1);
-								userCalification = 0;
-								userCalificationsCount--;
-							}
-						}
-						public void setRating(IRating rating) { }
-						public boolean canBeUsedWithoutConsumption() { return false; }
-						public boolean hasWater() { return true; }
-						public boolean hasToiletPaper() { return true; }
-						public boolean hasSoap() { return false; }
-						public boolean hasMirror() { return true; }
-						public boolean doToiletDoorCloses() { return false; }
-						public boolean hasGotLadiesItemsOnSale() { return false; }
-						public boolean hasGotCondomsOnSale() { return true; }
-						public boolean isAptForHandicapped() { return true; }
-						public boolean hasBabyRoom() { return false; }
-						public void userCalificationRetrieved( int calification) { }
-					});
+					IToilet toilet = ModelMockFactory.getIntance().getToilet(toiletId);
+					detailToiletActivity.retrieveToiletFinish(this, toilet);
 				}
 			};
 		}

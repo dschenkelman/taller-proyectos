@@ -1,6 +1,5 @@
 package socialtoilet.android.activities.dialogs;
 
-import socialtoilet.android.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
