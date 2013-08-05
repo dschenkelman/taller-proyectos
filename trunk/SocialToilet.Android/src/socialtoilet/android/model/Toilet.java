@@ -11,17 +11,6 @@ public class Toilet implements IToilet
     private float rating;
     private int userCalification;
     private int userCalificationsCount;
-	private boolean canBeUsedWithoutConsume;
-	private boolean hasWater;
-	private boolean hasToiletPaper;
-	private boolean hasSoap;
-	private boolean hasMirror;
-	private boolean toiletDoorCloses;
-	private boolean gotLadiesItemsOnSale;
-	private boolean gotCondomsOnSale;
-	private boolean isAptForHandicapped;
-	private boolean hasBabyRoom;
-    
     
     private static class Location
     {
@@ -141,36 +130,6 @@ public class Toilet implements IToilet
 		this.userCalificationsCount = rating.getCalificationCount();
 	}
 	
-	@Override
-	public boolean canBeUsedWithoutConsumption() { return canBeUsedWithoutConsume; }
-
-	@Override
-	public boolean hasWater() { return hasWater; }
-
-	@Override
-	public boolean hasToiletPaper() { return hasToiletPaper; }
-
-	@Override
-	public boolean hasSoap() { return hasSoap; }
-
-	@Override
-	public boolean hasMirror() { return hasMirror; }
-
-	@Override
-	public boolean doToiletDoorCloses() { return toiletDoorCloses; }
-
-	@Override
-	public boolean hasGotLadiesItemsOnSale() { return gotLadiesItemsOnSale; }
-
-	@Override
-	public boolean hasGotCondomsOnSale() { return gotCondomsOnSale; }
-
-	@Override
-	public boolean isAptForHandicapped() { return isAptForHandicapped; }
-
-	@Override
-	public boolean hasBabyRoom() { return hasBabyRoom; }
-
 	@Override
 	public void userCalificationRetrieved(int calification)
 	{

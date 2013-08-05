@@ -3,7 +3,6 @@ package socialtoilet.android.activities;
 import java.util.Collection;
 
 import socialtoilet.android.R;
-import socialtoilet.android.activities.dialogs.AddCommentDialogFragment.IAddCommentDialogDelegate;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletCreatedDelegate;
 import socialtoilet.android.model.IToiletTrait;
