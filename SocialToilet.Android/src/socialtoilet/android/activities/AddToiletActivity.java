@@ -3,7 +3,9 @@ package socialtoilet.android.activities;
 import java.util.Collection;
 
 import socialtoilet.android.R;
+import socialtoilet.android.activities.dialogs.AddCommentDialogFragment.IAddCommentDialogDelegate;
 import socialtoilet.android.model.IToilet;
+import socialtoilet.android.model.IToiletCreatedDelegate;
 import socialtoilet.android.model.IToiletTrait;
 import socialtoilet.android.model.Toilet;
 import socialtoilet.android.services.factories.ServicesFactory;
@@ -16,6 +18,7 @@ import socialtoilet.android.services.post.IQualificateToiletServiceDelegate;
 import socialtoilet.android.services.put.IEditToiletTraitsService;
 import socialtoilet.android.services.put.IEditToiletTraitsServiceDelegate;
 import socialtoilet.android.utils.Settings;
+import socialtoilet.android.utils.StateSaver;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -40,9 +43,13 @@ public class AddToiletActivity extends Activity implements
 	IQualificateToiletServiceDelegate, IEditToiletTraitsServiceDelegate
 {
 
+	private IToiletCreatedDelegate delegate;
 	private Collection<IToiletTrait> traits;
 	private double latitude;
 	private double longitude;
+	private boolean shouldWaitForEditToiletTraitsService;
+	private boolean shouldWaitForQualificateService;
+	private Toilet toAddToilet;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -55,6 +62,8 @@ public class AddToiletActivity extends Activity implements
 		latitude = intent.getDoubleExtra(MappingToiletActivity.EXTRA_LATITUDE, -34.6208718);
 		longitude = intent.getDoubleExtra(MappingToiletActivity.EXTRA_LONGITUDE, -58.4318558);
 
+		delegate = (IToiletCreatedDelegate) StateSaver.getInstance().retrieve(MappingToiletActivity.TOILET_CREATED_DELEGATE);
+		
 		IRetrieveTraitsService service = 
 				ServicesFactory.createRetrieveTraitsService();
 		service.retrieveTraits(this);
@@ -122,10 +131,15 @@ public class AddToiletActivity extends Activity implements
 
 	public void onAddToilet(View view)
 	{
-		Toilet toilet = generateToilet();
-		
-		IAddToiletService service = ServicesFactory.createAddToiletService();//new AddToiletService();
-		service.addToilet(toilet, this);
+		toAddToilet = generateToilet();
+		if(null != toAddToilet)
+		{
+			shouldWaitForEditToiletTraitsService = false;
+			shouldWaitForQualificateService = false;
+			
+			IAddToiletService service = ServicesFactory.createAddToiletService();
+			service.addToilet(toAddToilet, this);
+		}
 	}
 	
     public void onCleanData(View view)
@@ -165,6 +179,15 @@ public class AddToiletActivity extends Activity implements
 		}
 	}
 
+	private void returnToMap()
+	{
+		if(null != delegate)
+		{
+			delegate.toiletCreated(toAddToilet);
+		}
+		NavUtils.navigateUpFromSameTask(this);
+	}
+	
 	@Override
 	public void retrieveTraitsServiceFinish(
 			IRetrieveTraitsService service, Collection<IToiletTrait> traits)
@@ -192,11 +215,13 @@ public class AddToiletActivity extends Activity implements
 		{
 			IQualificateToiletService qservice = ServicesFactory.createQualificateToiletService();
 			qservice.qualificateToiletService(toilet, (int)qualificationBar.getRating(), this);
+			shouldWaitForQualificateService = true;
 		}
 		
 		IEditToiletTraitsService etService = ServicesFactory.createEditToiletTraitsService();
 		etService.editToiletTraits(this, traits, toilet.getID().toString());
 		Log.d("Social Toilet", "addToiletFinish");
+		shouldWaitForEditToiletTraitsService = true;
 	}
 
 	@Override
@@ -211,6 +236,11 @@ public class AddToiletActivity extends Activity implements
 	public void qualificateToiletFinish(IQualificateToiletService service)
 	{
 		Log.d("Social Toilet", "qualificateToiletFinish");
+		shouldWaitForQualificateService = false;
+		if(false == shouldWaitForEditToiletTraitsService)
+		{
+			returnToMap();
+		}
 	}
 
 	@Override
@@ -219,12 +249,22 @@ public class AddToiletActivity extends Activity implements
 	{
 		// TODO retry
 		Log.d("Social Toilet", "qualificateToiletFinishWithError");
+		shouldWaitForQualificateService = false;
+		if(false == shouldWaitForEditToiletTraitsService)
+		{
+			returnToMap();
+		}
 	}
 
 	@Override
 	public void editToiletTraitsServiceFinish(IEditToiletTraitsService service)
 	{
 		Log.d("Social Toilet", "editToiletTraitsServiceFinish");
+		shouldWaitForEditToiletTraitsService = false;
+		if(false == shouldWaitForQualificateService)
+		{
+			returnToMap();
+		}
 	}
 
 	@Override
@@ -233,5 +273,11 @@ public class AddToiletActivity extends Activity implements
 	{
 		// TODO retry
 		Log.d("Social Toilet", "editToiletTraitsServiceFinishWithError");
+		shouldWaitForEditToiletTraitsService = false;
+		if(false == shouldWaitForQualificateService)
+		{
+			returnToMap();
+		}
 	}
+
 }
