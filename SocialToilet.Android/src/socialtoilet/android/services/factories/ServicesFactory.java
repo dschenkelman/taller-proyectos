@@ -126,6 +126,7 @@ public class ServicesFactory
 				public void qualificateToiletService(IToilet toilet, int userCalification,
 						IQualificateToiletServiceDelegate delegate)
 				{
+					toilet.setUserCalification(userCalification);
 					delegate.qualificateToiletFinish(this);
 				}
 			};
