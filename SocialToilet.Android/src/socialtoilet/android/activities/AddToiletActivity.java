@@ -52,7 +52,7 @@ public class AddToiletActivity extends Activity implements
 		
 		IRetrieveTraitsService service = 
 				ServicesFactory.createRetrieveTraitsService();
-		service.retrieveToiletTraits(this);
+		service.retrieveTraits(this);
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class AddToiletActivity extends Activity implements
 	}
 
 	@Override
-	public void retrieveToiletTraitsServiceFinish(
+	public void retrieveTraitsServiceFinish(
 			IRetrieveTraitsService service, Collection<IToiletTrait> traits)
 	{
 		this.traits = traits;
@@ -175,7 +175,7 @@ public class AddToiletActivity extends Activity implements
 	}
 
 	@Override
-	public void retrieveToiletTraitsServiceFinishWithError(
+	public void retrieveTraitsServiceFinishWithError(
 			IRetrieveTraitsService service, int errorCode)
 	{
 		// TODO retry

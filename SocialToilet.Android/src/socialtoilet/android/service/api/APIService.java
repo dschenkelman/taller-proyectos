@@ -112,4 +112,9 @@ public class APIService
 	{
 		return serviceURL + "toilets/" + toiletId + "/traits";
 	}
+
+	public String getRetrieveToiletTraitsURL(String toiletId)
+	{
+		return serviceURL + "toilets/" + toiletId + "/traits";
+	}
 }

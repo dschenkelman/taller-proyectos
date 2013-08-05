@@ -9,33 +9,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+
+import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletTrait;
 import socialtoilet.android.model.ToiletTrait;
 import socialtoilet.android.service.api.APIService;
 
-import com.google.gson.Gson;
-
-public class RetrieveTraitsService extends GetService implements
-		IRetrieveTraitsService
+public class RetrieveToiletTraitsService extends GetService implements
+		IRetrieveToiletTraitsService
 {
-	private IRetrieveTraitsServiceDelegate delegate;
+	private IRetrieveToiletTraitsServiceDelegate delegate;
 	
-	public RetrieveTraitsService()
+	public RetrieveToiletTraitsService()
 	{
 		performingRequest = false;
 	}
 	
 	@Override
-	public void retrieveTraits(
-			IRetrieveTraitsServiceDelegate delegate)
+	public void retrieveToiletTraitService(
+			IRetrieveToiletTraitsServiceDelegate delegate, IToilet toilet)
 	{
-		if(performingRequest || null == delegate)
+		if(performingRequest || null == delegate || null == toilet)
 		{
 			return;
 		}
 		performingRequest = true;
 		this.delegate = delegate;
-		execute(APIService.getInstance().getRetrieveTraitsURL());
+		execute(APIService.getInstance().getRetrieveToiletTraitsURL(toilet.getID().toString()));
 	}
 	
     @Override
@@ -47,7 +48,7 @@ public class RetrieveTraitsService extends GetService implements
         {
         	if(0 > statusLine.getStatusCode() || 400 <= statusLine.getStatusCode())
         	{
-            	delegate.retrieveTraitsServiceFinishWithError(this, statusLine.getStatusCode());
+            	delegate.retrieveToiletTraitsServiceFinishWithError(this, statusLine.getStatusCode());
         	}
         	else
         	{
@@ -60,24 +61,23 @@ public class RetrieveTraitsService extends GetService implements
                     	for(int i = 0; i < jsonToiletTraits.length(); i++)
                     	{
                     		JSONObject jsonToiletTrait = jsonToiletTraits.getJSONObject(i);
-                    		ToiletTrait trait = new Gson().fromJson(jsonToiletTrait.toString(), ToiletTrait.class);
+                    		IToiletTrait trait = new Gson().fromJson(jsonToiletTrait.toString(), ToiletTrait.class);
                     		if(null != trait)
                     		{
-                    			trait.correct();
                     			traits.add(trait);
                     		}
                     	}
-                    	delegate.retrieveTraitsServiceFinish(this, traits);
+                    	delegate.retrieveToiletTraitsServiceFinish(this, traits);
             		}
                     catch (JSONException e)
             		{
             			e.printStackTrace();
-                    	delegate.retrieveTraitsServiceFinishWithError(this, -100);
+                    	delegate.retrieveToiletTraitsServiceFinishWithError(this, -100);
             		}
                 }
                 else
                 {
-                	delegate.retrieveTraitsServiceFinishWithError(this, -100);
+                	delegate.retrieveToiletTraitsServiceFinishWithError(this, -100);
                 }
         	}
             performingRequest = false;
@@ -88,7 +88,7 @@ public class RetrieveTraitsService extends GetService implements
     @Override
     protected void handleStatusCodeNotOk(IOException e, int statusCode)
 	{
-    	delegate.retrieveTraitsServiceFinishWithError(this, statusCode);
+    	delegate.retrieveToiletTraitsServiceFinishWithError(this, statusCode);
         performingRequest = false;
         delegate = null;
 	}
@@ -96,7 +96,7 @@ public class RetrieveTraitsService extends GetService implements
     @Override
 	protected void handleClientProtocolException(ClientProtocolException e)
 	{
-    	delegate.retrieveTraitsServiceFinishWithError(this, statusLine.getStatusCode());
+    	delegate.retrieveToiletTraitsServiceFinishWithError(this, statusLine.getStatusCode());
         performingRequest = false;
         delegate = null;
 	}

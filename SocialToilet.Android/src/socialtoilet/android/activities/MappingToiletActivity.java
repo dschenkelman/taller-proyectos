@@ -95,9 +95,15 @@ public class MappingToiletActivity extends FragmentActivity
 		return super.onOptionsItemSelected(item);
 	} 
 	
-    private void oncUpdateButtonTapped() {
-		// TODO Auto-generated method stub
-		
+    private void oncUpdateButtonTapped()
+    {
+		radialDistanceInMeters = Settings.getInstance().getInitialRadiusInMeters();
+    	map.clear();
+    	
+    	double latitude = gps.getLatitude();
+        double longitude = gps.getLongitude();
+        
+        retrieveNearToilets(latitude, longitude);
 	}
 
 
