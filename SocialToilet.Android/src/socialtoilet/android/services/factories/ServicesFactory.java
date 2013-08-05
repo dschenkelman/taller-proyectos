@@ -1,7 +1,6 @@
 package socialtoilet.android.services.factories;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -71,6 +70,7 @@ public class ServicesFactory
 				@Override
 				public void addToilet(Toilet toilet, IAddToiletServiceDelegate delegate)
 				{
+					toilet.setID(UUID.randomUUID());
 					ModelMockFactory.getIntance().addToilet(toilet);
 					delegate.addToiletFinish(this, toilet);
 				}
@@ -144,120 +144,8 @@ public class ServicesFactory
 				public void retrieveToiletComments(UUID toiletId,
 						IRetrieveToiletCommentsServiceDelegate delegate)
 				{
-					Collection<IComment> comments = new ArrayList<IComment>();
-					comments.add(new IComment()
-					{
-						@Override
-						public UUID getUserId() { return UUID.randomUUID(); }
-						@Override
-						public String getUser() { return "damian"; }
-						@Override
-						public String getContent() { 
-							return "Totalmente recomendado."; }
-						@Override
-						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
-						@Override
-						public String getDate() { return "15:56hs 2013/07/13"; }
-					});
-					comments.add(new IComment()
-					{
-						@Override
-						public UUID getUserId() { return UUID.randomUUID(); }
-						@Override
-						public String getUser() { return "sebas"; }
-						@Override
-						public String getContent() { 
-							return "Cuando llegué, estaba cerrado. Pero me lo abrieron y después me tome un café muy bueno."; }
-						@Override
-						public Collection<String> getLikeUsers() { return new ArrayList<String>(
-							    Arrays.asList("damian", "gus", "matias")); }
-						@Override
-						public String getDate() { return "11:11hs 2013/07/18"; }
-					});
-					comments.add(new IComment()
-					{
-						@Override
-						public UUID getUserId() { return UUID.randomUUID(); }
-						@Override
-						public String getUser() { return "mservetto"; }
-						@Override
-						public String getContent() { 
-							return "Ya no están limpiando este baño. Están las tablas sucias"; }
-						@Override
-						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
-						@Override
-						public String getDate() { return "25:25hs 2013/07/22"; }
-					});
-					comments.add(new IComment()
-					{
-						@Override
-						public UUID getUserId() { return UUID.randomUUID(); }
-						@Override
-						public String getUser() { return "damian"; }
-						@Override
-						public String getContent() { 
-							return "Que raro, cuando fui yo estaba 10 puntos."; }
-						@Override
-						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
-						@Override
-						public String getDate() { return "15:25hs 2013/07/22"; }
-					});
-					comments.add(new IComment()
-					{
-						@Override
-						public UUID getUserId() { return UUID.randomUUID(); }
-						@Override
-						public String getUser() { return "gus"; }
-						@Override
-						public String getContent() { 
-							return "Lo confirmo."; }
-						@Override
-						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
-						@Override
-						public String getDate() { return "5:05hs 2013/07/24"; }
-					});
-					comments.add(new IComment()
-					{
-						@Override
-						public UUID getUserId() { return UUID.randomUUID(); }
-						@Override
-						public String getUser() { return "ricardo"; }
-						@Override
-						public String getContent() { 
-							return "Disculpen por las molestias. ya lo limpiamos y lo pusimos  punto. Vengan y de paso coman nuestras tortas, las más ricas de Buenos Aires!"; }
-						@Override
-						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
-						@Override
-						public String getDate() { return "88:99hs 2013/07/25"; }
-					});
-					comments.add(new IComment()
-					{
-						@Override
-						public UUID getUserId() { return UUID.randomUUID(); }
-						@Override
-						public String getUser() { return "mservetto"; }
-						@Override
-						public String getContent() { 
-							return "Las mejores!!"; }
-						@Override
-						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
-						@Override
-						public String getDate() { return "24:00hs 2013/07/25"; }
-					});
-					comments.add(new IComment()
-					{
-						@Override
-						public UUID getUserId() { return UUID.randomUUID(); }
-						@Override
-						public String getUser() { return "sebas"; }
-						@Override
-						public String getContent() { 
-							return "Genio. Amo esta aplicación"; }
-						@Override
-						public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
-						@Override
-						public String getDate() { return "15:99hs 2013/07/26"; }
-					});
+					Collection<IComment> comments = 
+							ModelMockFactory.getIntance().getToiletComments(toiletId);
 					delegate.retrieveToiletCommentsFinish(this, comments);
 				}
 			};
@@ -277,7 +165,7 @@ public class ServicesFactory
 						IRetrieveToiletGaleryServiceDelegate delegate)
 				{
 					Collection<IToiletPicture> pictures = new ArrayList<IToiletPicture>();
-					// TODO mock some pictures
+					// TODO mock some pictures in modelmock
 					delegate.retrieveToiletGaleryServiceFinish(this, pictures);
 				}
 			};
@@ -296,6 +184,7 @@ public class ServicesFactory
 						IAddToiletCommentServiceDelegate delegate,
 						String toiletId, Comment comment)
 				{
+					ModelMockFactory.getIntance().addToiletComment(toiletId, comment);
 					delegate.addToiletCommentFinish(this, comment);
 				}
 			};
@@ -310,15 +199,19 @@ public class ServicesFactory
 			return new IRetrieveToiletRatingService()
 			{
 				@Override
-				public void retrieveToiletRating(String string,
+				public void retrieveToiletRating(String toiletId,
 						IRetrieveToiletRatingServiceDelegate delegate)
 				{
+					IToilet toilet = ModelMockFactory.getIntance().getToilet(UUID.fromString(toiletId));
+					final float rating = toilet.getRanking();
+					final int count = toilet.getUserCalificationsCount();
+					
 					delegate.retrieveToiletRatingServiceFinish(this, new IRating()
 					{
 						@Override
-						public int getCalificationCount() { return 4; }
+						public int getCalificationCount() { return count; }
 						@Override
-						public float getRating() { return 1.2f; }
+						public float getRating() { return rating; }
 					});
 				}
 			};
@@ -335,8 +228,14 @@ public class ServicesFactory
 				@Override
 				public void authUser(IAuthServiceDelegate delegate, LoginUser user)
 				{
-					user.setUserId(UUID.randomUUID());
-					delegate.authServiceDelegateFinish(this, user);
+					if(ModelMockFactory.getIntance().authUser(user))
+					{
+						delegate.authServiceDelegateFinish(this, user);
+					}
+					else
+					{
+						delegate.authServiceDelegateFinishWithError(this, "No user");	
+					}
 				}
 			};
 		}
@@ -352,8 +251,18 @@ public class ServicesFactory
 			{
 				@Override
 				public void retrieveToiletUserCalification(
-						IRetrieveToiletUserQualificationServiceDelegate delegate, String toiletId) {
-					delegate.retrieveToiletUserQualificationServiceFinishWithError(this, 402);
+						IRetrieveToiletUserQualificationServiceDelegate delegate,
+						String toiletId)
+				{
+					if(ModelMockFactory.getIntance().userQualificateToilet(toiletId))
+					{
+						delegate.retrieveToiletUserQualificationServiceFinish(
+								this, ModelMockFactory.getIntance().getUserQualification(toiletId));
+					}
+					else
+					{
+						delegate.retrieveToiletUserQualificationServiceFinishWithError(this, 402);
+					}
 				}
 			};
 		}
@@ -369,7 +278,8 @@ public class ServicesFactory
 				@Override
 				public void editQualificationToiletService(IToilet toilet,
 						int userQualification,
-						IEditQualificationToiletServiceDelegate delegate) {
+						IEditQualificationToiletServiceDelegate delegate)
+				{
 					delegate.editQualificationToiletFinish(this, userQualification);
 				}
 			};
@@ -526,6 +436,7 @@ public class ServicesFactory
 						IEditToiletTraitsServiceDelegate delegate,
 						Collection<IToiletTrait> traits, String toiletId)
 				{
+					ModelMockFactory.getIntance().editTraits(toiletId, traits);
 					delegate.editToiletTraitsServiceFinish(this);
 				}
 			};
@@ -543,128 +454,10 @@ public class ServicesFactory
 				@Override
 				public void retrieveToiletTraitService(
 						IRetrieveToiletTraitsServiceDelegate delegate,
-						IToilet toilet) {
-					Collection<IToiletTrait> traits = new ArrayList<IToiletTrait>();
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = false;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 0; }
-						@Override
-						public String getDescription() { return "Dejan pasar sin consumir"; }
-					});
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = false;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 1; }
-						@Override
-						public String getDescription() { return "Tiene agua"; }
-					});
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = true;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 2; }
-						@Override
-						public String getDescription() { return "Tiene papel"; }
-					});
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = false;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 3; }
-						@Override
-						public String getDescription() { return "Tiene jabon"; }
-					});
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = true;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 4; }
-						@Override
-						public String getDescription() { return "Tiene espejo"; }
-					});
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = false;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 5; }
-						@Override
-						public String getDescription() { return "Las puertas de las cabinas cierran"; }
-					});
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = true;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 6; }
-						@Override
-						public String getDescription() { return "Tiene insumos femeninos a la venta"; }
-					});
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = true;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 7; }
-						@Override
-						public String getDescription() { return "Tiene preservativos a la venta"; }
-					});
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = false;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 8; }
-						@Override
-						public String getDescription() { return "Apto para discapacitados"; }
-					});
-					traits.add(new IToiletTrait()
-					{
-						private boolean value = true;
-						@Override
-						public boolean hasDescription() { return value; }
-						@Override
-						public void setHasDescription(boolean has) { value = has; }
-						@Override
-						public int getId() { return 9; }
-						@Override
-						public String getDescription() { return "Tiene cambiador de bebes"; }
-					});
+						IToilet toilet)
+				{
+					Collection<IToiletTrait> traits =
+							ModelMockFactory.getIntance().getTraits(toilet.getID());
 					delegate.retrieveToiletTraitsServiceFinish(this, traits);
 				}
 			};
