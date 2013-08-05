@@ -48,6 +48,7 @@ public class MappingToiletActivity extends FragmentActivity
 	private GoogleMap map;
 	private GPSTracker gps;
 	private int radialDistanceInMeters;
+	private LatLng manualSelectionMapUbication;
 	
 	private Map<String, IToilet> dictionary;
 
@@ -286,12 +287,14 @@ public class MappingToiletActivity extends FragmentActivity
 
 	protected void onLongClickAddToiletButtonTapped(LatLng point) {
     	AddToiletDialogFragment dialog = new AddToiletDialogFragment();
-    	dialog.show(getSupportFragmentManager(), "Crear Toilet");
+    	dialog.show(getSupportFragmentManager(), "dialog");
+    	manualSelectionMapUbication=point;
 	}
-
 
 	@Override
 	public void onDialogPositiveClick(DialogFragment dialog) {
 		onAddToiletButtonTapped();
+		//TODO: en vez de llamar al metodo de add toilet de la action bar, llenar el intent con los 
+		//datos de las coordenadas seleccionadas manualmente
 	}
 }
