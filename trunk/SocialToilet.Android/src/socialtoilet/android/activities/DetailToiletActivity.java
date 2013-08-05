@@ -1,5 +1,6 @@
 package socialtoilet.android.activities;
 
+import java.util.Collection;
 import java.util.UUID;
 
 import socialtoilet.android.R;
@@ -8,9 +9,12 @@ import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalif
 import socialtoilet.android.activities.dialogs.CalificationDialogFragment.ICalificationDialogDelegate;
 import socialtoilet.android.model.IRating;
 import socialtoilet.android.model.IToilet;
+import socialtoilet.android.model.IToiletTrait;
 import socialtoilet.android.services.factories.ServicesFactory;
 import socialtoilet.android.services.get.IRetrieveToiletRatingService;
 import socialtoilet.android.services.get.IRetrieveToiletRatingServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveToiletTraitsService;
+import socialtoilet.android.services.get.IRetrieveToiletTraitsServiceDelegate;
 import socialtoilet.android.services.get.IRetrieveToiletUserQualificationService;
 import socialtoilet.android.services.get.IRetrieveToiletUserQualificationServiceDelegate;
 import socialtoilet.android.services.post.IQualificateToiletService;
@@ -34,6 +38,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 
 public class DetailToiletActivity extends FragmentActivity
@@ -41,19 +46,19 @@ public class DetailToiletActivity extends FragmentActivity
 	ICalificationDialogDelegate, IQualificateToiletServiceDelegate,
 	IRetrieveToiletRatingServiceDelegate, 
 	IRetrieveToiletUserQualificationServiceDelegate, 
-	IEditQualificationToiletServiceDelegate
+	IEditQualificationToiletServiceDelegate, IRetrieveToiletTraitsServiceDelegate
 {
 
 	public final static String KEY_UUID_OBJECT_RETRIEVER = "kToiletStream";
 	public static final String EXTRA_TOILET_ID = "socialtoilet.andorid.detailtoilet.TOILET";
 	private IToilet toilet;
+	private Collection<IToiletTrait> traits;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail_toilet);
-		this.disableClickableCheckboxs();
 		setupActionBar();
 		
 	    if(null == savedInstanceState)
@@ -68,6 +73,10 @@ public class DetailToiletActivity extends FragmentActivity
 				IRetrieveToiletUserQualificationService calificationService = 
 						ServicesFactory.createRetrieveToiletUserCalificationService();
 				calificationService.retrieveToiletUserCalification(this, toilet.getID().toString());
+			
+				IRetrieveToiletTraitsService ttService = 
+						ServicesFactory.createRetrieveToiletTraitsService();
+				ttService.retrieveToiletTraitService(this, toilet);
 			}
 			else
 			{
@@ -93,15 +102,6 @@ public class DetailToiletActivity extends FragmentActivity
 				return false;
 			}
 	    });
-	}
-	
-	private void disableClickableCheckboxs(){
-		LinearLayout myLayout = (LinearLayout) findViewById(R.id.checkboxLayout);
-		LinearLayout view = (LinearLayout) myLayout.getChildAt(0);
-		for ( int i = 0; i < view.getChildCount();  i++ ){
-		    View checkbox = view.getChildAt(i);
-		    checkbox.setClickable(false);
-		}
 	}
 	
 	/**
@@ -162,28 +162,6 @@ public class DetailToiletActivity extends FragmentActivity
 
 		TextView address = (TextView) findViewById(R.id.toiletAddress);
 		address.setText(toilet.getAddress());
-		
-		CheckBox cb;
-		cb = (CheckBox) findViewById(R.id.canBeUsedWithoutConsumption);
-		cb.setChecked(toilet.canBeUsedWithoutConsumption());
-		cb = (CheckBox) findViewById(R.id.hasWater);
-		cb.setChecked(toilet.hasWater());
-		cb = (CheckBox) findViewById(R.id.hasToiletPaper);
-		cb.setChecked(toilet.hasToiletPaper());
-		cb = (CheckBox) findViewById(R.id.hasSoap);
-		cb.setChecked(toilet.hasSoap());
-		cb = (CheckBox) findViewById(R.id.hasMirror);
-		cb.setChecked(toilet.hasMirror());
-		cb = (CheckBox) findViewById(R.id.doToiletDoorCloses);
-		cb.setChecked(toilet.doToiletDoorCloses());
-		cb = (CheckBox) findViewById(R.id.hasGotLadiesItemsOnSale);
-		cb.setChecked(toilet.hasGotLadiesItemsOnSale());
-		cb = (CheckBox) findViewById(R.id.hasGotCondomsOnSale);
-		cb.setChecked(toilet.hasGotCondomsOnSale());
-		cb = (CheckBox) findViewById(R.id.isAptForHandicapped);
-		cb.setChecked(toilet.isAptForHandicapped());
-		cb = (CheckBox) findViewById(R.id.hasBabyRoom);
-		cb.setChecked(toilet.hasBabyRoom());
 	}
 
 	private void populateGlobalRating()
@@ -227,7 +205,23 @@ public class DetailToiletActivity extends FragmentActivity
 		intent.putExtra(DetailToiletActivity.EXTRA_TOILET_ID, toilet.getID().toString());
     	startActivity(intent);
     }
-    
+
+	private void populateTraits()
+	{
+		LinearLayout container = (LinearLayout) findViewById(R.id.checkboxLayout);
+		container.removeAllViews();
+		for(final IToiletTrait trait : traits)
+		{
+			final CheckBox cb = new CheckBox(this);
+			cb.setText(trait.getDescription());
+			cb.setTextColor(Color.WHITE);
+			cb.setButtonDrawable(getResources().getDrawable(R.drawable.st_checkbox));
+			cb.setChecked(trait.hasDescription());
+			cb.setClickable(false);
+			container.addView(cb);
+		}
+	}
+
 	@Override
 	public void onDialogCalificateClick(CalificationDialogFragment dialog)
 	{
@@ -313,5 +307,22 @@ public class DetailToiletActivity extends FragmentActivity
 			IEditQualificationToiletService service, int errorCode)
 	{ 
 		// TODO mostrar ErrorDialog diciendo que no se pudo recalificar
+	}
+
+	@Override
+	public void retrieveToiletTraitsServiceFinish(
+			IRetrieveToiletTraitsService service,
+			Collection<IToiletTrait> traits)
+	{
+		this.traits = traits;
+		populateTraits();
+	}
+
+	@Override
+	public void retrieveToiletTraitsServiceFinishWithError(
+			IRetrieveToiletTraitsService service, int errorCode)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

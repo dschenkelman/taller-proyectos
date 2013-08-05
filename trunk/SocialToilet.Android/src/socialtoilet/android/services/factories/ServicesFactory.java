@@ -26,6 +26,8 @@ import socialtoilet.android.services.get.IRetrieveToiletRatingService;
 import socialtoilet.android.services.get.IRetrieveToiletRatingServiceDelegate;
 import socialtoilet.android.services.get.IRetrieveToiletService;
 import socialtoilet.android.services.get.IRetrieveToiletServiceDelegate;
+import socialtoilet.android.services.get.IRetrieveToiletTraitsService;
+import socialtoilet.android.services.get.IRetrieveToiletTraitsServiceDelegate;
 import socialtoilet.android.services.get.IRetrieveTraitsService;
 import socialtoilet.android.services.get.IRetrieveTraitsServiceDelegate;
 import socialtoilet.android.services.get.IRetrieveToiletUserQualificationService;
@@ -35,6 +37,7 @@ import socialtoilet.android.services.get.RetrieveToiletCommentsService;
 import socialtoilet.android.services.get.RetrieveToiletGaleryService;
 import socialtoilet.android.services.get.RetrieveToiletRatingService;
 import socialtoilet.android.services.get.RetrieveToiletService;
+import socialtoilet.android.services.get.RetrieveToiletTraitsService;
 import socialtoilet.android.services.get.RetrieveTraitsService;
 import socialtoilet.android.services.get.RetrieveToiletUserQualificationService;
 import socialtoilet.android.services.post.AddToiletCommentService;
@@ -487,7 +490,7 @@ public class ServicesFactory
 			return new IRetrieveTraitsService()
 			{
 				@Override
-				public void retrieveToiletTraits(
+				public void retrieveTraits(
 						IRetrieveTraitsServiceDelegate delegate)
 				{
 					Collection<IToiletTrait> traits = new ArrayList<IToiletTrait>();
@@ -611,7 +614,7 @@ public class ServicesFactory
 						@Override
 						public String getDescription() { return "Tiene cambiador de bebes"; }
 					});
-					delegate.retrieveToiletTraitsServiceFinish(this, traits);
+					delegate.retrieveTraitsServiceFinish(this, traits);
 				}
 			};
 		}
@@ -634,5 +637,144 @@ public class ServicesFactory
 			};
 		}
 		return new EditToiletTraitsService();
+	}
+
+	public static IRetrieveToiletTraitsService createRetrieveToiletTraitsService()
+	{
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			return new IRetrieveToiletTraitsService()
+			{
+
+				@Override
+				public void retrieveToiletTraitService(
+						IRetrieveToiletTraitsServiceDelegate delegate,
+						IToilet toilet) {
+					Collection<IToiletTrait> traits = new ArrayList<IToiletTrait>();
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = false;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 0; }
+						@Override
+						public String getDescription() { return "Dejan pasar sin consumir"; }
+					});
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = false;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 1; }
+						@Override
+						public String getDescription() { return "Tiene agua"; }
+					});
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = true;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 2; }
+						@Override
+						public String getDescription() { return "Tiene papel"; }
+					});
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = false;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 3; }
+						@Override
+						public String getDescription() { return "Tiene jabon"; }
+					});
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = true;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 4; }
+						@Override
+						public String getDescription() { return "Tiene espejo"; }
+					});
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = false;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 5; }
+						@Override
+						public String getDescription() { return "Las puertas de las cabinas cierran"; }
+					});
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = true;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 6; }
+						@Override
+						public String getDescription() { return "Tiene insumos femeninos a la venta"; }
+					});
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = true;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 7; }
+						@Override
+						public String getDescription() { return "Tiene preservativos a la venta"; }
+					});
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = false;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 8; }
+						@Override
+						public String getDescription() { return "Apto para discapacitados"; }
+					});
+					traits.add(new IToiletTrait()
+					{
+						private boolean value = true;
+						@Override
+						public boolean hasDescription() { return value; }
+						@Override
+						public void setHasDescription(boolean has) { value = has; }
+						@Override
+						public int getId() { return 9; }
+						@Override
+						public String getDescription() { return "Tiene cambiador de bebes"; }
+					});
+					delegate.retrieveToiletTraitsServiceFinish(this, traits);
+				}
+			};
+		}
+		return new RetrieveToiletTraitsService();
 	}
 }

@@ -6,8 +6,8 @@ import socialtoilet.android.model.IToiletTrait;
 
 public interface IRetrieveTraitsServiceDelegate
 {
-	void retrieveToiletTraitsServiceFinish(
+	void retrieveTraitsServiceFinish(
 			IRetrieveTraitsService service, Collection<IToiletTrait> traits);
-	void retrieveToiletTraitsServiceFinishWithError(
+	void retrieveTraitsServiceFinishWithError(
 			IRetrieveTraitsService service, int errorCode);
 }
