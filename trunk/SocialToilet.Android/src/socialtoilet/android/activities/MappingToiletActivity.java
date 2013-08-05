@@ -42,9 +42,10 @@ import android.content.Intent;
 public class MappingToiletActivity extends FragmentActivity
 	implements IRetrieveNearToiletsServiceDelegate, IGPSTrakerListener, OnInfoWindowClickListener, INoticeDialogAddToiletListener
 {
-	
+
 	public final static String EXTRA_TOILET_ID = "socialtoilet.andorid.mappingtoilet.TOILET";
-	
+	public final static String EXTRA_LATITUDE = "socialtoilet.andorid.mappingtoilet.LATITUDE";
+	public final static String EXTRA_LONGITUDE = "socialtoilet.andorid.mappingtoilet.LONGITUDE";
 	private GoogleMap map;
 	private GPSTracker gps;
 	private int radialDistanceInMeters;
@@ -120,8 +121,11 @@ public class MappingToiletActivity extends FragmentActivity
         startActivity(intent);	
 	}
 
-	private void onAddToiletButtonTapped() {
+	private void onAddToiletButtonTapped()
+	{
 	 	Intent intent = new Intent(this, AddToiletActivity.class);
+	 	intent.putExtra(EXTRA_LATITUDE, GPSTracker.getInstance().getLatitude());
+	 	intent.putExtra(EXTRA_LONGITUDE, GPSTracker.getInstance().getLongitude());
 	    startActivity(intent);	
 	}
 
@@ -292,9 +296,11 @@ public class MappingToiletActivity extends FragmentActivity
 	}
 
 	@Override
-	public void onDialogPositiveClick(DialogFragment dialog) {
-		onAddToiletButtonTapped();
-		//TODO: en vez de llamar al metodo de la action bar, llenar el intent con los 
-		//datos de las coordenadas seleccionadas manualmente que estan en manualSelectionMapUbication
+	public void onDialogPositiveClick(DialogFragment dialog)
+	{
+	 	Intent intent = new Intent(this, AddToiletActivity.class);
+	 	intent.putExtra(EXTRA_LATITUDE, manualSelectionMapUbication.latitude);
+	 	intent.putExtra(EXTRA_LONGITUDE, manualSelectionMapUbication.longitude);
+	    startActivity(intent);
 	}
 }
