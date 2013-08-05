@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import socialtoilet.android.R;
+import socialtoilet.android.activities.dialogs.AddToiletDialogFragment;
+import socialtoilet.android.activities.dialogs.AddToiletDialogFragment.INoticeDialogAddToiletListener;
 import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.location.IGPSTrakerListener;
 import socialtoilet.android.model.IToilet;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,6 +32,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.app.AlertDialog;
@@ -36,7 +40,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 public class MappingToiletActivity extends FragmentActivity
-	implements IRetrieveNearToiletsServiceDelegate, IGPSTrakerListener, OnInfoWindowClickListener
+	implements IRetrieveNearToiletsServiceDelegate, IGPSTrakerListener, OnInfoWindowClickListener, INoticeDialogAddToiletListener
 {
 	
 	public final static String EXTRA_TOILET_ID = "socialtoilet.andorid.mappingtoilet.TOILET";
@@ -137,6 +141,15 @@ public class MappingToiletActivity extends FragmentActivity
             // Check if we were successful in obtaining the map.
             if(null != map)
             { // The Map is verified. It is now safe to manipulate the map.
+            	
+              	map.setOnMapLongClickListener(new OnMapLongClickListener() {
+            		
+              		@Override
+    					public void onMapLongClick(LatLng point) {
+    						onLongClickAddToiletButtonTapped(point);
+    					}
+    				});
+              	
             	setupGPSLocation();
             }
         }
@@ -269,5 +282,16 @@ public class MappingToiletActivity extends FragmentActivity
 		Intent intent = new Intent(this, DetailToiletActivity.class);
 		intent.putExtra(EXTRA_TOILET_ID, toilet.getID().toString());
 		startActivity(intent);
+	}
+
+	protected void onLongClickAddToiletButtonTapped(LatLng point) {
+    	AddToiletDialogFragment dialog = new AddToiletDialogFragment();
+    	dialog.show(getSupportFragmentManager(), "Crear Toilet");
+	}
+
+
+	@Override
+	public void onDialogPositiveClick(DialogFragment dialog) {
+		onAddToiletButtonTapped();
 	}
 }
