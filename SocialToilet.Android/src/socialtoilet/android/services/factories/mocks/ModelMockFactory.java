@@ -502,17 +502,17 @@ public class ModelMockFactory
 
 	public boolean authUser(LoginUser user)
 	{
-		if(user.getUser().equalsIgnoreCase("mservetto") && user.getUser().equalsIgnoreCase("password"))
+		if(user.getUser().equalsIgnoreCase("mservetto") && user.getPassword().equalsIgnoreCase("password"))
 		{
 			user.setUserId(UUID.fromString("123-123-123-123-123"));
 			return true;
 		}
-		if(user.getUser().equalsIgnoreCase("srodriguez") && user.getUser().equalsIgnoreCase("password"))
+		if(user.getUser().equalsIgnoreCase("srodriguez") && user.getPassword().equalsIgnoreCase("password"))
 		{
 			user.setUserId(UUID.fromString("456-456-456-456-546"));
 			return true;
 		}
-		if(user.getUser().equalsIgnoreCase("dschenkelman") && user.getUser().equalsIgnoreCase("password"))
+		if(user.getUser().equalsIgnoreCase("dschenkelman") && user.getPassword().equalsIgnoreCase("password"))
 		{
 			user.setUserId(UUID.fromString("789-789-789-789-789"));
 			return true;
