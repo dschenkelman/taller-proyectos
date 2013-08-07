@@ -3,6 +3,8 @@ package socialtoilet.android.activities;
 import java.util.Collection;
 
 import socialtoilet.android.R;
+import socialtoilet.android.activities.dialogs.ErrorDialogFragment;
+import socialtoilet.android.activities.dialogs.ErrorDialogFragment.IErrorDialogDataSource;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletCreatedDelegate;
 import socialtoilet.android.model.IToiletTrait;
@@ -19,7 +21,6 @@ import socialtoilet.android.services.put.IEditToiletTraitsServiceDelegate;
 import socialtoilet.android.utils.Settings;
 import socialtoilet.android.utils.StateSaver;
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,13 +32,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.content.Intent;
 import android.graphics.Color;
 
-public class AddToiletActivity extends Activity implements 
+public class AddToiletActivity extends FragmentActivity implements 
 	IAddToiletServiceDelegate, IRetrieveTraitsServiceDelegate, 
-	IQualificateToiletServiceDelegate, IEditToiletTraitsServiceDelegate
+	IQualificateToiletServiceDelegate, IEditToiletTraitsServiceDelegate,
+	IErrorDialogDataSource
 {
 
 	private IToiletCreatedDelegate delegate;
@@ -101,9 +104,16 @@ public class AddToiletActivity extends Activity implements
     
 	private Toilet generateToilet()
 	{
-
     	EditText description = (EditText)this.findViewById(R.id.editDescription);
     	EditText address = (EditText)this.findViewById(R.id.editAddress);
+
+		boolean canAddToilet =
+				0 != description.getText().toString().length()
+				&& 0 != address.getText().toString().length();
+		if(false == canAddToilet)
+		{
+			return null;
+		}
     	
 		Toilet toilet = new Toilet();
 		toilet.setDescription(description.getText().toString());
@@ -124,6 +134,11 @@ public class AddToiletActivity extends Activity implements
 			IAddToiletService service = ServicesFactory.createAddToiletService();
 			service.addToilet(toAddToilet, this);
 		}
+		else
+		{
+			ErrorDialogFragment dialog = new ErrorDialogFragment();
+	    	dialog.show(getSupportFragmentManager(), "error");
+		}
 	}
 	
     public void onCleanData(View view)
@@ -137,6 +152,9 @@ public class AddToiletActivity extends Activity implements
     		trait.setHasDescription(false);
     	}
     	populateTraits();
+/*
+    	Button add = (Button)this.findViewById(R.id.buttonAcceptEdit);
+		add.setEnabled(false);*/
     }
 
 	private void populateTraits()
@@ -169,7 +187,7 @@ public class AddToiletActivity extends Activity implements
 		{
 			delegate.toiletCreated(toAddToilet);
 		}
-		NavUtils.navigateUpFromSameTask(this);
+        onBackPressed();
 	}
 	
 	@Override
@@ -262,6 +280,19 @@ public class AddToiletActivity extends Activity implements
 		{
 			returnToMap();
 		}
+	}
+
+	@Override
+	public String getErrorMessage()
+	{
+		
+		return "Los campos 'Descripción' y 'Dirección' son obligatorios.";
+	}
+
+	@Override
+	public String getErrorTitle()
+	{
+		return "Datos faltantes";
 	}
 
 }
