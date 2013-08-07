@@ -281,6 +281,8 @@ public class ServicesFactory
 						int userQualification,
 						IEditQualificationToiletServiceDelegate delegate)
 				{
+					ModelMockFactory.getIntance().setUserQualification(
+							toilet.getID().toString(), userQualification);
 					delegate.editQualificationToiletFinish(this, userQualification);
 				}
 			};

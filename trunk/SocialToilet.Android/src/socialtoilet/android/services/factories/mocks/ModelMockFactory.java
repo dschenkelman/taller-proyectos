@@ -575,4 +575,12 @@ public class ModelMockFactory
 		return toiletTraits.get(id.toString());
 	}
 
+	public void clearToiletUserData()
+	{
+		for(IToilet toilet : toilets)
+		{
+			toilet.userCalificationRetrieved(0);
+		}
+	}
+
 }
