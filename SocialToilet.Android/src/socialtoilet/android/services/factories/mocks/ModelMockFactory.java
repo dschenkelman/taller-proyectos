@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.model.Comment;
 import socialtoilet.android.model.IComment;
 import socialtoilet.android.model.IRating;
@@ -23,7 +22,6 @@ public class ModelMockFactory
 	private Collection<IToilet> toilets;
 	private Map<String, Collection<IComment>> comments;
 	private Map<String, Collection<IToiletTrait>> toiletTraits;
-	private Map<String, Collection<String>> userQualificatorsForToilet;
 	private Map<String, Integer> userQualificationForToilet;
 	
 	
@@ -40,27 +38,30 @@ public class ModelMockFactory
 	{
 		final UUID toilet1UUID = UUID.randomUUID();
 		final UUID toilet2UUID = UUID.randomUUID();
+		final UUID toilet3UUID = UUID.randomUUID();
+		final UUID toilet4UUID = UUID.randomUUID();
+		
 		toilets = new ArrayList<IToilet>();
 		toilets.add(new IToilet()
 			{
 				private int userQualification = 0;
-				private int quaCount = 25;
-				private int quaTotal = 45;
+				private int quaCount = 2;
+				private int quaTotal = 8;
 				
-				public String getMapTitle() { return "La Roma"; }
-				public String getMapSnippet() { return "También venden pizza.";}
-				public double getLongitude() { return GPSTracker.getInstance().getLongitude() + 0.001; }
-				public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.002; }
+				public String getMapTitle() { return "Eso FIUBA"; }
+				public String getMapSnippet() { return "Muy limpio.";}
+				public double getLongitude() { return -58.369671; }
+				public double getLatitude() { return -34.617995; }
 				public float getRanking() { return quaTotal / (float)quaCount; }
 				public UUID getID() { return toilet1UUID; }
-				public String getDescription() { return "Es un buen baño"; }
-				public String getAddress() { return "Av. Yrigoyen 1565, El Talar"; }
+				public String getDescription() { return "Eso Fiuba"; }
+				public String getAddress() { return "Av. Paseo Colón 834"; }
 				public int getUserCalification() { return userQualification; }
 				public int getUserCalificationsCount() { return quaCount; }
 				public void setUserCalification(int calification) { 
 					if(0 == userQualification)
 					{
-						userQualification = calification; quaCount++;
+						userQualification = calification; quaCount++; quaTotal+= calification;
 					}
 					else
 					{
@@ -79,23 +80,23 @@ public class ModelMockFactory
 		toilets.add(new IToilet()
 			{
 				private int userQualification = 0;
-				private int quaCount = 25;
-				private int quaTotal = 45;
+				private int quaCount = 5;
+				private int quaTotal = 4;
 			
-				public String getMapTitle() { return "Eso"; }
-				public String getMapSnippet() { return "Siempre cerrado.";}
-				public double getLongitude() { return GPSTracker.getInstance().getLongitude() + 0.003; }
-				public double getLatitude() { return GPSTracker.getInstance().getLatitude() - 0.005; }
+				public String getMapTitle() { return "Pje. M. Giuffa 242 (y Paseo Colón)"; }
+				public String getMapSnippet() { return "Muchas veces cerrado.";}
+				public double getLongitude() { return -58.369864; }
+				public double getLatitude() { return -34.617642; }
 				public float getRanking() { return quaTotal / (float)quaCount; }
 				public UUID getID() { return toilet2UUID; }
-				public String getDescription() { return "Esta re cuidado"; }
-				public String getAddress() { return "Av. Yrigoyen 1355, El Talar"; }
+				public String getDescription() { return "Mc Fiuba"; }
+				public String getAddress() { return "Pje. M. Giuffa 242 (y Paseo Colón)"; }
 				public int getUserCalification() { return userQualification; }
 				public int getUserCalificationsCount() { return quaCount; }
 				public void setUserCalification(int calification) { 
 					if(0 == userQualification)
 					{
-						userQualification = calification; quaCount++;
+						userQualification = calification; quaCount++; quaTotal+= calification;
 					}
 					else
 					{
@@ -111,6 +112,76 @@ public class ModelMockFactory
 					quaTotal = (int) (quaCount * rating.getRating()); }
 				public void userCalificationRetrieved( int calification) { userQualification = calification;}
 			});
+		toilets.add(new IToilet()
+		{
+			private int userQualification = 0;
+			private int quaCount = 10;
+			private int quaTotal = 35;
+		
+			public String getMapTitle() { return "Tio Mario"; }
+			public String getMapSnippet() { return "Pizzeria.";}
+			public double getLongitude() { return -58.37143; }
+			public double getLatitude() { return -34.618348; }
+			public float getRanking() { return quaTotal / (float)quaCount; }
+			public UUID getID() { return toilet3UUID; }
+			public String getDescription() { return "Tio Mario - Bar"; }
+			public String getAddress() { return "Defensa y EE.UU. - CABA"; }
+			public int getUserCalification() { return userQualification; }
+			public int getUserCalificationsCount() { return quaCount; }
+			public void setUserCalification(int calification) { 
+				if(0 == userQualification)
+				{
+					userQualification = calification; quaCount++; quaTotal+= calification;
+				}
+				else
+				{
+					quaTotal += calification - userQualification;
+					userQualification = calification;
+				}
+			}
+			public void revertUserCalification() { 
+				if(0 != userQualification) {
+					quaTotal -= userQualification;
+					quaCount--; } }
+			public void setRating(IRating rating) { quaCount = rating.getCalificationCount();
+				quaTotal = (int) (quaCount * rating.getRating()); }
+			public void userCalificationRetrieved( int calification) { userQualification = calification;}
+		});
+		toilets.add(new IToilet()
+		{
+			private int userQualification = 0;
+			private int quaCount = 5;
+			private int quaTotal = 25;
+		
+			public String getMapTitle() { return "Lima 662"; }
+			public String getMapSnippet() { return "Baño de McDonalds.";}
+			public double getLongitude() { return -58.381794; }
+			public double getLatitude() { return -34.615947; }
+			public float getRanking() { return quaTotal / (float)quaCount; }
+			public UUID getID() { return toilet4UUID; }
+			public String getDescription() { return "McDonalds"; }
+			public String getAddress() { return "Lima 662 - CABA"; }
+			public int getUserCalification() { return userQualification; }
+			public int getUserCalificationsCount() { return quaCount; }
+			public void setUserCalification(int calification) { 
+				if(0 == userQualification)
+				{
+					userQualification = calification; quaCount++; quaTotal+= calification;
+				}
+				else
+				{
+					quaTotal += calification - userQualification;
+					userQualification = calification;
+				}
+			}
+			public void revertUserCalification() { 
+				if(0 != userQualification) {
+					quaTotal -= userQualification;
+					quaCount--; } }
+			public void setRating(IRating rating) { quaCount = rating.getCalificationCount();
+				quaTotal = (int) (quaCount * rating.getRating()); }
+			public void userCalificationRetrieved( int calification) { userQualification = calification;}
+		});
 		
 		comments = new HashMap<String, Collection<IComment>>();
 		Collection<IComment> aToiletComments = new ArrayList<IComment>();
@@ -228,6 +299,7 @@ public class ModelMockFactory
 			public String getDate() { return "15:99hs 2013/07/26"; }
 		});
 		comments.put(toilet1UUID.toString(), aToiletComments);
+		
 		aToiletComments = new ArrayList<IComment>();
 		aToiletComments.add(new IComment()
 		{
@@ -244,6 +316,26 @@ public class ModelMockFactory
 			public String getDate() { return "15:56hs 2013/07/13"; }
 		});
 		comments.put(toilet2UUID.toString(), aToiletComments);
+
+		aToiletComments = new ArrayList<IComment>();
+		aToiletComments.add(new IComment()
+		{
+			@Override
+			public UUID getUserId() { return UUID.randomUUID(); }
+			@Override
+			public String getUser() { return "mservetto"; }
+			@Override
+			public String getContent() { 
+				return "Muy cuidado y prolijo."; }
+			@Override
+			public Collection<String> getLikeUsers() { return new ArrayList<String>(); }
+			@Override
+			public String getDate() { return "15:56hs 2013/07/13"; }
+		});
+		comments.put(toilet3UUID.toString(), aToiletComments);
+		
+		aToiletComments = new ArrayList<IComment>();
+		comments.put(toilet4UUID.toString(), aToiletComments);
 		
 		toiletTraits = new HashMap<String, Collection<IToiletTrait>>();
 		Collection<IToiletTrait> traits = new ArrayList<IToiletTrait>();
@@ -490,6 +582,250 @@ public class ModelMockFactory
 			public String getDescription() { return "Tiene cambiador de bebes"; }
 		});
 		toiletTraits.put(toilet2UUID.toString(), traits);
+		traits = new ArrayList<IToiletTrait>();
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 0; }
+			@Override
+			public String getDescription() { return "Dejan pasar sin consumir"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 1; }
+			@Override
+			public String getDescription() { return "Tiene agua"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 2; }
+			@Override
+			public String getDescription() { return "Tiene papel"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 3; }
+			@Override
+			public String getDescription() { return "Tiene jabon"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 4; }
+			@Override
+			public String getDescription() { return "Tiene espejo"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 5; }
+			@Override
+			public String getDescription() { return "Las puertas de las cabinas cierran"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 6; }
+			@Override
+			public String getDescription() { return "Tiene insumos femeninos a la venta"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 7; }
+			@Override
+			public String getDescription() { return "Tiene preservativos a la venta"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 8; }
+			@Override
+			public String getDescription() { return "Apto para discapacitados"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 9; }
+			@Override
+			public String getDescription() { return "Tiene cambiador de bebes"; }
+		});
+		toiletTraits.put(toilet3UUID.toString(), traits);
+		traits = new ArrayList<IToiletTrait>();
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 0; }
+			@Override
+			public String getDescription() { return "Dejan pasar sin consumir"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 1; }
+			@Override
+			public String getDescription() { return "Tiene agua"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 2; }
+			@Override
+			public String getDescription() { return "Tiene papel"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 3; }
+			@Override
+			public String getDescription() { return "Tiene jabon"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 4; }
+			@Override
+			public String getDescription() { return "Tiene espejo"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = true;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 5; }
+			@Override
+			public String getDescription() { return "Las puertas de las cabinas cierran"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 6; }
+			@Override
+			public String getDescription() { return "Tiene insumos femeninos a la venta"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 7; }
+			@Override
+			public String getDescription() { return "Tiene preservativos a la venta"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 8; }
+			@Override
+			public String getDescription() { return "Apto para discapacitados"; }
+		});
+		traits.add(new IToiletTrait()
+		{
+			private boolean value = false;
+			@Override
+			public boolean hasDescription() { return value; }
+			@Override
+			public void setHasDescription(boolean has) { value = has; }
+			@Override
+			public int getId() { return 9; }
+			@Override
+			public String getDescription() { return "Tiene cambiador de bebes"; }
+		});
+		toiletTraits.put(toilet4UUID.toString(), traits);
 		
 		userQualificationForToilet = new HashMap<String, Integer>();
 	}
@@ -503,7 +839,6 @@ public class ModelMockFactory
 	{
 		toilets.add(toilet);
 		comments.put(toilet.getID().toString(), new ArrayList<IComment>());
-		userQualificatorsForToilet.put(toilet.getID().toString(), new ArrayList<String>());
 	}
 
 	public IToilet getToilet(UUID toiletId)
