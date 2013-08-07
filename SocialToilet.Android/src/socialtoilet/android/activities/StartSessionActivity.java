@@ -5,6 +5,7 @@ import socialtoilet.android.activities.dialogs.ErrorDialogFragment;
 import socialtoilet.android.activities.dialogs.ErrorDialogFragment.IErrorDialogDataSource;
 import socialtoilet.android.model.LoginUser;
 import socialtoilet.android.services.factories.ServicesFactory;
+import socialtoilet.android.services.factories.mocks.ModelMockFactory;
 import socialtoilet.android.services.post.IAuthService;
 import socialtoilet.android.services.post.IAuthServiceDelegate;
 import socialtoilet.android.utils.Settings;
@@ -197,6 +198,10 @@ public class StartSessionActivity extends FragmentActivity
 		attemptingLogin = false;
 		showProgress(false);
 		Settings.getInstance().setUser(user);
+		if(Settings.getInstance().isServicesDebugMode())
+		{
+			ModelMockFactory.getIntance().clearToiletUserData();
+		}
     	Intent intent = new Intent(this, MappingToiletActivity.class);
     	startActivity(intent);
 	}
