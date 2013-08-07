@@ -36,10 +36,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 
 public class DetailToiletActivity extends FragmentActivity
 	implements ICalificationDialogDataSource,
@@ -59,7 +57,6 @@ public class DetailToiletActivity extends FragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail_toilet);
-		setupActionBar();
 		
 	    if(null == savedInstanceState)
 	    {
@@ -104,16 +101,6 @@ public class DetailToiletActivity extends FragmentActivity
 	    });
 	}
 	
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{

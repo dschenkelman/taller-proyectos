@@ -32,10 +32,8 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 
 public class AddToiletActivity extends Activity implements 
 	IAddToiletServiceDelegate, IRetrieveTraitsServiceDelegate, 
@@ -55,7 +53,6 @@ public class AddToiletActivity extends Activity implements
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_toilet);
-		setupActionBar();
 		
 		Intent intent = getIntent();
 		latitude = intent.getDoubleExtra(MappingToiletActivity.EXTRA_LATITUDE, -34.6208718);
@@ -66,18 +63,6 @@ public class AddToiletActivity extends Activity implements
 		IRetrieveTraitsService service = 
 				ServicesFactory.createRetrieveTraitsService();
 		service.retrieveTraits(this);
-	}
-
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar()
-	{
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-		{
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 	}
 
 	@Override

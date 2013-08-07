@@ -476,6 +476,7 @@ public class ModelMockFactory
 	public void addToilet(IToilet toilet)
 	{
 		toilets.add(toilet);
+		comments.put(toilet.getID().toString(), new ArrayList<IComment>());
 	}
 
 	public IToilet getToilet(UUID toiletId)

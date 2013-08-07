@@ -27,9 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 
 public class ToiletCommentsActivity extends FragmentActivity 
 	implements IRetrieveToiletCommentsServiceDelegate,
@@ -42,7 +40,6 @@ public class ToiletCommentsActivity extends FragmentActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setupActionBar();
 		setContentView(R.layout.activity_toilet_comments);
 		
 		Intent intent = getIntent();
@@ -53,18 +50,6 @@ public class ToiletCommentsActivity extends FragmentActivity
 		
 		IRetrieveToiletCommentsService service = ServicesFactory.createRetrieveToiletCommentsService();
 		service.retrieveToiletComments(toiletId, this);
-	}
-
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar()
-	{
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-		{
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 	}
 
 	@Override
