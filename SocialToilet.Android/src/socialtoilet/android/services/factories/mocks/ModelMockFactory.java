@@ -14,6 +14,7 @@ import socialtoilet.android.model.IRating;
 import socialtoilet.android.model.IToilet;
 import socialtoilet.android.model.IToiletTrait;
 import socialtoilet.android.model.LoginUser;
+import socialtoilet.android.utils.Settings;
 
 public class ModelMockFactory
 {
@@ -22,6 +23,9 @@ public class ModelMockFactory
 	private Collection<IToilet> toilets;
 	private Map<String, Collection<IComment>> comments;
 	private Map<String, Collection<IToiletTrait>> toiletTraits;
+	private Map<String, Collection<String>> userQualificatorsForToilet;
+	private Map<String, Integer> userQualificationForToilet;
+	
 	
 	public static ModelMockFactory getIntance()
 	{
@@ -53,7 +57,17 @@ public class ModelMockFactory
 				public String getAddress() { return "Av. Yrigoyen 1565, El Talar"; }
 				public int getUserCalification() { return userQualification; }
 				public int getUserCalificationsCount() { return quaCount; }
-				public void setUserCalification(int calification) { userQualification = calification; quaCount++; }
+				public void setUserCalification(int calification) { 
+					if(0 == userQualification)
+					{
+						userQualification = calification; quaCount++;
+					}
+					else
+					{
+						quaTotal += calification - userQualification;
+						userQualification = calification;
+					}
+				}
 				public void revertUserCalification() { 
 					if(0 != userQualification) {
 						quaTotal -= userQualification;
@@ -78,7 +92,17 @@ public class ModelMockFactory
 				public String getAddress() { return "Av. Yrigoyen 1355, El Talar"; }
 				public int getUserCalification() { return userQualification; }
 				public int getUserCalificationsCount() { return quaCount; }
-				public void setUserCalification(int calification) { userQualification = calification; quaCount++; }
+				public void setUserCalification(int calification) { 
+					if(0 == userQualification)
+					{
+						userQualification = calification; quaCount++;
+					}
+					else
+					{
+						quaTotal += calification - userQualification;
+						userQualification = calification;
+					}
+				}
 				public void revertUserCalification() { 
 					if(0 != userQualification) {
 						quaTotal -= userQualification;
@@ -466,6 +490,8 @@ public class ModelMockFactory
 			public String getDescription() { return "Tiene cambiador de bebes"; }
 		});
 		toiletTraits.put(toilet2UUID.toString(), traits);
+		
+		userQualificationForToilet = new HashMap<String, Integer>();
 	}
 
 	public Collection<IToilet> getNearToilets()
@@ -477,6 +503,7 @@ public class ModelMockFactory
 	{
 		toilets.add(toilet);
 		comments.put(toilet.getID().toString(), new ArrayList<IComment>());
+		userQualificatorsForToilet.put(toilet.getID().toString(), new ArrayList<String>());
 	}
 
 	public IToilet getToilet(UUID toiletId)
@@ -521,18 +548,23 @@ public class ModelMockFactory
 		return false;
 	}
 
-	public boolean userQualificateToilet(String toiletId)
+	public boolean hasUserQualificatedToilet(String toiletId)
 	{
-		IToilet toilet = getToilet(UUID.fromString(toiletId));
-		return 0 != toilet.getUserCalification();
+		Integer qua = userQualificationForToilet.get(toiletId+Settings.getInstance().getUserId().toString());
+		return null != qua;
 	}
 
 	public double getUserQualification(String toiletId)
 	{
-		IToilet toilet = getToilet(UUID.fromString(toiletId));
-		return toilet.getUserCalification();
+		Integer qua = userQualificationForToilet.get(toiletId+Settings.getInstance().getUserId().toString());
+		return ((null == qua) ? 0 : qua);
 	}
 
+	public void setUserQualification(String toiletId, int userQualification)
+	{
+		userQualificationForToilet.put(toiletId+Settings.getInstance().getUserId().toString(), userQualification);
+	}
+	
 	public void editTraits(String toiletId, Collection<IToiletTrait> traits)
 	{
 		toiletTraits.put(toiletId, traits);
@@ -542,4 +574,5 @@ public class ModelMockFactory
 	{
 		return toiletTraits.get(id.toString());
 	}
+
 }

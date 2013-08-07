@@ -126,7 +126,7 @@ public class ServicesFactory
 				public void qualificateToiletService(IToilet toilet, int userCalification,
 						IQualificateToiletServiceDelegate delegate)
 				{
-					toilet.setUserCalification(userCalification);
+					ModelMockFactory.getIntance().setUserQualification(toilet.getID().toString(), userCalification);
 					delegate.qualificateToiletFinish(this);
 				}
 			};
@@ -255,7 +255,7 @@ public class ServicesFactory
 						IRetrieveToiletUserQualificationServiceDelegate delegate,
 						String toiletId)
 				{
-					if(ModelMockFactory.getIntance().userQualificateToilet(toiletId))
+					if(ModelMockFactory.getIntance().hasUserQualificatedToilet(toiletId))
 					{
 						delegate.retrieveToiletUserQualificationServiceFinish(
 								this, ModelMockFactory.getIntance().getUserQualification(toiletId));
