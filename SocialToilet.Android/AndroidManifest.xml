@@ -66,62 +66,48 @@
             android:name="socialtoilet.android.activities.MappingToiletActivity"
             android:label="@string/title_activity_mapping_toilet"
         	android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop" >
-        </activity>
+            android:launchMode="singleTop" />
+        
         <activity
             android:name="socialtoilet.android.activities.DetailToiletActivity"
             android:label="@string/title_activity_detail_toilet"
         	android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop"
-            android:parentActivityName="socialtoilet.android.activities.MappingToiletActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="socialtoilet.android.MappingToiletActivity" />
-        </activity>
+            android:launchMode="singleTop" />
+        
         <activity
             android:name="socialtoilet.android.activities.AddToiletActivity"
             android:label="@string/title_activity_add_toilet"
         	android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop"
-            android:parentActivityName="socialtoilet.android.activities.MappingToiletActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="socialtoilet.android.MappingToiletActivity" />
-        </activity>
+            android:launchMode="singleTop" />
+        
         <activity
             android:name="com.google.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        
         <activity
             android:name="socialtoilet.android.activities.ToiletCommentsActivity"
             android:label="@string/title_activity_toilet_comments"
         	android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop"
-            android:parentActivityName="socialtoilet.android.activities.DetailToiletActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="socialtoilet.android.activities.DetailToiletActivity" />
-        </activity>
+            android:launchMode="singleTop" />
+        
         <activity
             android:name="socialtoilet.android.activities.ToiletGaleryActivity"
             android:label="@string/title_activity_toilet_galery"
         	android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop"
-            android:parentActivityName="socialtoilet.android.activities.DetailToiletActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="socialtoilet.android.activities.DetailToiletActivity" />
-        </activity>
+            android:launchMode="singleTop" />
+        
         <activity
             android:name="socialtoilet.android.activities.StartSessionActivity"
             android:label="@string/title_activity_start_session"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize|stateVisible"
-        	android:configChanges="keyboardHidden|orientation|screenSize" >
-        </activity>
+        	android:configChanges="keyboardHidden|orientation|screenSize" />
+        
         <activity
             android:name="socialtoilet.android.activities.SettingsActivity"
             android:label="@string/title_activity_settings"
         	android:configChanges="keyboardHidden|orientation|screenSize" />
+        
     </application>
 
 </manifest>

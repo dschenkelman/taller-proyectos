@@ -51,7 +51,6 @@ public class ToiletGaleryActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_toilet_galery);
-		setupActionBar();
 		
 		Intent intent = getIntent();
 		String toiletId = intent.getStringExtra(DetailToiletActivity.EXTRA_TOILET_ID);
@@ -207,18 +206,6 @@ public class PicAdapter extends BaseAdapter {
 	}
 }
 	
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar()
-	{
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-		{
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
