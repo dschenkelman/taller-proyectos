@@ -21,7 +21,7 @@
     
     <item
         android:id="@+id/item_gallery_button"
-        android:icon="@drawable/gallery_button"
+        android:icon="@drawable/view_gallery_button"
         android:showAsAction="always"
         android:title="@string/title_activity_toilet_galery">
     </item>
