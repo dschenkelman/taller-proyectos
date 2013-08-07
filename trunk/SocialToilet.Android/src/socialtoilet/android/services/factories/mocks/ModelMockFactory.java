@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import android.location.Location;
+
+import socialtoilet.android.location.GPSTracker;
 import socialtoilet.android.model.Comment;
 import socialtoilet.android.model.IComment;
 import socialtoilet.android.model.IRating;
@@ -832,7 +835,24 @@ public class ModelMockFactory
 
 	public Collection<IToilet> getNearToilets()
 	{
-		return toilets;
+		GPSTracker gps = GPSTracker.getInstance();
+		Settings set= Settings.getInstance();
+		double actualLat = gps.getLatitude();
+		double actualLong = gps.getLongitude();
+		float distance = (float) set.getInitialRadiusInMeters();
+		Collection<IToilet> nearToilets = new ArrayList<IToilet>();;
+		
+		float[] results = new float[5];
+		for(IToilet toilet : toilets) {
+			Location.distanceBetween(actualLat, actualLong,
+	                toilet.getLatitude(), toilet.getLongitude(), results);
+			if ( results[0] <= distance) {
+				nearToilets.add(toilet);
+			}
+		}
+		
+
+		return nearToilets;
 	}
 
 	public void addToilet(IToilet toilet)
