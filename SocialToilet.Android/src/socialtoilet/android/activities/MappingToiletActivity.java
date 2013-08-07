@@ -231,7 +231,7 @@ public class MappingToiletActivity extends FragmentActivity
         	.position(mapPosition)
         	.title(toilet.getMapTitle())
         	
-        	//Indicador de social toilet, probar donde se pueda visualizar el mapa
+       
         	.icon(BitmapDescriptorFactory.fromResource(R.drawable.socialmarker))
         	
         	.snippet(toilet.getMapSnippet());

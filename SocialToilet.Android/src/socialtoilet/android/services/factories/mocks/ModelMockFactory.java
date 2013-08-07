@@ -836,10 +836,10 @@ public class ModelMockFactory
 	public Collection<IToilet> getNearToilets()
 	{
 		GPSTracker gps = GPSTracker.getInstance();
-		Settings set= Settings.getInstance();
+		Settings settings= Settings.getInstance();
 		double actualLat = gps.getLatitude();
 		double actualLong = gps.getLongitude();
-		float distance = (float) set.getInitialRadiusInMeters();
+		float distance = (float) settings.getInitialRadiusInMeters();
 		Collection<IToilet> nearToilets = new ArrayList<IToilet>();;
 		
 		float[] results = new float[5];
@@ -850,8 +850,6 @@ public class ModelMockFactory
 				nearToilets.add(toilet);
 			}
 		}
-		
-
 		return nearToilets;
 	}
 
